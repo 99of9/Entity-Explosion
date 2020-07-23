@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wikidata Lookup</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cosmo/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+</head>
+<body style = "min-width: 400px; max-width: 500px;">
+  <!--
+  <button>Lookup WD</button>
+  <script src="popup.js" charset="utf-8"></script> 
+  -->
+
+
+ <!-- <div class="container" style="margin-bottom: 50px;"> -->
+  <div style="margin-bottom: 0px;">
+
+    <!--<h1 id="pageHeader">Wikidata Lookup</h1>-->
+    <!-- here is where the lookup URL and WD item will be displayed -->
+    <div id="div0" style="word-wrap: break-word;"></div>
+    <div class="form-horizontal input-group-addon">
+    <!-- <form class="form-inline" role="form"> -->
+
+        <div class="form-group">
+            <label for="box0" class="col-sm-4 control-label" id="boxLabel0">language/língua/Sprache/idioma/语言/言語</label>
+            <div class="col-sm-5">
+                <select name="languageDropdown" id="box0" class="form-control">
+                  <!-- update this list with data from https://w.wiki/XU5 -->
+<option value='en' selected='selected'>English</option>
+<option value='aa' >Qafár af</option>
+<option value='ab' >Аԥсуа бызшәа</option>
+<option value='ace' >Acèh</option>
+<option value='ady' >Кӏах Адыгабзэ</option>
+<option value='af' >Afrikaans</option>
+<option value='ak' >Akan</option>
+<option value='am' >አማርኛ</option>
+<option value='an' >Idioma aragonés</option>
+<option value='ar' >العربية</option>
+<option value='arc' >ܠܫܢܐ ܐܪܡܝܐ</option>
+<option value='as' >অসমীয়া ভাষা</option>
+<option value='ast' >asturianu</option>
+<option value='atj' >Atikamekw Nehiromowin</option>
+<option value='av' >МагIарул мацI</option>
+<option value='awa' >अवधी</option>
+<option value='ay' >Aymar aru</option>
+<option value='az' >Azərbaycan dili</option>
+<option value='ba' >башҡорт теле</option>
+<option value='ban' >Basa Bali</option>
+<option value='bar' >Boarisch</option>
+<option value='bcl' >Bikol Sentral</option>
+<option value='be' >беларуская мова</option>
+<option value='bg' >български език</option>
+<option value='bho' >भोजपुरी भाषा</option>
+<option value='bi' >Bislama</option>
+<option value='bjn' >Bahasa Banjar</option>
+<option value='bm' >Bamanankan</option>
+<option value='bn' >বাংলা ভাষা</option>
+<option value='bo' >བོད་སྐད།</option>
+<option value='bpy' >বিষ্ণুপ্রিয়া মণিপুরী</option>
+<option value='br' >brezhoneg</option>
+<option value='brh' >براہوئی</option>
+<option value='bs' >bosanski jezik</option>
+<option value='bug' >ᨅᨗᨌᨑ ᨕᨘᨁᨗ</option>
+<option value='bxr' >Буряад хэлэн</option>
+<option value='ca' >català</option>
+<option value='cbk-zam' >Chavacano</option>
+<option value='cdo' >Mìng-dĕ̤ng-ngṳ̄</option>
+<option value='ce' >Нохчийн мотт</option>
+<option value='ceb' >Sinugboanon</option>
+<option value='ch' >Fino' Chamoru</option>
+<option value='chr' >ᏣᎳᎩ ᎧᏬᏂᎯᏍᏗ</option>
+<option value='chy' >Tsêhesenêstsestôtse</option>
+<option value='ckb' >کوردیی ناوەندی</option>
+<option value='co' >corsu</option>
+<option value='crh' >Qırımtatar tili</option>
+<option value='cs' >čeština</option>
+<option value='csb' >kaszëbsczi jãzëk</option>
+<option value='cu' >Словѣньскъ ѩꙁꙑкъ</option>
+<option value='cv' >Чăваш чĕлхи</option>
+<option value='cy' >Cymraeg</option>
+<option value='da' >dansk</option>
+<option value='de' >Deutsch</option>
+<option value='diq' >Zazaki</option>
+<option value='dsb' >Dolnoserbšćina</option>
+<option value='dty' >डोटेली भाषा</option>
+<option value='dv' >ދިވެހި</option>
+<option value='ee' >Eʋegbe</option>
+<option value='el' >Ελληνικά</option>
+<option value='el' >Νέα ελληνική γλώσσα</option>
+<option value='eml' >Langua emiglièna-rumagnôla</option>
+<option value='en' >English</option>
+<option value='en-ca' >Canadian English</option>
+<option value='en-gb' >British English</option>
+<option value='es' >español</option>
+<option value='et' >eesti keel</option>
+<option value='eu' >euskara</option>
+<option value='ext' >Luenga estremeña</option>
+<option value='fa' >زبان فارسی</option>
+<option value='ff' >Fulfulde</option>
+<option value='fi' >suomi</option>
+<option value='fj' >Na vosa vaka-Viti</option>
+<option value='fo' >Føroyskt mál</option>
+<option value='fr' >français</option>
+<option value='frp' >Arpetan</option>
+<option value='frr' >Nuurdfresk</option>
+<option value='fur' >Lenghe furlane</option>
+<option value='fy' >Frysk</option>
+<option value='ga' >An Ghaeilge</option>
+<option value='gag' >Gagauz dili</option>
+<option value='gan' >贛語</option>
+<option value='gcr' >Kriyòl Gwiyannen</option>
+<option value='gd' >Gàidhlig</option>
+<option value='gl' >lingua galega</option>
+<option value='glk' >گيلکي</option>
+<option value='gn' >Avañe'ẽ</option>
+<option value='gor' >Bahasa Hulontalo</option>
+<option value='gsw' >Alemannisch</option>
+<option value='gu' >ગુજરાતી</option>
+<option value='gv' >Gaelg</option>
+<option value='ha' >Hausa</option>
+<option value='hak' >Hak-kâ-ngî</option>
+<option value='haw' >‘Ōlelo Hawai‘i</option>
+<option value='he' >עברית</option>
+<option value='hi' >हिन्दी</option>
+<option value='hr' >hrvatski jezik</option>
+<option value='hsb' >hornjoserbšćina</option>
+<option value='ht' >Kreyòl</option>
+<option value='hyw' >Արեւմտահայերէն</option>
+<option value='id' >Indonesia</option>
+<option value='ig' >Asụ̀sụ̀ Ìgbò</option>
+<option value='ik' >Iñupiatun</option>
+<option value='ilo' >Ilokano</option>
+<option value='inh' >ГIалгIай мотт</option>
+<option value='is' >Íslenska</option>
+<option value='it' >italiano</option>
+<option value='iu' >ᐃᓄᒃᑎᑐᑦ</option>
+<option value='ja' >日本語</option>
+<option value='jam' >Jumiekan Kryuol</option>
+<option value='jv' >Jawa</option>
+<option value='ka' >ქართული ენა</option>
+<option value='kaa' >Qaraqalpaq tili</option>
+<option value='kab' >Taqbaylit</option>
+<option value='kbp' >Kabɩyɛ kʊnʊŋ</option>
+<option value='kg' >Kisikongo</option>
+<option value='ki' >Gĩgĩkũyũ</option>
+<option value='kk' >қазақ тілі</option>
+<option value='kl' >Kalaallisut</option>
+<option value='km' >ភាសាខ្មែរ</option>
+<option value='kn' >ಕನ್ನಡ</option>
+<option value='ko' >한국어</option>
+<option value='koi' >Перем Коми кыв</option>
+<option value='krc' >Къарачай-малкъар тил</option>
+<option value='ks' >کٲشُر زَبان</option>
+<option value='ksh' >Kölsch</option>
+<option value='ksh' >Ripoarisch</option>
+<option value='ku' >Kurmancî</option>
+<option value='ku' >Zimanê kurdî</option>
+<option value='kw' >Kernowek</option>
+<option value='ky' >Кыргыз тили</option>
+<option value='la' >lingua Latina</option>
+<option value='lad' >Lingua djudeo-espanyola</option>
+<option value='lb' >Lëtzebuergesch</option>
+<option value='lbe' >Лакку маз</option>
+<option value='lez' >Лезги чIал</option>
+<option value='lg' >Luganda</option>
+<option value='li' >Limburgs</option>
+<option value='lij' >Lengoa ligure</option>
+<option value='liv' >līvõ kēļ</option>
+<option value='lmo' >Lengua lumbarda</option>
+<option value='ln' >Lingála</option>
+<option value='lo' >ພາສາລາວ</option>
+<option value='lt' >Lietuvių kalba</option>
+<option value='ltg' >latgaļu volūda</option>
+<option value='lv' >latviešu valoda</option>
+<option value='mai' >मैथिली भाषा</option>
+<option value='map-bms' >Basa Banyumasan</option>
+<option value='mdf' >Мокшень кяль</option>
+<option value='mg' >Fiteny malagasy</option>
+<option value='mhr' >Олыкмарий йылме</option>
+<option value='mi' >Reo Māori</option>
+<option value='min' >Bahaso Minangkabau</option>
+<option value='mk' >македонски јазик</option>
+<option value='ml' >മലയാളം</option>
+<option value='mn' >Монгол хэл</option>
+<option value='mnw' >မန်</option>
+<option value='mo' >Лимба молдовеняскэ</option>
+<option value='mr' >मराठी</option>
+<option value='mrj' >Кырык мары йӹлмӹ</option>
+<option value='ms' >bahasa Melayu</option>
+<option value='mt' >Malti</option>
+<option value='mwl' >mirandés</option>
+<option value='my' >မြန်မာဘာသာစကား</option>
+<option value='myv' >Эрзянь кель</option>
+<option value='mzn' >مازرونی زیوون</option>
+<option value='na' >Dorerin Naoero</option>
+<option value='nah' >Nāhuatlahtōlli</option>
+<option value='nan' >Bân-lâm-gú</option>
+<option value='nap' >Lengua napulitana</option>
+<option value='nb' >bokmål</option>
+<option value='nds' >Plattdüütsch</option>
+<option value='nds-nl' >Nederlaands Leegsaksies</option>
+<option value='ne' >नेपाली भाषा</option>
+<option value='new' >नेपालभाषा</option>
+<option value='ng' >Ndonga</option>
+<option value='nl' >Nederlands</option>
+<option value='nn' >nynorsk</option>
+<option value='no' >Norsk</option>
+<option value='nrm' >Normaund</option>
+<option value='nso' >Sepedi</option>
+<option value='ny' >Chilankhulo cha Chichewa</option>
+<option value='oc' >Occitan</option>
+<option value='olo' >Livvinкarjala</option>
+<option value='om' >Afaan Oromoo</option>
+<option value='or' >ଓଡ଼ିଆ</option>
+<option value='os' >Ирон æвзаг</option>
+<option value='pa' >ਪੰਜਾਬੀ</option>
+<option value='pag' >Salitan Pangasinan</option>
+<option value='pap' >Papiamentu</option>
+<option value='pcd' >Picard</option>
+<option value='pdc' >Pennsilfaanisch Deitsch</option>
+<option value='pfl' >Pälzisch</option>
+<option value='pi' >पालि Pāli</option>
+<option value='pih' >Pitkern</option>
+<option value='pl' >język polski</option>
+<option value='pms' >Lenga piemontèisa</option>
+<option value='pnt' >Ποντιακόν λαλίαν</option>
+<option value='ps' >پښتو</option>
+<option value='pt' >português</option>
+<option value='pt-br' >português brasileiro</option>
+<option value='qu' >Runa Simi</option>
+<option value='rm' >Rumantsch dal Grischun</option>
+<option value='rmy' >Romani chib</option>
+<option value='ro' >limba română</option>
+<option value='ru' >русский язык</option>
+<option value='rue' >Русиньскый язык</option>
+<option value='rup' >Limba armãneascã</option>
+<option value='rw' >Ikinyarwanda</option>
+<option value='sa' >संस्कृतम्</option>
+<option value='sah' >саха тыла</option>
+<option value='sat' >ᱥᱟᱱᱛᱟᱲᱤ ᱯᱟᱹᱨᱥᱤ</option>
+<option value='sc' >Limba sarda</option>
+<option value='scn' >sicilianu</option>
+<option value='sco' >Scots</option>
+<option value='sd' >سنڌي ٻولي</option>
+<option value='se' >davvisámegiella</option>
+<option value='sg' >Sängö</option>
+<option value='sgs' >Žemaitiu kalba</option>
+<option value='sh' >srpskohrvatski jezik</option>
+<option value='shn' >လိၵ်ႈတႆး</option>
+<option value='si' >සිංහල</option>
+<option value='sk' >slovenčina</option>
+<option value='sl' >slovenščina</option>
+<option value='sli' >Schläsch</option>
+<option value='sm' >Gagana fa'a Sāmoa</option>
+<option value='sn' >ChiShona</option>
+<option value='so' >Af-Soomaali</option>
+<option value='sq' >shqip</option>
+<option value='sr' >српски језик</option>
+<option value='srn' >Sranantongo</option>
+<option value='ss' >SiSwati</option>
+<option value='stq' >Seeltersk</option>
+<option value='su' >Sunda</option>
+<option value='sv' >svenska</option>
+<option value='sw' >Kiswahili</option>
+<option value='szl' >Ślůnsko godka</option>
+<option value='szy' >Sakizaya a kamu</option>
+<option value='ta' >தமிழ்</option>
+<option value='tcy' >ತುಳು ಪಾತೆರೊ</option>
+<option value='te' >తెలుగు</option>
+<option value='tet' >Lia-tetun</option>
+<option value='tg' >забони тоҷикӣ</option>
+<option value='th' >ภาษาไทย</option>
+<option value='ti' >ትግርኛ</option>
+<option value='tk' >Türkmen dili</option>
+<option value='tl' >Wikang Tagalog</option>
+<option value='tn' >Setswana</option>
+<option value='tpi' >Tok Pisin</option>
+<option value='tr' >Türkçe</option>
+<option value='ts' >Xitsonga</option>
+<option value='tt' >татар теле</option>
+<option value='tw' >Twi</option>
+<option value='ty' >reo tahiti</option>
+<option value='tyv' >Тыва дыл</option>
+<option value='udm' >Удмурт кыл</option>
+<option value='ug' >ئۇيغۇر تىلى</option>
+<option value='uk' >українська мова</option>
+<option value='ur' >اردو</option>
+<option value='uz' >Oʻzbek tili</option>
+<option value='ve' >TshiVenḓa</option>
+<option value='vec' >Łéngua vèneta</option>
+<option value='vep' >vepsän kel'</option>
+<option value='vi' >tiếng Việt</option>
+<option value='vls' >Vlams</option>
+<option value='vls' >West-Vlams</option>
+<option value='vro' >Võro kiil</option>
+<option value='wa' >walon</option>
+<option value='war' >Winaray</option>
+<option value='wo' >Wolof</option>
+<option value='wuu' >吴语</option>
+<option value='xal' >хальмг келн</option>
+<option value='xh' >IsiXhosa</option>
+<option value='xmf' >მარგალური ნინა</option>
+<option value='yi' >יידיש</option>
+<option value='yo' >Èdè Yorùbá</option>
+<option value='yue' >粵語</option>
+<option value='za' >Vahcuengh</option>
+<option value='zea' >Zeêuws</option>
+<option value='zh' >汉语</option>
+<option value='zh-cn' >普通话</option>
+<option value='zh-hans' >简体中文</option>
+<option value='zh-hant' >繁體中文</option>
+<option value='zh-sg' >新加坡华语</option>
+<option value='zh-tw' >臺灣國語</option>
+<option value='zh-tw' >中華民國國語</option>
+<option value='zu' >IsiZulu</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="box1" class="col-sm-4 control-label" id="boxLabel1">entity</label>
+            <div class="col-sm-5">
+                <select name="statusDropdown" id="box1" class="form-control">
+                    <option value='' selected='selected'>(Select)</option>
+                </select>
+            </div>
+        </div>
+        
+        <i id="searchSpinner" class="fa fa-spinner fa-spin fa-lg"></i>
+    </div>
+
+     <!--Here is where the info gets inserted-->
+    <div id="div_wdlink" style="background-color:#EEEEEE;margin:5px;margin-bottom:0px;"></div>
+     <!--Here is where the info gets inserted-->
+    <div id="div_wiki" style="background-color:#EEEEEE;margin:5px;margin-top:0px;"></div>
+     <!--Here is where the info gets inserted-->
+    <div id="div1" style="background-color:#EEEEEE;margin:5px;"></div>
+     <!--Here is where the info gets inserted-->
+    <div id="div2" style="background-color:#EEEEEE;margin:5px;"></div>
+     <!--Here is where the info gets inserted-->
+    <div id="div3" style="background-color:#EEEEEE;margin:5px;"></div>
+
+	<div class="container" style="width:100%">
+	    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Wikidata-logo.svg/320px-Wikidata-logo.svg.png" width=40px style="float:right;">
+	    <div id="div_footer" style="margin:0px; text-align:left; font-size:x-small">
+        Live data provided by this extension is from <a href="https://www.wikidata.org/">Wikidata</a> and is licensed <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>
+        </div>
+	    <div id="div_footer" style="margin:0px; text-align:left; font-size:x-small">
+        Browser extension by <a href="https://www.wikidata.org/wiki/User:99of9">Toby Hudson</a>
+        </div>
+    </div>
+
+   	<!-- </div> /.container -->
+	<script src="item-properties.js"></script>
+</body>
+</html>
