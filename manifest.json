@@ -1,23 +1,27 @@
 {
-  "name": "Wikidata Connect",
-  "version": "0.4",
-  "icons": {
-   "200": "Cross_graph_7_Nodes.png"
-  },
   "manifest_version": 2,
+  "name": "Entity Explosion",
+  "version": "0.6.3",
+  //"default_locale": "en",
+  "description": "Discover links and information about the same topic on other sites. Data live from Wikidata.",
+  "icons": {
+   "38": "EE-grey-38.png"
+  },
+  "browser_action": {
+	"default_popup": "popup.html",
+    "default_title": "Entity Explosion"
+  },
+  "background": {
+     "scripts": ["jquery.min.js", "background.js"],
+	 "persistent": false
+  },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
       "js": ["content.js"]
     }
   ],
-  "browser_action": {
-	"default_popup": "popup.html",
-    "default_title": "Wikidata Connect"
-  },
-  //"background": {
-  //   "scripts": ["background.js"]
-  //},
-  "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://maxcdn.bootstrapcdn.com; object-src 'self'",
-  "permissions": ["tabs"]
+  //"content_security_policy": "script-src 'self' https://ajax.googleapis.com https://maxcdn.bootstrapcdn.com; object-src 'self'",
+  "content_security_policy": "script-src 'self'; object-src 'self'",
+  "permissions": ["tabs", "alarms", "storage"]
 }
