@@ -25,27 +25,19 @@ function sendIsoLanguage() {
 }
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  //console.log("onmessage return listener in item-properties: "+request.response)
-  //console.log("onmessage return listener in item-properties.")
-  
   if (typeof request.iso !== 'undefined') {
-	//console.log("got saved isolanguage update: " + request.iso)
 	savedIsoLanguage = request.iso
 	isoLanguage = request.iso
 
 	if (typeof request.jsonLanguages !== 'undefined') {
-		//console.log("got language update: " + typeof request.jsonLanguages)
 		try {
  	 		language_translations = JSON.parse(request.jsonLanguages); // this is how you parse a string into JSON 
-			//console.log("success parsing language translations")
 		} catch (ex) {
 			console.log("failure parsing language translations")
   			handleError(ex);
 		}
 
 		initiateRedraw(savedIsoLanguage);
-		//box0change();
-		//redrawLabels(isoLangauge) //this seems to make the entry language dropdown blank
   	}
   }
 })
@@ -57,24 +49,17 @@ function selectElement(id, valueToSelect) {
 
 
 function update_languagebox (language_translations) {
-	//console.log("updating languagebox with current language: "+savedIsoLanguage)
 	var selection = document.getElementById("box0");
-	//console.log("initial selection: "+selection)
 	while (selection.firstChild) {
         selection.removeChild(selection.firstChild);
     }
-	//console.log("removed selection: "+selection)
-	//console.log(language_translations)
-	//console.log(Object.keys(language_translations).length)
 	
 	//add English at the start as a default
 	 var o = document.createElement("option");
      o.value = "en";
      o.text = "English";
      selection.appendChild(o);
-	// selection.selectedIndex = "0" // default in case we don't get any languages
     for (var i = 0; i < Object.keys(language_translations).length; i++) {
-		//console.log("adding option"+language_translations[i].lang+" name: "+language_translations[i].tongue)
         var o = document.createElement("option");
         o.value = language_translations[i].lang;
         o.text = language_translations[i].tongue;
@@ -93,18 +78,12 @@ function replaceAll(string, search, replace) {
 
 // update this list with data from (old) https://w.wiki/XU5 (new) https://w.wiki/XUx
 function redrawLabels(isoLanguage) {
-//document.getElementById("pageHeader").innerHTML = "Wikidata lookup";
-	//console.log("redrawLabels")
-
 	if (typeof language_translations == 'undefined') {
-		//console.log("renotify BG page for redrawLabels")
 		requestLanguages()
 	} else {
-		//console.log("redrawLabels: "+Object.keys(language_translations).length+" type of lang: "+typeof isoLanguage)
 	    for (var i = 0; i < Object.keys(language_translations).length; i++) {
 			if (typeof language_translations[i].lang !== 'undefined') {
 				if (language_translations[i].lang.localeCompare(isoLanguage) == 0) {
-					//console.log("adding boxlabels for:"+language_translations[i].lang)
     	    		var entity;
 					var language;
         			entity = language_translations[i].entity;
@@ -113,8 +92,6 @@ function redrawLabels(isoLanguage) {
 					$("#boxLabel0").text(language);   
 					$("#boxLabel1").text(entity);
 					break
-				} else {
-					//console.log("language not matched:"+language_translations[i].lang+"!=="+isoLanguage)
 				}
 			}
     	}
@@ -124,7 +101,6 @@ function redrawLabels(isoLanguage) {
 function general_QID_search (isoLanguage, tabURL) {
 	var string = '';
 
-	//console.log('pre-string: '+tabURL);
 	// create URI-encoded query string to get corresponding Wikidata items name and IRI, example: https://w.wiki/XZg
 		string = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>'
                     +'PREFIX wd: <http://www.wikidata.org/entity/>'
@@ -190,15 +166,10 @@ function nthIndex(str, pat, n){
 }
 
 function wiki_QID_search (isoLanguage, tabURL) {
-	//console.log('wiki-pre-string: '+tabURL);
-	
 	var encodedTitle=tabURL.substring(1+tabURL.lastIndexOf("/"));
 	var site = tabURL.substring(0,nthIndex(tabURL,"/",3));
-	//console.log("site: "+site+" title "+encodedTitle)
 	var queryString = site+"/w/api.php?action=query&prop=pageprops&titles="+encodedTitle+"&format=json";
 					
-	//console.log("query string: "+queryString)
-
      // send query to endpoint, see https://en.wikipedia.org/wiki/Wikipedia:Finding_a_Wikidata_ID
      $.ajax({
          type: 'GET',
@@ -218,17 +189,14 @@ function wiki_QID_search (isoLanguage, tabURL) {
 						QID = Object.values(result.query.pages)[i].pageprops.wikibase_item
 						// concatenate the Q number on the end of the label (Q extracted from iri after 31 other url characters)
 						label = encodedTitle+' ('+QID+')'
+						label=replaceAll(label,"_"," ");
 						iri = 'http://www.wikidata.org/entity/'+QID
-				
-						//console.log("QID:"+QID+" Label:"+label+" IRI:"+iri)
-				
 						// add the new information to the dropdown list
 						$("#box1").append("<option value='"+iri+"'>"+label+'</option>');
 					}
 				}
 			}
     		if (count==0) {
-				//document.getElementById("box1").selectedIndex = "1"; //when only one item is returned, it's a match
 			    chrome.browserAction.setIcon({ path: "./EE-black-38.png" });
 				no_result();
 			} else {
@@ -243,11 +211,8 @@ function wiki_QID_search (isoLanguage, tabURL) {
 }
 
 function wikidata_QID_search (isoLanguage, tabURL) {
-	//console.log('wikidata-pre-string: '+tabURL);
-	
 	var encodedTitle=tabURL.substring(1+tabURL.lastIndexOf("/"));
 	var site = tabURL.substring(0,nthIndex(tabURL,"/",3));
-	//console.log("site: "+site+" title "+encodedTitle)
 
 	if (encodedTitle.startsWith("Property:")) {
 		QID = encodedTitle.substring(9)
@@ -258,9 +223,7 @@ function wikidata_QID_search (isoLanguage, tabURL) {
 	// concatenate the Q number on the end of the label (Q extracted from iri after 31 other url characters)
 	label = encodedTitle+' ('+QID+')'
 	iri = 'http://www.wikidata.org/entity/'+QID
-				
-	//console.log("QID:"+QID+" Label:"+label+" IRI:"+iri)
-				
+
 	// add the new information to the dropdown list
 	$("#box1").append("<option value='"+iri+"'>"+label+'</option>');
 
@@ -309,10 +272,7 @@ function box0change() {
 	sendIsoLanguage()
 	redrawLabels(isoLanguage)
 			
-	//setStatusOptions(isoLanguage);
-	//gettabURL(function() {
-		setStatusOptions(isoLanguage);
-	//});
+	setStatusOptions(isoLanguage);
 			
 	$("#div1").html('');
 	$('#searchSpinner').hide();
@@ -336,7 +296,6 @@ function div_wd_change() {
 	    for (var i = 0; i < Object.keys(language_translations).length; i++) {
 			if (typeof language_translations[i].lang !== 'undefined') { 
 				if (language_translations[i].lang.localeCompare(isoLanguage) == 0) {
-					//console.log("adding wd label for:"+language_translations[i].lang)
 					if (typeof language_translations[i].data !== 'undefined') {
 						text = text+language_translations[i].data
 					} else {
@@ -424,9 +383,6 @@ function div2change() {
 			for (i = 0; i < returnedJson.results.bindings.length; i++) {
 				property = returnedJson.results.bindings[i].property.value
 				value = returnedJson.results.bindings[i].valueUri.value
-				//linkURL = returnedJson.results.bindings[i].URL.value
-				//text = text + property + ': <b><a target="_blank" href="'+linkURL+'">' + value + '</a></b><br/>'
-				//text = text + property + ': <b>' + value + '</b><br/>'
 				
 				if ((value.startsWith("http://"))||((value.startsWith("https://")))) {
 					text = text + property + ': <b><a target="_blank" href="'+value+'">' + value + '</a></b><br/>'
@@ -478,9 +434,8 @@ function div3change() {
 				value = returnedJson.results.bindings[i].valueUri.value
 				linkURL = returnedJson.results.bindings[i].URL.value
 				text = text + property + ': <b><a target="_blank" href="'+linkURL+'">' + value + '</a></b><br/>'
-			$('#searchSpinner').hide();
+				$('#searchSpinner').hide();
 			}
-			//text = text+'<iframe width="400" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://www.openlinkmap.org/small.php?lat=-33.413850&lon=149.565513&zoom=14" style="border: 1px solid black"></iframe>'
 			$("#div3").html(text);
 		}
 	});
@@ -508,7 +463,6 @@ function div_wiki_change() {
 		success: function(returnedJson) {
 			text = ''
 			for (var i = 0; i < returnedJson.results.bindings.length; i++) {
-				//console.log (": "+i+"/"+returnedJson.results.bindings.length)
 				
 				var article = decodeURIComponent(returnedJson.results.bindings[i].article.value)  // the decode fixes characters from other scripts, e.g. Māori
 				var articlelang = returnedJson.results.bindings[i].articlelang.value
@@ -528,8 +482,6 @@ function div_wiki_change() {
 								if (language_translations[j].lang.localeCompare(isoLanguage) !== 0) {
 									//console.log("labels in different language:"+language_translations[j].lang+"!="+isoLanguage)
 								} else {
-									//console.log("adding labels for:"+language_translations[j].lang)
-								
 									//Commons and Wikispecies always get through the language conditional because they apply to all languages
 									if (article.includes("commons.wikimedia.org")) {
 										if (typeof language_translations[j].commons !== 'undefined') {
@@ -616,7 +568,6 @@ function div_wiki_change() {
 			}
 			
 			// later could display mini map if the item has coords			
-			//text = text+'<iframe width="400" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://www.openlinkmap.org/small.php?lat=-33.4&lon=149.5&zoom=14" style="border: 1px solid black"></iframe>'
 			$("#div_wiki").html(text);
 		}
 	});
@@ -640,9 +591,6 @@ function gettabURL (callback) {
 	}, function(tabs) {
 		tabURL = decodeURIComponent(tabs[0].url); // e.g. to fix https://www.quora.com/topic/M%C4%81ori-People
 		console.log(tabURL);
-		// for debugging, show the received URL at the top of the popup
-		//text = tabURL + '<br/>'
-		//$("#div0").html(text);
 		callback();
 	});
 }
@@ -661,7 +609,6 @@ $(document).ready(function(){
 	// not searching initially, so hide the spinner icon
 	$('#searchSpinner').hide();
     
-	//box0change();
 	// fires when there is a change in the language dropdown
 	$("#box0").change(function(){
 		box0change();
@@ -676,8 +623,6 @@ $(document).ready(function(){
 	gettabURL(function() {
 		if (typeof savedIsoLanguage !== 'undefined') {
 			initiateRedraw(savedIsoLanguage)
-		} else {
-			//initiateRedraw("en")
 		}
 	});
 

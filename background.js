@@ -6,7 +6,6 @@ chrome.storage.sync.get(['IsoLanguage'], function(result) {
   if (typeof result !== 'undefined') {
 	if (typeof result.IsoLanguage !== 'undefined') {
 	  	window.savedIsoLanguage = result.IsoLanguage;
-  		//console.log('Iso language reloaded as ' + result.IsoLanguage);
 	}
   }
 });
@@ -14,16 +13,7 @@ chrome.storage.sync.get(['IsoLanguage'], function(result) {
 
 dummy_translations()
 
-const div = document.createElement('div');
-div.textContent = "<p>dummy</p>"
-document.body.appendChild(div);
-
-//console.log("translations & formatters: ")
-//console.log(window.language_translations);
-//console.log(window.formatters);
-
 function url_matches_formatters(url) {
-	//console.log ("test "+url + " length " + Object.keys(window.formatters).length)
 	if ((url.includes("commons.wikimedia.org"))||
 		(url.includes("species.wikimedia.org"))||
 		(url.includes(".wikipedia.org"))||
@@ -42,7 +32,6 @@ function url_matches_formatters(url) {
 
 	for (i = 0; i < Object.keys(window.formatters).length; i++) {
 		if (url.match(window.formatters[i].formatregex)) {
-			//console.log("regex #"+i+" url "+url+" is a match with "+window.formatters[i].formatregex)
 			return true;
 		}
 	}
@@ -51,23 +40,17 @@ function url_matches_formatters(url) {
 
 function setIconBasedOnURL (url) {
   if(typeof url !== 'undefined') {
-	  //console.log("URL testing (no query sent externally)... "+url)
 	  if (url_matches_formatters(url)) {
 		    chrome.browserAction.setIcon({ path: "./EE-crimson-38.png" });
-			//console.log("...potential match")
 	  } else {
 			chrome.browserAction.setIcon({ path: "./EE-grey-38.png" });
-			//console.log("...failed match")
 	  }
   }
 }
 
 function handleMessage(request, sender, sendResponse) {
-  //console.log("Message from the content script: " +  request.greeting);
 
   setIconBasedOnURL(request.url)
-	
-  //sendResponse({response: "Response from background script"});
   
   if (typeof request.languageplease !== 'undefined') {
 	  var sending = chrome.runtime.sendMessage({
@@ -112,7 +95,6 @@ function dummy_translations () {
 function combine_format_regex(formatter, escregex) {
 				var patt = /\//g;
 
-				//var escregex = 	prop_regex_formatter.regex.replace(patt,'\\/')		removed to make this valid url work: https://www.imdb.com/event/ev0000003/2015/1
 				var formatregex= formatter.replace(patt,'\\/');
 
 				patt = /\(\?i\)/g; // all our queries will be flagged case-insensitive, and (?i) wrecks the regex in .js anyway 
@@ -120,35 +102,25 @@ function combine_format_regex(formatter, escregex) {
 				
 				patt = /\./g;		
 				formatregex=formatregex.replace(patt,'\\.');
-			//escregex = escregex.replace(patt,'\\.') LAST ONE, can I ditch this too?
 				patt = /\[/g;		
 				formatregex=formatregex.replace(patt,'\\[');
-				////////escregex = escregex.replace(patt,'\\[')
 				patt = /\^/g;		
 				formatregex=formatregex.replace(patt,'\\^');
-				//escregex = escregex.replace(patt,'\\^')
 				patt = /\|/g;		
 				formatregex=formatregex.replace(patt,'\\|');
-				//escregex = escregex.replace(patt,'\\|')
 				patt = /\?/g;		
 				formatregex=formatregex.replace(patt,'\\?');
-			//escregex = escregex.replace(patt,'\\?')  don't seem to need this one either, removing it revealed the challenge with (?i), e.g. http://www.wikidata.org/entity/P4109
 				patt = /\*/g;		
 				formatregex=formatregex.replace(patt,'\\*');
-				//escregex = escregex.replace(patt,'\\*')
 				patt = /\+/g;		
 				formatregex=formatregex.replace(patt,'\\+');
-			//escregex = escregex.replace(patt,'\\+')  // having this row in seems to make this fail (miss): https://quickstats.censusdata.abs.gov.au/census_services/getproduct/census/2016/quickstat/SSC10892?opendocument
 				patt = /\(/g;		
 				formatregex=formatregex.replace(patt,'\\(');
-			//escregex = escregex.replace(patt,'\\(') removed to make this work: https://www.imdb.com/name/nm0000129/
 				patt = /\)/g;		
 				formatregex=formatregex.replace(patt,'\\)');
-			//escregex = escregex.replace(patt,'\\)') removed to make this work: https://www.imdb.com/name/nm0000129/
 
 				patt = /\$1/g;		
 				formatregex=formatregex.replace(patt,'('+escregex+')');
-				//formatregex=formatregex.replace(patt,prop_regex_formatter.regex);
 
 				patt = /\$/g;		
 				formatregex=formatregex.replace(patt,'\\$');
@@ -184,8 +156,6 @@ function get_formatters() {
 		success: function(returnedJson) {
 			text = ''
 			for (i = 0; i < returnedJson.results.bindings.length; i++) {
-				//?lang ?data ?entity ?language ?tongue ?pedia ?commons ?books ?news ?quote ?source ?versity ?voyage ?tionary ?species
-				//var translation = returnedJson.results.bindings[i]
 				
 				var flags="gi" //always case insensitive for now - this is just a quick check anyway. To do something strict, build the i in only on removal of (?i)
 				
@@ -203,13 +173,18 @@ function get_formatters() {
 						prop_regex_formatter.formatregex = RE;
             	}
             	catch(e) {
-                	    console.log(e.message);
-						console.log("questionable regex for "+prop_regex_formatter.prop)
+                	    //console.log(e.message);
+						//console.log("questionable regex for "+prop_regex_formatter.prop)
         	            RE = new RegExp("QUESTIONABLE REGEX", flags);
 						prop_regex_formatter.formatregex = RE;
 				}
 				window.formatters[i] = prop_regex_formatter
 			}
+			
+			if (Object.keys(window.formatters).length > 99) {
+				chrome.storage.local.set({formatters: JSON.stringify(window.formatters) }, function() {});
+			}			
+			
 		}
 	});
 }
@@ -269,8 +244,6 @@ function get_translations() {
 		success: function(returnedJson) {
 			text = ''
 			for (i = 0; i < returnedJson.results.bindings.length; i++) {
-				//?lang ?data ?entity ?language ?tongue ?pedia ?commons ?books ?news ?quote ?source ?versity ?voyage ?tionary ?species
-				//var translation = returnedJson.results.bindings[i]
 				
 				var translation = {
 									lang:returnedJson.results.bindings[i].lang.value, 
@@ -292,13 +265,16 @@ function get_translations() {
 							
 				window.language_translations[i] = translation
 			}
+			if (Object.keys(window.language_translations).length > 99) {
+				chrome.storage.local.set({langtrans: window.language_translations }, function() {});
+			}
+			
 		}
 	});
 }
 
 chrome.tabs.onActivated.addListener(function(info){
     chrome.tabs.get(info.tabId, function(change){
-		//console.log ("tab activated "+change.url)
 		if (typeof change !== 'undefined') {
 			setIconBasedOnURL(change.url)
 		}
@@ -307,33 +283,22 @@ chrome.tabs.onActivated.addListener(function(info){
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 	if (typeof changeInfo.url !== 'undefined') {
-		//alert(changeInfo.url);
-		//console.log ("onUpdated URL: "+changeInfo.url);
 		setIconBasedOnURL(changeInfo.url)
 	}
 });
 
 
 chrome.runtime.onInstalled.addListener(() => {
-  //console.log('onInstalled... updating translations');
   get_translations()
   get_formatters()
- 
-  // create alarm to occasionally echo data (see below)
-  chrome.alarms.create('refresh', { periodInMinutes: 2 });
 });
 
-////////////////////////////////////////////////
-// TEST DO THIS EVERY TIME THE BACKGROUND PAGE LOADS, NOT JUST ONSTARTUP
-//chrome.runtime.onStartup.addListener(() => {
-  //console.log('onStartup... updating translations');
 
-  chrome.storage.local.get(['langtrans'], function(result) {
+chrome.storage.local.get(['langtrans'], function(result) {
 	 if (typeof result.langtrans !== 'undefined') {
 		 window.language_translations = result.langtrans
 	 
 	 	if (Object.keys(window.language_translations).length < 99) {
-			//console.log('Saved translations incomplete, new query.')
 		 	get_translations()
 	 	}
 		
@@ -342,9 +307,9 @@ chrome.runtime.onInstalled.addListener(() => {
 		//console.log('Failed to find saved translations, new query.')
 	 	get_translations()
 	 }
-  });
+});
   
-  chrome.storage.local.get(['formatters'], function(result) {
+chrome.storage.local.get(['formatters'], function(result) {
   	 if (typeof result.formatters !== 'undefined') {
 		window.formatters = JSON.parse(result.formatters)
 		 
@@ -352,50 +317,21 @@ chrome.runtime.onInstalled.addListener(() => {
 		// recalculate all formatregex from formatter, regex
 		for (var i=0; i<Object.keys(window.formatters).length; i++) {
 			var formatregex_str = combine_format_regex(window.formatters[i].formatter, window.formatters[i].regex)
-			//console.log("property "+window.formatters[i].prop+" formatter "+i+" formatregex "+formatregex_str)
-			//console.log(RegExp(formatregex_str))
 			var RE;
     	    try {
         		RE = new RegExp(formatregex_str, "gi");
-	        	}
+	        }
             catch(e) {
-               	    console.log(e.message);
-					console.log("questionable regex for "+window.formatters[i].prop)
+               	    //console.log(e.message);
+					console.log("Regex on property "+window.formatters[i].prop+" apparently not consistent with JS regex evaluation. No cause for concern.")
         	        RE = new RegExp("QUESTIONABLE REGEX", "gi");
 			}
 			window.formatters[i].formatregex = RE
 		}
 		if (Object.keys(window.formatters).length < 99) {
-		 	//console.log('Failed to find saved formatters.')
 		 	get_formatters()
 	 	}
-     	//console.log('Reloaded formatters: ' + window.formatters);
 	 } else {
-		//console.log('Failed to find saved formatters, new query.')
 	 	get_formatters()		 
 	 }
-  });
-  // create alarm after extension is installed / upgraded
-//});
-//END TEST
-////////////////////////////////////////////////
-
-
-chrome.alarms.onAlarm.addListener((alarm) => {
-  //console.log(alarm.name); // refresh
-  
-  if (Object.keys(window.language_translations).length > 99) {
-	  chrome.storage.local.set({langtrans: window.language_translations }, function() {
-          //console.log('Storage langtrans is set to contain: language_translations');
-	  });
-  }
-
-  if (Object.keys(window.formatters).length > 99) {
-  	chrome.storage.local.set({formatters: JSON.stringify(window.formatters) }, function() {
-          //console.log('Storage formatters is set to contain: formatters');
-  	});
-  }
-  
-  //console.log(window.language_translations);
-  //console.log(window.formatters);
 });

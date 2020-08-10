@@ -1,8 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Entity Explosion",
-  "version": "0.6.3",
-  //"default_locale": "en",
+  "version": "0.6.6",
   "description": "Discover links and information about the same topic on other sites. Data live from Wikidata.",
   "icons": {
    "38": "EE-grey-38.png"
@@ -15,13 +14,21 @@
      "scripts": ["jquery.min.js", "background.js"],
 	 "persistent": false
   },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"]
-    }
-  ],
-  //"content_security_policy": "script-src 'self' https://ajax.googleapis.com https://maxcdn.bootstrapcdn.com; object-src 'self'",
+  "content_scripts": [  ],
   "content_security_policy": "script-src 'self'; object-src 'self'",
-  "permissions": ["tabs", "alarms", "storage"]
+  "permissions": [
+  	"tabs", 
+  	"storage", 
+	"https://commons.wikimedia.org/w/api.php", 
+	"https://species.wikimedia.org/w/api.php", 
+	"https://*.wikipedia.org/w/api.php",
+	"https://*.wikibooks.org/w/api.php",
+	"https://*.wikinews.org/w/api.php",
+	"https://*.wikiquote.org/w/api.php",
+	"https://*.wikisource.org/w/api.php",
+	"https://*.wikiversity.org/w/api.php",
+	"https://*.wikivoyage.org/w/api.php",
+	"https://*.wiktionary.org/w/api.php",
+	"https://wikidata.org/w/api.php"
+  ]
 }
