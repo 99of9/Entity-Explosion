@@ -1,4 +1,6 @@
 # Entity Explosion
 A Chrome browser extension
 
-It still needs a lot of cleaning up and I have more features planned.
+Available free on the Chrome store: https://chrome.google.com/webstore/detail/entity-explosion/bbcffeclligkmfiocanodamdjclgejcn
+
+It is still under active development. I have more features planned.
