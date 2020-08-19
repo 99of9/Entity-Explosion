@@ -11,8 +11,7 @@
     "default_title": "Entity Explosion"
   },
   "background": {
-     "scripts": ["jquery.min.js", "background.js"],
-	 "persistent": false
+     "scripts": ["jquery.min.js", "background.js"]
   },
   "content_scripts": [  ],
   "content_security_policy": "script-src 'self'; object-src 'self'",
