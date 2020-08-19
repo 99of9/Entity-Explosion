@@ -130,7 +130,7 @@ function combine_format_regex(formatter, escregex) {
 }
 
 function get_formatters() {
-	// create URI-encoded query string to get current property regex and formatter URLs (including third party ones) https://w.wiki/Xsv
+	// create URI-encoded query string to get current property regex and formatter URLs (including third party ones) https://w.wiki/Xsv (may want to start respecting qualifiers: https://w.wiki/Zha)
 	var string = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>'
                 +'PREFIX wd: <http://www.wikidata.org/entity/>'
                 +'PREFIX wdt: <http://www.wikidata.org/prop/direct/>'
