@@ -288,7 +288,16 @@ function box0change() {
 
 function no_result() {
 	text = '<p>No result was found on Wikidata. If other items on this site resolve correctly, this ID may be missing from the item (<a target="_blank"  href="https://www.wikidata.org/w/index.php?sort=relevance&search=&title=Special:Search&profile=advanced&fulltext=1&advancedSearch-current=%7B%7D&ns0=1&ns146=1">search</a>), or a <a target="_blank" href="https://www.wikidata.org/wiki/Special:NewItem">new item</a> could be created.</p>';
-	$("#div_wdlink").html(text);
+	
+ 
+	const parser = new DOMParser()
+	const parsed = parser.parseFromString(text, `text/html`)
+	const tags = parsed.getElementsByTagName(`body`)
+	//$("#div_wdlink").html(``);
+	for (const tag of tags) {
+		$("#div_wdlink").append(tag)
+	}
+	
 	$("#box1 option").text("(no result)");
 }
 
@@ -314,7 +323,16 @@ function div_wd_change() {
     	}
 	}
 	text = text+': <b><a target="_blank" href="' + iri + '">' + iri.substring(31,iri.length) + '</a></b><br/>';
-	$("#div_wdlink").html(text);
+	//$("#div_wdlink").html(text);
+	
+	const parser = new DOMParser()
+	const parsed = parser.parseFromString(text, `text/html`)
+	const tags = parsed.getElementsByTagName(`body`)
+	$("#div_wdlink").html(``);
+	for (const tag of tags) {
+		$("#div_wdlink").append(tag)
+	}
+	
 }
 
 function div1change() {
@@ -350,7 +368,16 @@ function div1change() {
 				value = returnedJson.results.bindings[i].value.value
 				text = text + property + ': <b>' + value + '</b><br/>'
 			}
-			$("#div1").html(text);
+			//$("#div1").html(text);
+			
+			const parser = new DOMParser()
+			const parsed = parser.parseFromString(text, `text/html`)
+			const tags = parsed.getElementsByTagName(`body`)
+			$("#div1").html(``);
+			for (const tag of tags) {
+				$("#div1").append(tag)
+			}
+			
 			$('#searchSpinner').hide();
 		}
 	});
@@ -398,7 +425,16 @@ function div2change() {
 				}
 
 			}
-			$("#div2").html(text);
+			//$("#div2").html(text);
+			
+			const parser = new DOMParser()
+			const parsed = parser.parseFromString(text, `text/html`)
+			const tags = parsed.getElementsByTagName(`body`)
+			$("#div2").html(``);
+			for (const tag of tags) {
+				$("#div2").append(tag)
+			}
+			
 			$('#searchSpinner').hide();
 		}
 	});
@@ -443,7 +479,16 @@ function div3change() {
 				text = text + property + ': <b><a target="_blank" href="'+linkURL+'">' + value + '</a></b><br/>'
 				$('#searchSpinner').hide();
 			}
-			$("#div3").html(text);
+			//$("#div3").html(text);
+			
+			const parser = new DOMParser()
+			const parsed = parser.parseFromString(text, `text/html`)
+			const tags = parsed.getElementsByTagName(`body`)
+			$("#div3").html(``);
+			for (const tag of tags) {
+				$("#div3").append(tag)
+			}
+			
 		}
 	});
 }
@@ -576,6 +621,16 @@ function div_wiki_change() {
 			
 			// later could display mini map if the item has coords			
 			$("#div_wiki").html(text);
+			
+			const parser = new DOMParser()
+			const parsed = parser.parseFromString(text, `text/html`)
+			const tags = parsed.getElementsByTagName(`body`)
+			$("#div_wiki").html(``);
+			for (const tag of tags) {
+				$("#div_wiki").append(tag)
+			}
+
+			
 		}
 	});
 }
