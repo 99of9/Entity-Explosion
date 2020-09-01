@@ -13,33 +13,130 @@ chrome.storage.sync.get(['IsoLanguage'], function(result) {
 
 dummy_translations()
 
+
+function binarySearch(list, value){
+	
+	//if (typeof value == 'undefined') return -1;
+	
+    var startIndex  = 0,
+        stopIndex   = Object.keys(list).length - 1,
+        middle      = Math.floor((stopIndex + startIndex)/2);
+ 
+ 	//console.log('length '+Object.keys(list).length)
+ 
+    while(list[middle].formatter.split('/')[0] != value ){
+		
+		//console.log('middle: '+middle)
+		
+        if (value < list[middle].formatter.split('/')[0]){
+            stopIndex = middle - 1;
+        } else if (value > list[middle].formatter.split('/')[0]){
+            startIndex = middle + 1;
+        }
+ 
+        middle = Math.floor((stopIndex + startIndex)/2);
+		
+		if (startIndex>=stopIndex) {
+			if (middle<0) middle=0;
+			break;
+		}
+    }
+	//console.log('final binary search comparison: '+list[middle].formatter.split('/')[0]+' ?= '+value)
+	
+    return (list[middle].formatter.split('/')[0] != value) ? -1 : middle;
+}
+
+
+
 function url_matches_formatters(url) {
-	if ((url.includes("commons.wikimedia.org"))||
-		(url.includes("species.wikimedia.org"))||
-		(url.includes(".wikipedia.org"))||
-		(url.includes(".wikibooks.org"))||
-		(url.includes(".wikinews.org"))||
-		(url.includes(".wikiquote.org"))||
-		(url.includes(".wikisource.org"))||
-		(url.includes(".wikiversity.org"))||
-		(url.includes(".wikivoyage.org"))||
-		(url.includes("wikidata.org"))||
-		(url.includes(".wiktionary.org"))
+	
+	var url_cut = url.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
+	var url_host = url.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0]
+  
+ 	//console.log('formatters')
+  	//console.log(window.formatters);
+
+	//quick screen for valid Wikimedia sites
+	if ((url_host.includes("commons.wikimedia.org"))||
+		(url_host.includes("species.wikimedia.org"))||
+		(url_host.includes(".wikipedia.org"))||
+		(url_host.includes(".wikibooks.org"))||
+		(url_host.includes(".wikinews.org"))||
+		(url_host.includes(".wikiquote.org"))||
+		(url_host.includes(".wikisource.org"))||
+		(url_host.includes(".wikiversity.org"))||
+		(url_host.includes(".wikivoyage.org"))||
+		(url_host.includes("wikidata.org"))||
+		(url_host.includes(".wiktionary.org"))
 		) 
 	{
 		return true;
 	}
 
-	for (i = 0; i < Object.keys(window.formatters).length; i++) {
-		if (url.match(window.formatters[i].formatregex)) {
-			return true;
+    //const startTime = performance.now();
+	//console.log('init length '+Object.keys(window.formatters).length)
+	
+	// binary search to find a matching host only (e.g. "inaturalist.com" without anything before or after)
+	var match_index = binarySearch(window.formatters, url_host);
+		
+	if (match_index==-1) {
+		//const duration = performance.now() - startTime;
+		//console.log('prop_regex false took '+duration+'ms');
+		return false;
+	} else {
+		//we have a match to the host, and know the match_index in the array. Other matches may be just above or below in the list.
+		//COULD return a really rough true here:
+		//const duration = performance.now() - startTime;
+		//console.log('prop_regex true '+ url_host +'='+window.formatters[match_index].formatregex+' took '+duration+'ms');
+		//return true;
+
+		//BUT INSTEAD now look for the a *true* match, including the full formatregex
+		for (i = match_index; i < Object.keys(window.formatters).length; i++) {
+			//console.log('test rough match i='+i)
+			if ((window.formatters[i].formatter.split('/')[0] != url_host)) {
+				//we've gone out of the matching hosts
+				break;
+			}
+			if (url_cut.match(window.formatters[i].formatregex)) {
+				//const duration = performance.now() - startTime;
+				//console.log('prop_regex true '+ url_cut +'='+window.formatters[i].formatregex+' took '+duration+'ms');
+				return true;
+			}
 		}
+		for (i = match_index-1; i>=0; i--) {
+			//console.log('test rough match i='+i)
+			if ((window.formatters[i].formatter.split('/')[0] != url_host)) {
+				//we've gone out of the matching hosts
+				break;
+			}
+			if (url_cut.match(window.formatters[i].formatregex)) {
+				//const duration = performance.now() - startTime;
+				//console.log('prop_regex true '+ url_cut +'='+window.formatters[i].formatregex+' took '+duration+'ms');
+				return true;
+			}
+		}
+		
+		//const duration = performance.now() - startTime;
+		//console.log('prop_regex rough-false took '+duration+'ms');
+		return false;
 	}
-	return false;
+	
+	// old linear matching with full regex match
+	//for (i = 0; i < Object.keys(window.formatters).length; i++) {
+	//	if (url.match(window.formatters[i].formatregex)) {
+	//		const duration = performance.now() - startTime;
+	//		console.log('prop_regex true '+ url +'='+window.formatters[i].formatregex+' took '+duration+'ms');
+	//		return true;
+	//	}
+	//}
+	//const duration = performance.now() - startTime;
+	//console.log('prop_regex false took '+duration+'ms');
+	//return false;
 }
 
 function setIconBasedOnURL (url) {
   if(typeof url !== 'undefined') {
+
 	  if (url_matches_formatters(url)) {
 		    chrome.browserAction.setIcon({ path: "./EE-crimson-38.png" });
 	  } else {
@@ -135,13 +232,20 @@ function get_formatters() {
                 +'PREFIX wd: <http://www.wikidata.org/entity/>'
                 +'PREFIX wdt: <http://www.wikidata.org/prop/direct/>'
 +'SELECT DISTINCT ?prop ?regex ?formatter_url WHERE {'
-+'{?prop wdt:P1630 ?formatter_url .}'
++'{?prop wdt:P1630 ?formatter_url0 .}'
 +'UNION'
-+'{?prop wdt:P3303 ?formatter_url .}'
-+'FILTER (CONTAINS( ?formatter_url, "$1" ) )' 
-+'?prop wdt:P1793 ?regex .'
-+'SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .'
++'{?prop wdt:P3303 ?formatter_url0 .}'
++'FILTER (CONTAINS( ?formatter_url0, "$1" ) )' 
++'BIND (REPLACE(?formatter_url0,"^https://","") AS ?formatter_url1) '
++'BIND (REPLACE(?formatter_url1,"^http://","") AS ?formatter_url2) '
++'BIND (REPLACE(?formatter_url2,"^www\\\\.","") AS ?formatter_url) '
++'{?prop <http://www.wikidata.org/prop/P2302> ?o.'
++'?o <http://www.wikidata.org/prop/qualifier/P1793> ?regex.}'
++'UNION'
++'{?prop wdt:P1793 ?regex .}'
++'SERVICE wikibase:label {bd:serviceParam wikibase:language "en"} .'
 +'}'
++'ORDER BY ASC(?formatter_url)'
 				
 	var encodedQuery = encodeURIComponent(string);
 	
@@ -155,6 +259,10 @@ function get_formatters() {
 		},
 		success: function(returnedJson) {
 			text = ''
+			
+			//console.log('encode '+returnedJson.results.bindings.length+' formatter-regex')
+		    //const startTime = performance.now();
+
 			for (i = 0; i < returnedJson.results.bindings.length; i++) {
 				
 				var flags="gi" //always case insensitive for now - this is just a quick check anyway. To do something strict, build the i in only on removal of (?i)
@@ -180,6 +288,10 @@ function get_formatters() {
 				}
 				window.formatters[i] = prop_regex_formatter
 			}
+			
+	
+    		//const duration = performance.now() - startTime;
+    		//console.log('prop_regex took '+duration+'ms');
 			
 			if (Object.keys(window.formatters).length > 99) {
 				chrome.storage.local.set({formatters: JSON.stringify(window.formatters) }, function() {});
