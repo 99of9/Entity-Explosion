@@ -24,6 +24,10 @@ function binarySearch(list, value){
  
  	//console.log('length '+Object.keys(list).length)
  
+	if (stopIndex<0) {
+		return -1;
+	}
+ 
     while(list[middle].formatter.split('/')[0] != value ){
 		
 		//console.log('middle: '+middle)
@@ -310,7 +314,7 @@ function get_translations() {
 +'SELECT DISTINCT ?lang ?data ?entity ?language ?tongue ?pedia ?commons ?books ?news ?quote ?source ?versity ?voyage ?tionary ?species WHERE {'
 +' hint:Query hint:optimizer "None".'
 +'  ?tongueitem wdt:P424 ?lang .'
-+'  ?tongueitem wdt:P279*/wdt:P31 wd:Q34770 .'
++'  ?tongueitem wdt:P31/wdt:P279* wd:Q17376908 .'
 +'  wd:Q52 rdfs:label ?pedia .'
 +'  	FILTER(LANG(?pedia)=?lang)'
 +'  OPTIONAL{wd:Q2013 rdfs:label ?data .'

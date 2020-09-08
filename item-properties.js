@@ -308,6 +308,7 @@ function div_wd_change() {
     text = '';
 	if (typeof language_translations == 'undefined') {
 		requestLanguages()
+		text = text+'Wikidata'
 	} else {
 	    for (var i = 0; i < Object.keys(language_translations).length; i++) {
 			if (typeof language_translations[i].lang !== 'undefined') { 
@@ -444,22 +445,46 @@ function div3change() {
 	var iri = $("#box1").val();
 		
 	var isoLanguage= $("#box0").val();
-	// create URI-encoded query string to get property names, IDs, and compiled link URLs. model query here: https://w.wiki/XNq
-	var string = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>'
-                +'PREFIX wd: <http://www.wikidata.org/entity/>'
-                +'PREFIX wdt: <http://www.wikidata.org/prop/direct/>'
-				+'SELECT DISTINCT ?property ?valueUri ?URL WHERE {'
-				+'<' + iri + '>  ?propertyUri ?valueUri.'
-  				+'?genProp <http://wikiba.se/ontology#directClaim> ?propertyUri.'
-  				+'?genProp rdfs:label ?property.'
-  				+'FILTER(substr(str(?propertyUri),1,36)="http://www.wikidata.org/prop/direct/")'
-  				+'FILTER(LANG(?property) = "'+isoLanguage+'")'
-  				+'FILTER(substr(str(?valueUri),1,31)!="http://www.wikidata.org/entity/")'
-  				+'?genProp wdt:P1630 ?fmt_URL .'
-  				+'BIND (REPLACE( STR(?fmt_URL), "\\\\$1", ?valueUri ) AS ?URL)'
-  				+'FILTER(BOUND(?URL))'
-				+'}'
-				+'ORDER BY ASC(?property)'
+	// create URI-encoded query string to get property names, IDs, and compiled link URLs. 
+var string = 'SELECT DISTINCT ?genProp ?property ?valueUri ?fmt_URL ?URL ?rankstr ?regex_req ?regex ?lang ?format ?part ?operatorLabel ?jurisdiction WHERE {'
+  +'<' + iri + '>  ?propertyUri ?valueUri.'
+  +'?genProp <http://wikiba.se/ontology#directClaim> ?propertyUri.'
+  +'?genProp rdfs:label ?property.'
+  +'FILTER(LANG(?property) = "'+isoLanguage+'")'
+  +'FILTER(substr(str(?propertyUri),1,36)="http://www.wikidata.org/prop/direct/")'
+  +'FILTER(substr(str(?valueUri),1,31)!="http://www.wikidata.org/entity/")'
+  +'{'
+    +'?genProp p:P1630 ?statement .'
+    +'?statement ps:P1630 ?fmt_URL .'
+    +'?statement wikibase:rank ?rank .'
+    +'BIND (STR(?rank) AS ?rankstr)'
+    +'OPTIONAL {?statement pq:P8460 ?regex_req .}'
+    +'OPTIONAL {?statement pq:P1793 ?regex .}'
+    +'OPTIONAL {?statement pq:P407/wdt:P424 ?lang .}'
+    +'OPTIONAL {?statement pq:P2701 ?format .}'
+    +'OPTIONAL {?statement pq:P518 ?part .}'
+    +'OPTIONAL {?statement pq:P137 ?operator .}'
+    +'OPTIONAL {?statement pq:P1001 ?jurisdiction .}'
+  +'} UNION {'
+    +'?genProp p:P3303 ?statement .'
+    +'?statement ps:P3303 ?fmt_URL .'
+    +'?statement wikibase:rank ?rank.'
+    +'BIND (STR(?rank) AS ?rankstr)'
+    +'OPTIONAL {?statement pq:P8460 ?regex_req .}'
+    +'OPTIONAL {?statement pq:P1793 ?regex .}'
+    +'OPTIONAL {?statement pq:P407/wdt:P424 ?lang .}'
+    +'OPTIONAL {?statement pq:P2701 ?format .}'
+    +'OPTIONAL {?statement pq:P518 ?part .}'
+    +'OPTIONAL {?statement pq:P137 ?operator .}'
+    +'OPTIONAL {?statement pq:P1001 ?jurisdiction .}'
+  +'}'
+  +'BIND (REPLACE( STR(?fmt_URL), "\\\\$1", ?valueUri ) AS ?URL)'
+  +'FILTER(BOUND(?URL))'
+  +'BIND (CONCAT(?property,?valueUri) AS ?sort)'
+  +'SERVICE wikibase:label { bd:serviceParam wikibase:language "'+isoLanguage+',[AUTO_LANGUAGE],en" } .'
++'}'
++'ORDER BY ASC(?sort)'
+
 
 	var encodedQuery = encodeURIComponent(string);
 
@@ -472,11 +497,102 @@ function div3change() {
 		},
 		success: function(returnedJson) {
 			text = ''
-			for (i = 0; i < returnedJson.results.bindings.length; i++) {
-				property = returnedJson.results.bindings[i].property.value
-				value = returnedJson.results.bindings[i].valueUri.value
-				linkURL = returnedJson.results.bindings[i].URL.value
-				text = text + property + ': <b><a target="_blank" href="'+linkURL+'">' + value + '</a></b><br/>'
+			
+			var clonedJson = jQuery.extend({}, returnedJson);
+
+			for (i = 0; i < clonedJson.results.bindings.length; i++) {
+				score = 0;
+				rankstr = clonedJson.results.bindings[i].rankstr.value
+				if (rankstr.indexOf("Normal") !== -1) { score=10 }
+				if (rankstr.indexOf("Preferred") !== -1) { score=20 }
+				if (rankstr.indexOf("Deprecated") !== -1) { score=-20 }
+				
+				if (typeof clonedJson.results.bindings[i].lang !== 'undefined') {
+					if (clonedJson.results.bindings[i].lang.value==isoLanguage) {
+						score += 6;
+					} else {
+						score -= 6;
+					}
+				}
+
+				if (typeof clonedJson.results.bindings[i].part !== 'undefined') {
+					score -= 1; //applies to part limits the scope of how often this will resolve. Could instead check if this item is a member of that part.
+				}
+
+				if (typeof clonedJson.results.bindings[i].jurisdiction !== 'undefined') {
+					score -= 1; //applies to jurisdiction limits the scope of how often this will resolve. Could instead check if this item is in this jurisdiction.
+				}
+
+				if (typeof clonedJson.results.bindings[i].operatorLabel !== 'undefined') {
+					clonedJson.results.bindings[i].property.value = clonedJson.results.bindings[i].property.value+' ('+clonedJson.results.bindings[i].operatorLabel.value+')'
+				}
+
+				if (typeof clonedJson.results.bindings[i].regex_req !== 'undefined') {					
+					console.log(clonedJson.results.bindings[i].regex_req.value+' =? '+clonedJson.results.bindings[i].valueUri.value)
+					if (clonedJson.results.bindings[i].valueUri.value.match(clonedJson.results.bindings[i].regex_req.value)) { 
+						score += 8;
+						//console.log('MATCH') 
+					} else {
+						score -= 20;
+					}
+				}
+				
+				clonedJson.results.bindings[i].score = score;
+			}
+
+			//sort that preserves alphabetically grouped order of properties, but sorts internally on score
+			clonedJson.results.bindings.sort(function (a, b) {   
+			    if(a.property.value == b.property.value){ return b.score-a.score; }
+    			else { return (a.property.value < b.property.value) ? -1 : 1; }
+ 			});
+			
+			console.log(clonedJson)
+			
+			for (i = 0; i < clonedJson.results.bindings.length; i++) {
+				property = clonedJson.results.bindings[i].property.value
+				value = clonedJson.results.bindings[i].valueUri.value
+				
+				// simple replacement version
+				linkURL = clonedJson.results.bindings[i].fmt_URL.value.replace("$1",clonedJson.results.bindings[i].valueUri.value)
+
+				if (typeof clonedJson.results.bindings[i].regex_req !== 'undefined') {
+					if (clonedJson.results.bindings[i].valueUri.value.match(clonedJson.results.bindings[i].regex_req.value)) {
+						if (clonedJson.results.bindings[i].valueUri.value.match(clonedJson.results.bindings[i].regex_req.value).length>1) { 
+							linkURL = clonedJson.results.bindings[i].fmt_URL.value;
+							console.log(clonedJson.results.bindings[i].valueUri.value.match(clonedJson.results.bindings[i].regex_req.value))
+							for (m=1; m < clonedJson.results.bindings[i].valueUri.value.match(clonedJson.results.bindings[i].regex_req.value).length ; m++) {
+								linkURL = linkURL.replace( '$'+m , clonedJson.results.bindings[i].valueUri.value.match(clonedJson.results.bindings[i].regex_req.value)[m])
+							}
+							console.log('value '+clonedJson.results.bindings[i].valueUri.value+' regex: '+clonedJson.results.bindings[i].regex_req.value+' formatter: '+clonedJson.results.bindings[i].fmt_URL.value+' replaced linkURL: '+linkURL)
+//							console.log('value '+clonedJson.results.bindings[i].valueUri.value+' regex: '+clonedJson.results.bindings[i].regex_req.value)
+//							console.log(' formatter: '+clonedJson.results.bindings[i].fmt_URL.value+' replaced linkURL: '+linkURL)
+						}
+					}
+					// else the link will probably fail, maybe shouldn't make it
+				}
+				
+				//rankstr = clonedJson.results.bindings[i].rankstr.value
+				//if (rankstr.indexOf("Normal") !== -1) {console.log("normal found: "+rankstr)}
+								
+				if (i!==0) {
+					if (clonedJson.results.bindings[i].property.value == clonedJson.results.bindings[i-1].property.value) {
+						continue; //skip outscored duplicates				
+					}
+					if (score<0) {
+						continue; //deprecated, don't show, even if best
+					}
+				}
+				
+				text = text + property 
+				if (typeof clonedJson.results.bindings[i].lang !== 'undefined') {
+					if (clonedJson.results.bindings[i].lang.value!==isoLanguage) {
+						text = text + ' [' + clonedJson.results.bindings[i].lang.value + ']'
+					}
+				}
+				//text = text+ ': <b><a target="_blank" href="'+encodeURI(linkURL)+'">' + value + '</a></b>' + ' score:'+clonedJson.results.bindings[i].score+'<br/>'
+				text = text+ ': <b><a target="_blank" href="'+encodeURI(linkURL)+'">' + value + '</a></b><br/>'
+				
+				
 				$('#searchSpinner').hide();
 			}
 			//$("#div3").html(text);
