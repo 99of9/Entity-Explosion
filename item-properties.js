@@ -511,16 +511,20 @@ var string = 'SELECT DISTINCT ?genProp ?property ?valueUri ?fmt_URL ?URL ?rankst
 					if (clonedJson.results.bindings[i].lang.value==isoLanguage) {
 						score += 6;
 					} else {
-						score -= 6;
+						if (clonedJson.results.bindings[i].lang.value=="en") {
+							score -= 5; // if all languages are different, choose English
+						} else {
+							score -= 6;
+						}
 					}
 				}
 
 				if (typeof clonedJson.results.bindings[i].part !== 'undefined') {
-					score -= 1; //applies to part limits the scope of how often this will resolve. Could instead check if this item is a member of that part.
+					score -= 2; //applies to part limits the scope of how often this will resolve. Could instead check if this item is a member of that part.
 				}
 
 				if (typeof clonedJson.results.bindings[i].jurisdiction !== 'undefined') {
-					score -= 1; //applies to jurisdiction limits the scope of how often this will resolve. Could instead check if this item is in this jurisdiction.
+					score -= 2; //applies to jurisdiction limits the scope of how often this will resolve. Could instead check if this item is in this jurisdiction.
 				}
 
 				if (typeof clonedJson.results.bindings[i].operatorLabel !== 'undefined') {
@@ -528,7 +532,7 @@ var string = 'SELECT DISTINCT ?genProp ?property ?valueUri ?fmt_URL ?URL ?rankst
 				}
 
 				if (typeof clonedJson.results.bindings[i].regex_req !== 'undefined') {					
-					console.log(clonedJson.results.bindings[i].regex_req.value+' =? '+clonedJson.results.bindings[i].valueUri.value)
+					//console.log(clonedJson.results.bindings[i].regex_req.value+' =? '+clonedJson.results.bindings[i].valueUri.value)
 					if (clonedJson.results.bindings[i].valueUri.value.match(clonedJson.results.bindings[i].regex_req.value)) { 
 						score += 8;
 						//console.log('MATCH') 
@@ -543,10 +547,10 @@ var string = 'SELECT DISTINCT ?genProp ?property ?valueUri ?fmt_URL ?URL ?rankst
 			//sort that preserves alphabetically grouped order of properties, but sorts internally on score
 			clonedJson.results.bindings.sort(function (a, b) {   
 			    if(a.property.value == b.property.value){ return b.score-a.score; }
-    			else { return (a.property.value < b.property.value) ? -1 : 1; }
+    			else { return (a.property.value.toLowerCase() < b.property.value.toLowerCase()) ? -1 : 1; }
  			});
 			
-			console.log(clonedJson)
+			//console.log(clonedJson)
 			
 			for (i = 0; i < clonedJson.results.bindings.length; i++) {
 				property = clonedJson.results.bindings[i].property.value
@@ -559,11 +563,11 @@ var string = 'SELECT DISTINCT ?genProp ?property ?valueUri ?fmt_URL ?URL ?rankst
 					if (clonedJson.results.bindings[i].valueUri.value.match(clonedJson.results.bindings[i].regex_req.value)) {
 						if (clonedJson.results.bindings[i].valueUri.value.match(clonedJson.results.bindings[i].regex_req.value).length>1) { 
 							linkURL = clonedJson.results.bindings[i].fmt_URL.value;
-							console.log(clonedJson.results.bindings[i].valueUri.value.match(clonedJson.results.bindings[i].regex_req.value))
+							//console.log(clonedJson.results.bindings[i].valueUri.value.match(clonedJson.results.bindings[i].regex_req.value))
 							for (m=1; m < clonedJson.results.bindings[i].valueUri.value.match(clonedJson.results.bindings[i].regex_req.value).length ; m++) {
 								linkURL = linkURL.replace( '$'+m , clonedJson.results.bindings[i].valueUri.value.match(clonedJson.results.bindings[i].regex_req.value)[m])
 							}
-							console.log('value '+clonedJson.results.bindings[i].valueUri.value+' regex: '+clonedJson.results.bindings[i].regex_req.value+' formatter: '+clonedJson.results.bindings[i].fmt_URL.value+' replaced linkURL: '+linkURL)
+							//console.log('value '+clonedJson.results.bindings[i].valueUri.value+' regex: '+clonedJson.results.bindings[i].regex_req.value+' formatter: '+clonedJson.results.bindings[i].fmt_URL.value+' replaced linkURL: '+linkURL)
 //							console.log('value '+clonedJson.results.bindings[i].valueUri.value+' regex: '+clonedJson.results.bindings[i].regex_req.value)
 //							console.log(' formatter: '+clonedJson.results.bindings[i].fmt_URL.value+' replaced linkURL: '+linkURL)
 						}
@@ -803,5 +807,9 @@ $(document).ready(function(){
 			initiateRedraw(savedIsoLanguage)
 		}
 	});
+
+	document.getElementById("ExtensionName").textContent = chrome.runtime.getManifest().name;
+	document.getElementById("ExtensionVersion").textContent = chrome.runtime.getManifest().version;
+	
 
 });
