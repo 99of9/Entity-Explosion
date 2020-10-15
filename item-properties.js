@@ -98,9 +98,51 @@ function redrawLabels(isoLanguage) {
   }
 }
 
+function specific_website_QID_search(isoLanguage, tabURL) {
+  var string = '';
+  // create URI-encoded query string to get corresponding Wikidata items name and IRI, example: https://w.wiki/guh
+  string = 
+  	'SELECT ?iri ?iriLabel WHERE {'
+  	+ 'BIND(URI("'+tabURL+'") AS ?uri)'
+  	+ '?iri wdt:P2699|wdt:P856|wdt:P854|wdt:P1065|wdt:P1581|wdt:P973|wdt:P8214|wdt:P7014|wdt:P6378|wdt:P7101 ?uri .'
+	+ "SERVICE wikibase:label { bd:serviceParam wikibase:language '" + isoLanguage + "' } ."
+	+ '}'
+	+ 'LIMIT 100'; //no sort for the moment - there should usually only be one result
+	
+  var encodedQuery = encodeURIComponent(string);
+
+  // send query to endpoint
+  $.ajax({
+    type: 'GET',
+    url: 'https://query.wikidata.org/sparql?query=' + encodedQuery,
+    headers: {
+      Accept: 'application/sparql-results+json'
+    },
+    success: function (returnedJson) {
+      if (returnedJson.results.bindings.length == 0) {
+        chrome.browserAction.setIcon({ path: "./EE-black-38.png" });
+        no_result();
+      } else {
+        for (i = 0; i < returnedJson.results.bindings.length; i++) {
+          // concatenate the Q number on the end of the label (Q extracted from iri after 31 other url characters)
+          label = returnedJson.results.bindings[i].iriLabel.value + ' (' + returnedJson.results.bindings[i].iri.value.substring(31, returnedJson.results.bindings[i].iri.value.length) + ')'
+          iri = returnedJson.results.bindings[i].iri.value
+          // add the new information to the dropdown list
+          $("#box1").append("<option value='" + iri + "'>" + label + '</option>');
+        }
+		  
+        chrome.browserAction.setIcon({ path: "./EE-emerald-38.png" });
+        if (returnedJson.results.bindings.length == 1) {
+          document.getElementById("box1").selectedIndex = "1"; //when only one item is returned, it's a match
+          box1change();
+        }
+      }
+    }
+  });
+}
+
 function general_QID_search(isoLanguage, tabURL) {
   var string = '';
-
   // create URI-encoded query string to get corresponding Wikidata items name and IRI, example: https://w.wiki/XZg
   string = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>'
     + 'PREFIX wd: <http://www.wikidata.org/entity/>'
@@ -141,18 +183,19 @@ function general_QID_search(isoLanguage, tabURL) {
       Accept: 'application/sparql-results+json'
     },
     success: function (returnedJson) {
-      for (i = 0; i < returnedJson.results.bindings.length; i++) {
-        // concatenate the Q number on the end of the label (Q extracted from iri after 31 other url characters)
-        label = returnedJson.results.bindings[i].iriLabel.value + ' (' + returnedJson.results.bindings[i].iri.value.substring(31, returnedJson.results.bindings[i].iri.value.length) + ')'
-        iri = returnedJson.results.bindings[i].iri.value
-        // add the new information to the dropdown list
-        $("#box1").append("<option value='" + iri + "'>" + label + '</option>');
-      }
       if (returnedJson.results.bindings.length == 0) {
-        //document.getElementById("box1").selectedIndex = "1"; //when only one item is returned, it's a match
         chrome.browserAction.setIcon({ path: "./EE-black-38.png" });
-        no_result();
+        //no_result();
+		specific_website_QID_search(isoLanguage, tabURL);
       } else {
+        for (i = 0; i < returnedJson.results.bindings.length; i++) {
+          // concatenate the Q number on the end of the label (Q extracted from iri after 31 other url characters)
+          label = returnedJson.results.bindings[i].iriLabel.value + ' (' + returnedJson.results.bindings[i].iri.value.substring(31, returnedJson.results.bindings[i].iri.value.length) + ')'
+          iri = returnedJson.results.bindings[i].iri.value
+          // add the new information to the dropdown list
+          $("#box1").append("<option value='" + iri + "'>" + label + '</option>');
+        }
+		  
         chrome.browserAction.setIcon({ path: "./EE-emerald-38.png" });
         if (returnedJson.results.bindings.length == 1) {
           document.getElementById("box1").selectedIndex = "1"; //when only one item is returned, it's a match
@@ -294,7 +337,7 @@ function no_result() {
   const tags = parsed.getElementsByTagName(`body`)
   //$("#div_wdlink").html(``);
   for (const tag of tags) {
-    $("#div_wdlink").append(tag)
+    $("#div_wdlink").append(tag.innerHTML)
   }
 
   $("#box1 option").text("(no result)");
@@ -330,7 +373,7 @@ function div_wd_change() {
   const tags = parsed.getElementsByTagName(`body`)
   $("#div_wdlink").html(``);
   for (const tag of tags) {
-    $("#div_wdlink").append(tag)
+    $("#div_wdlink").append(tag.innerHTML)
   }
 
 }
@@ -375,7 +418,7 @@ function div1change() {
       const tags = parsed.getElementsByTagName(`body`)
       $("#div1").html(``);
       for (const tag of tags) {
-        $("#div1").append(tag)
+        $("#div1").append(tag.innerHTML)
       }
 
       $('#searchSpinner').hide();
@@ -432,7 +475,7 @@ function div2change() {
       const tags = parsed.getElementsByTagName(`body`)
       $("#div2").html(``);
       for (const tag of tags) {
-        $("#div2").append(tag)
+        $("#div2").append(tag.innerHTML)
       }
 
       $('#searchSpinner').hide();
@@ -545,8 +588,8 @@ function div3change() {
 
       //sort that preserves alphabetically grouped order of properties, but sorts internally on score
       clonedJson.results.bindings.sort(function (a, b) {
-        if (a.property.value == b.property.value) { return b.score - a.score; }
-        else { return (a.property.value.toLowerCase() < b.property.value.toLowerCase()) ? -1 : 1; }
+        if ((a.property.value == b.property.value)&&(a.valueUri.value==b.valueUri.value)) { return b.score - a.score; }
+        else { return (a.property.value.toLowerCase()+'   '+a.valueUri.value.toLowerCase() < b.property.value.toLowerCase()+'   '+b.valueUri.value.toLowerCase()) ? -1 : 1; }
       });
 
       //console.log(clonedJson)
@@ -578,7 +621,7 @@ function div3change() {
         //if (rankstr.indexOf("Normal") !== -1) {console.log("normal found: "+rankstr)}
 
         if (i !== 0) {
-          if (clonedJson.results.bindings[i].property.value == clonedJson.results.bindings[i - 1].property.value) {
+          if ((clonedJson.results.bindings[i].property.value == clonedJson.results.bindings[i - 1].property.value)&&(clonedJson.results.bindings[i].valueUri.value == clonedJson.results.bindings[i - 1].valueUri.value)) {
             continue; //skip outscored duplicates				
           }
           if (score < 0) {
@@ -598,14 +641,13 @@ function div3change() {
 
         $('#searchSpinner').hide();
       }
-      //$("#div3").html(text);
 
       const parser = new DOMParser()
       const parsed = parser.parseFromString(text, `text/html`)
       const tags = parsed.getElementsByTagName(`body`)
       $("#div3").html(``);
       for (const tag of tags) {
-        $("#div3").append(tag)
+        $("#div3").append(tag.innerHTML)
       }
 
     }
@@ -618,10 +660,10 @@ function div_wiki_change() {
 
   // create URI-encoded query string to get property names, IDs, and compiled link URLs. model query here: https://w.wiki/XNq
   var string = 'PREFIX schema: <http://schema.org/>'
-    + 'SELECT DISTINCT ?article ?articlelang WHERE {'
-    + '?article schema:about <' + iri + '> .'
-    + '?article schema:inLanguage ?articlelang .'
-    + '}'
+				+'SELECT DISTINCT ?article ?articlelang WHERE {'
+  				+'?article schema:about <' + iri + '> .'
+  				+'?article schema:inLanguage ?articlelang .'
+				+'}'
   var encodedQuery = encodeURIComponent(string);
 
   // send query to endpoint
@@ -632,13 +674,13 @@ function div_wiki_change() {
       Accept: 'application/sparql-results+json'
     },
     success: function (returnedJson) {
-      text = ''
-      for (var i = 0; i < returnedJson.results.bindings.length; i++) {
-
-        var article = decodeURIComponent(returnedJson.results.bindings[i].article.value)  // the decode fixes characters from other scripts, e.g. Māori
-        var articlelang = returnedJson.results.bindings[i].articlelang.value
-
-        site = 'article' //default, will apply to "other sites"
+	  text = ''
+	  for (var i = 0; i < returnedJson.results.bindings.length; i++) {
+				
+		var article = decodeURIComponent(returnedJson.results.bindings[i].article.value)  // the decode fixes characters from other scripts, e.g. Māori
+		var articlelang = returnedJson.results.bindings[i].articlelang.value
+				
+		site = 'article' //default, will apply to "other sites"
 
         if ((articlelang.localeCompare(isoLanguage) == 0) || article.includes("commons.wikimedia.org") || article.includes("species.wikimedia.org")) {
           //this specifies the language version, but also includes two multilingual projects
@@ -746,7 +788,58 @@ function div_wiki_change() {
       const tags = parsed.getElementsByTagName(`body`)
       $("#div_wiki").html(``);
       for (const tag of tags) {
-        $("#div_wiki").append(tag)
+        $("#div_wiki").append(tag.innerHTML)
+      }
+    }
+  });
+}
+
+function div_title_change() {
+  var iri = $("#box1").val();
+  var isoLanguage = $("#box0").val();
+
+  // model query here: https://w.wiki/gfp
+  var string = 'PREFIX schema: <http://schema.org/>'
+    + 'SELECT DISTINCT ?itemLabel ?itemDesc WHERE {'
+	+ 'OPTIONAL {<' + iri + '> rdfs:label ?itemLabel.'
+	+ 'FILTER(LANG(?itemLabel) = "' + isoLanguage + '")}'
+	+ 'OPTIONAL {<' + iri + '> schema:description ?itemDesc.'
+	+ 'FILTER ( lang(?itemDesc) = "' + isoLanguage + '" )}'
+    + '}'
+  var encodedQuery = encodeURIComponent(string);
+
+  // send query to endpoint
+  $.ajax({
+    type: 'GET',
+    url: 'https://query.wikidata.org/sparql?query=' + encodedQuery,
+    headers: {
+      Accept: 'application/sparql-results+json'
+    },
+    success: function (returnedJson) {
+      text = ''
+      for (var i = 0; i < returnedJson.results.bindings.length; i++) {
+		//there should only be one set of results (length=1)
+
+		if (typeof returnedJson.results.bindings[i].itemLabel !== 'undefined') {
+		  var label = returnedJson.results.bindings[i].itemLabel.value
+          text = text + '<h3>' + label + '</h3>'
+		}
+		if (typeof returnedJson.results.bindings[i].itemDesc !== 'undefined') {
+          var desc = returnedJson.results.bindings[i].itemDesc.value
+          text = text + '<h4>' + desc + '</h4>'
+		}
+
+        $('#searchSpinner').hide();
+      }
+
+      $("#div_title").html(text);
+
+      const parser = new DOMParser()
+      const parsed = parser.parseFromString(text, `text/html`)
+      const tags = parsed.getElementsByTagName(`body`)
+      $("#div_title").html(``);
+      for (const tag of tags) {
+        $("#div_title").append(tag.innerHTML)
       }
     }
   });
@@ -754,6 +847,7 @@ function div_wiki_change() {
 
 function box1change() {
   div_wd_change();
+  div_title_change();
   div_wiki_change();
   div1change();
   div2change();
