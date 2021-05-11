@@ -8,7 +8,7 @@ function handleResponse(message) {
   //console.log(`Message from the background script:  ${message.response}`);
 }
 function handleError(error) {
-  console.log(`Error: ${error}`);
+  //console.log(`Error: ${error}`);
 }
 function requestLanguages() {
   var sending = chrome.runtime.sendMessage({
@@ -43,7 +43,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 })
 
 function selectElement(id, valueToSelect) {
-  let element = document.getElementById(id);
+  var element = document.getElementById(id);
   element.value = valueToSelect;
 }
 
@@ -333,12 +333,16 @@ function no_result() {
   text = '<p>No result was found on Wikidata. If other items on this site resolve correctly, this ID may be missing from the item (<a target="_blank"  href="https://www.wikidata.org/w/index.php?sort=relevance&search=&title=Special:Search&profile=advanced&fulltext=1&advancedSearch-current=%7B%7D&ns0=1&ns146=1">search</a>), or a <a target="_blank" href="https://www.wikidata.org/wiki/Special:NewItem">new item</a> could be created.</p>';
 
   const parser = new DOMParser()
-  const parsed = parser.parseFromString(text, `text/html`)
-  const tags = parsed.getElementsByTagName(`body`)
-  //$("#div_wdlink").html(``);
-  for (const tag of tags) {
-    $("#div_wdlink").append(tag.innerHTML)
+  const parsed = parser.parseFromString(text, 'text/html')
+  const tags = parsed.getElementsByTagName('body')
+  //$("#div_wdlink").html('');
+  //for (const tag of tags) {
+  for (var i = 0; i < tags.length; i++) {
+    $("#div_wdlink").append(tags[i].innerHTML)
   }
+  //THIS WAS REPLACED BY THE FOR LOOP ABOVE: for (const tag of tags) {
+  //  $("#div_wdlink").append(tag.innerHTML)
+  //}
 
   $("#box1 option").text("(no result)");
 }
@@ -369,11 +373,14 @@ function div_wd_change() {
   //$("#div_wdlink").html(text);
 
   const parser = new DOMParser()
-  const parsed = parser.parseFromString(text, `text/html`)
-  const tags = parsed.getElementsByTagName(`body`)
-  $("#div_wdlink").html(``);
-  for (const tag of tags) {
-    $("#div_wdlink").append(tag.innerHTML)
+  const parsed = parser.parseFromString(text, 'text/html')
+  const tags = parsed.getElementsByTagName('body')
+  $("#div_wdlink").html('');
+  //for (const tag of tags) {
+  //  $("#div_wdlink").append(tag.innerHTML)
+  //}
+  for (var i = 0; i < tags.length; i++) {
+    $("#div_wdlink").append(tags[i].innerHTML)
   }
 
 }
@@ -414,12 +421,15 @@ function div1change() {
       //$("#div1").html(text);
 
       const parser = new DOMParser()
-      const parsed = parser.parseFromString(text, `text/html`)
-      const tags = parsed.getElementsByTagName(`body`)
-      $("#div1").html(``);
-      for (const tag of tags) {
-        $("#div1").append(tag.innerHTML)
-      }
+      const parsed = parser.parseFromString(text, 'text/html')
+      const tags = parsed.getElementsByTagName('body')
+      $("#div1").html('');
+      //for (const tag of tags) {
+      //  $("#div1").append(tag.innerHTML)
+      //}
+	  for (var i = 0; i < tags.length; i++) {
+    	$("#div1").append(tags[i].innerHTML)
+  	  }
 
       $('#searchSpinner').hide();
     }
@@ -471,12 +481,16 @@ function div2change() {
       //$("#div2").html(text);
 
       const parser = new DOMParser()
-      const parsed = parser.parseFromString(text, `text/html`)
-      const tags = parsed.getElementsByTagName(`body`)
-      $("#div2").html(``);
-      for (const tag of tags) {
-        $("#div2").append(tag.innerHTML)
-      }
+      const parsed = parser.parseFromString(text, 'text/html')
+      const tags = parsed.getElementsByTagName('body')
+      $("#div2").html('');
+      //for (const tag of tags) {
+      //  $("#div2").append(tag.innerHTML)
+      //}
+	  for (var i = 0; i < tags.length; i++) {
+    	$("#div2").append(tags[i].innerHTML)
+  	  }
+
 
       $('#searchSpinner').hide();
     }
@@ -643,12 +657,16 @@ function div3change() {
       }
 
       const parser = new DOMParser()
-      const parsed = parser.parseFromString(text, `text/html`)
-      const tags = parsed.getElementsByTagName(`body`)
-      $("#div3").html(``);
-      for (const tag of tags) {
-        $("#div3").append(tag.innerHTML)
-      }
+      const parsed = parser.parseFromString(text, 'text/html')
+      const tags = parsed.getElementsByTagName('body')
+      $("#div3").html('');
+      //for (const tag of tags) {
+      //  $("#div3").append(tag.innerHTML)
+      //}
+	  for (var i = 0; i < tags.length; i++) {
+	    $("#div3").append(tags[i].innerHTML)
+  	  }
+
 
     }
   });
@@ -784,12 +802,16 @@ function div_wiki_change() {
       $("#div_wiki").html(text);
 
       const parser = new DOMParser()
-      const parsed = parser.parseFromString(text, `text/html`)
-      const tags = parsed.getElementsByTagName(`body`)
-      $("#div_wiki").html(``);
-      for (const tag of tags) {
-        $("#div_wiki").append(tag.innerHTML)
-      }
+      const parsed = parser.parseFromString(text, 'text/html')
+      const tags = parsed.getElementsByTagName('body')
+      $("#div_wiki").html('');
+      //for (const tag of tags) {
+      //  $("#div_wiki").append(tag.innerHTML)
+      //}
+	  for (var i = 0; i < tags.length; i++) {
+	    $("#div_wiki").append(tags[i].innerHTML)
+  	  }
+
     }
   });
 }
@@ -798,14 +820,15 @@ function div_title_change() {
   var iri = $("#box1").val();
   var isoLanguage = $("#box0").val();
 
-  // model query here: https://w.wiki/gfp
+  // model query here: https://w.wiki/3JhK
   var string = 'PREFIX schema: <http://schema.org/>'
-    + 'SELECT DISTINCT ?itemLabel ?itemDesc WHERE {'
+    + 'SELECT DISTINCT ?itemLabel ?itemDesc ?image WHERE {'
 	+ 'OPTIONAL {<' + iri + '> rdfs:label ?itemLabel.'
 	+ 'FILTER(LANG(?itemLabel) = "' + isoLanguage + '")}'
 	+ 'OPTIONAL {<' + iri + '> schema:description ?itemDesc.'
 	+ 'FILTER ( lang(?itemDesc) = "' + isoLanguage + '" )}'
-    + '}'
+	+ 'OPTIONAL {<' + iri + '> wdt:P18 ?image.}'
+    + '} LIMIT 1'
   var encodedQuery = encodeURIComponent(string);
 
   // send query to endpoint
@@ -820,27 +843,38 @@ function div_title_change() {
       for (var i = 0; i < returnedJson.results.bindings.length; i++) {
 		//there should only be one set of results (length=1)
 
+		if (typeof returnedJson.results.bindings[i].image !== 'undefined') {
+          var desc = returnedJson.results.bindings[i].image.value.substr(51)
+          //text = text + '<h4>' + desc + '</h4>'
+          text = text + '<a target="_blank" href="https://commons.wikimedia.org/wiki/File:' + desc + '"><img src="https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/' + desc + '&width=106" style="float:right;height:106px;"></a>'
+		}
+		
+        text = text + '<div style="background-color:#FFFFFF;padding:20px;padding-top:10px;padding-bottom:10px;padding-right:0px;">'
 		if (typeof returnedJson.results.bindings[i].itemLabel !== 'undefined') {
 		  var label = returnedJson.results.bindings[i].itemLabel.value
           text = text + '<h3>' + label + '</h3>'
 		}
 		if (typeof returnedJson.results.bindings[i].itemDesc !== 'undefined') {
           var desc = returnedJson.results.bindings[i].itemDesc.value
-          text = text + '<h4>' + desc + '</h4>'
+          text = text + '<h5>' + desc + '</h5>'
 		}
+        text = text + '</div>'
 
         $('#searchSpinner').hide();
       }
-
       $("#div_title").html(text);
 
       const parser = new DOMParser()
-      const parsed = parser.parseFromString(text, `text/html`)
-      const tags = parsed.getElementsByTagName(`body`)
-      $("#div_title").html(``);
-      for (const tag of tags) {
-        $("#div_title").append(tag.innerHTML)
-      }
+      const parsed = parser.parseFromString(text, 'text/html')
+      const tags = parsed.getElementsByTagName('body')
+      $("#div_title").html('');
+      //for (const tag of tags) {
+      //  $("#div_title").append(tag.innerHTML)
+      //}
+      for (var i = 0; i < tags.length; i++) {
+  	    $("#div_title").append(tags[i].innerHTML)
+  	  }
+
     }
   });
 }
