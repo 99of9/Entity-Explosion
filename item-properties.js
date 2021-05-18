@@ -164,7 +164,11 @@ function general_QID_search(isoLanguage, tabURL) {
     + 'FILTER(STRSTARTS( ?test_url, ?f_url_start ))'
     + 'FILTER(STRENDS( ?test_url, ?f_url_end ))'
     + 'BIND ( SUBSTR( ?test_url, 1+STRLEN(?f_url_start), STRLEN(?test_url)-STRLEN(?f_url_start)-STRLEN(?f_url_end) ) AS ?id_uncut )'
-    + '?prop p:P1793/ps:P1793 ?regex .'
+    + '{?prop p:P1793/ps:P1793 ?regex .}'
+    + 'UNION'
+    + '{?prop p:P2302 ?statement .'
+    + '?statement ?ps wd:Q21502404 .'
+    +  '?statement pq:P1793 ?regex .}'
     + 'BIND ( REPLACE (?id_uncut, CONCAT("(",?regex,").*"),"$1","i") AS ?id )'
     + 'BIND ( LCASE(?id) AS ?lcid)'
     + '?prop wikibase:directClaim ?propRel .'
@@ -820,14 +824,18 @@ function div_title_change() {
   var iri = $("#box1").val();
   var isoLanguage = $("#box0").val();
 
-  // model query here: https://w.wiki/3JhK
+  // model query here: https://w.wiki/3Jwr
   var string = 'PREFIX schema: <http://schema.org/>'
     + 'SELECT DISTINCT ?itemLabel ?itemDesc ?image WHERE {'
 	+ 'OPTIONAL {<' + iri + '> rdfs:label ?itemLabel.'
 	+ 'FILTER(LANG(?itemLabel) = "' + isoLanguage + '")}'
 	+ 'OPTIONAL {<' + iri + '> schema:description ?itemDesc.'
 	+ 'FILTER ( lang(?itemDesc) = "' + isoLanguage + '" )}'
-	+ 'OPTIONAL {<' + iri + '> wdt:P18 ?image.}'
+	+ 'OPTIONAL {'
+	+ '?subProperties wdt:P1647* wd:P18.'
+    + '?subProperties wikibase:directClaim ?propertyRel.'
+    + '<' + iri + '> ?propertyRel ?image.'
+	+ '}'
     + '} LIMIT 1'
   var encodedQuery = encodeURIComponent(string);
 
