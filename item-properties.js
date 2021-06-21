@@ -104,7 +104,7 @@ function specific_website_QID_search(isoLanguage, tabURL) {
   string = 
   	'SELECT ?iri ?iriLabel WHERE {'
   	+ 'BIND(URI("'+tabURL+'") AS ?uri)'
-  	+ '?iri wdt:P2699|wdt:P856|wdt:P854|wdt:P1065|wdt:P1581|wdt:P973|wdt:P8214|wdt:P7014|wdt:P6378|wdt:P7101 ?uri .'
+  	+ '?iri wdt:P2699|wdt:P856|wdt:P854|wdt:P1065|wdt:P1581|wdt:P973|wdt:P8214|wdt:P7014|wdt:P6378|wdt:P7101|wdt:P2888 ?uri .'
 	+ "SERVICE wikibase:label { bd:serviceParam wikibase:language '" + isoLanguage + "' } ."
 	+ '}'
 	+ 'LIMIT 100'; //no sort for the moment - there should usually only be one result
