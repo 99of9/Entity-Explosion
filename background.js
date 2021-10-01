@@ -306,7 +306,7 @@ function get_formatters() {
 
 
 function get_translations() {
-  // create URI-encoded query string to get current translations  https://w.wiki/XUx
+  // create URI-encoded query string to get current translations  https://w.wiki/48KQ
   var string = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>'
     + 'PREFIX wd: <http://www.wikidata.org/entity/>'
     + 'PREFIX wdt: <http://www.wikidata.org/prop/direct/>'
@@ -402,12 +402,10 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   }
 });
 
-
 chrome.runtime.onInstalled.addListener(() => {
   get_translations()
   get_formatters()
 });
-
 
 chrome.storage.local.get(['langtrans'], function (result) {
   if (typeof result.langtrans !== 'undefined') {

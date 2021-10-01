@@ -57,12 +57,12 @@ function update_languagebox(language_translations) {
   //add English at the start as a default
   var o = document.createElement("option");
   o.value = "en";
-  o.text = "English";
+  o.text = "[en] English";
   selection.appendChild(o);
   for (var i = 0; i < Object.keys(language_translations).length; i++) {
     var o = document.createElement("option");
     o.value = language_translations[i].lang;
-    o.text = language_translations[i].tongue;
+    o.text = '['+language_translations[i].lang+']     '+language_translations[i].tongue;
     selection.appendChild(o);
 
     if (o.value == savedIsoLanguage) {
@@ -143,7 +143,7 @@ function specific_website_QID_search(isoLanguage, tabURL) {
 
 function general_QID_search(isoLanguage, tabURL) {
   var string = '';
-  // create URI-encoded query string to get corresponding Wikidata items name and IRI, example: https://w.wiki/XZg
+  // create URI-encoded query string to get corresponding Wikidata items name and IRI, example: https://w.wiki/XZg https://w.wiki/3uQa
   string = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>'
     + 'PREFIX wd: <http://www.wikidata.org/entity/>'
     + 'PREFIX wdt: <http://www.wikidata.org/prop/direct/>'
