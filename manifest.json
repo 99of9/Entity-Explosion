@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Entity Explosion",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Discover links and information about the same topic on other sites. Data live from Wikidata.",
   "icons": {
    "38": "EE-grey-38.png"
@@ -11,7 +11,7 @@
     "default_title": "Entity Explosion"
   },
   "background": {
-     "scripts": ["jquery.min.js", "background.js"]
+     "scripts": ["jquery-3.6.0.min.js", "background.js"]
   },
   "content_scripts": [  ],
   "content_security_policy": "script-src 'self'; object-src 'self'",

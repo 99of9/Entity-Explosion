@@ -101,9 +101,12 @@ function redrawLabels(isoLanguage) {
 function specific_website_QID_search(isoLanguage, tabURL) {
   var string = '';
   // create URI-encoded query string to get corresponding Wikidata items name and IRI, example: https://w.wiki/guh
+  // would work better if any trailing "/" was first removed from the tabURL   
+  var tabURL_stripped = tabURL.replace(/\/$/, "");
+
   string = 
   	'SELECT ?iri ?iriLabel WHERE {'
-  	+ 'BIND(URI("'+tabURL+'") AS ?uri)'
+  	+ 'BIND(URI("'+tabURL_stripped+'") AS ?uri)'
   	+ '?iri wdt:P2699|wdt:P856|wdt:P854|wdt:P1065|wdt:P1581|wdt:P973|wdt:P8214|wdt:P7014|wdt:P6378|wdt:P7101|wdt:P2888 ?uri .'
 	+ "SERVICE wikibase:label { bd:serviceParam wikibase:language '" + isoLanguage + "' } ."
 	+ '}'
