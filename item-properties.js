@@ -100,9 +100,11 @@ function redrawLabels(isoLanguage) {
 
 function specific_website_QID_search(isoLanguage, tabURL) {
   var string = '';
-  // create URI-encoded query string to get corresponding Wikidata items name and IRI, example: https://w.wiki/guh
+  // create URI-encoded query string to get corresponding Wikidata items name and IRI, example: https://w.wiki/4udf
   // would work better if any trailing "/" was first removed from the tabURL   
   var tabURL_stripped = tabURL.replace(/\/$/, "");
+
+  console.log('direct URL test: '+tabURL_stripped);
 
   string = 
   	'SELECT ?iri ?iriLabel WHERE {'
@@ -147,6 +149,9 @@ function specific_website_QID_search(isoLanguage, tabURL) {
 function general_QID_search(isoLanguage, tabURL) {
   var string = '';
   // create URI-encoded query string to get corresponding Wikidata items name and IRI, example: https://w.wiki/XZg https://w.wiki/3uQa
+  
+  console.log('general QID search: '+tabURL);
+  
   string = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>'
     + 'PREFIX wd: <http://www.wikidata.org/entity/>'
     + 'PREFIX wdt: <http://www.wikidata.org/prop/direct/>'
@@ -225,6 +230,9 @@ function nthIndex(str, pat, n) {
 function wiki_QID_search(isoLanguage, tabURL) {
   var encodedTitle = tabURL.substring(1 + tabURL.lastIndexOf("/"));
   var site = tabURL.substring(0, nthIndex(tabURL, "/", 3));
+  
+  console.log('wik QID search: '+tabURL);
+ 
   var queryString = site + "/w/api.php?action=query&prop=pageprops&titles=" + encodedTitle + "&format=json";
 
   // send query to endpoint, see https://en.wikipedia.org/wiki/Wikipedia:Finding_a_Wikidata_ID
@@ -270,6 +278,8 @@ function wiki_QID_search(isoLanguage, tabURL) {
 function wikidata_QID_search(isoLanguage, tabURL) {
   var encodedTitle = tabURL.substring(1 + tabURL.lastIndexOf("/"));
   var site = tabURL.substring(0, nthIndex(tabURL, "/", 3));
+
+  console.log('wikidata QID search: '+tabURL);
 
   if (encodedTitle.startsWith("Property:")) {
     QID = encodedTitle.substring(9)
