@@ -78,6 +78,7 @@ function url_matches_formatters(url) {
   }
 
   const startTime = performance.now();
+  var duration;
   //console.log('init length '+Object.keys(window.formatters).length)
 
   // binary search to find a matching host only (e.g. "inaturalist.com" without anything before or after)
@@ -102,7 +103,7 @@ function url_matches_formatters(url) {
         break;
       }
       if (url_cut.match(window.formatters[i].formatregex)) {
-        const duration = performance.now() - startTime;
+        duration = performance.now() - startTime;
         console.log('prop_regex true '+ url_cut +'='+window.formatters[i].formatregex+' took '+duration+'ms');
         return true;
       }
@@ -114,13 +115,13 @@ function url_matches_formatters(url) {
         break;
       }
       if (url_cut.match(window.formatters[i].formatregex)) {
-        const duration = performance.now() - startTime;
+        duration = performance.now() - startTime;
         console.log('prop_regex true '+ url_cut +'='+window.formatters[i].formatregex+' took '+duration+'ms');
         return true;
       }
     }
 
-    const duration = performance.now() - startTime;
+    duration = performance.now() - startTime;
     console.log('prop_regex false took '+duration+'ms');
     return false;
   }
@@ -167,6 +168,7 @@ function url_matches_matchpatterns(url) {
   }
 
   const startTime = performance.now();
+  var duration;
   //console.log('init length '+Object.keys(window.formatters).length)
 
   // binary search to find a matching host only (e.g. "inaturalist.com" without anything before or after)
@@ -220,12 +222,12 @@ function url_matches_matchpatterns(url) {
   // linear matching with full regex match
   for (i = 0; i < Object.keys(window.matchpatterns).length; i++) {
   	if (url_decoded.match(window.matchpatterns[i].matchpatternregex)) {
-  		const duration = performance.now() - startTime;
+  		duration = performance.now() - startTime;
   		console.log('matchpattern_match true '+ url_decoded +'='+window.matchpatterns[i].matchpatternregex+' took '+duration+'ms');
   		return true;
   	}
   }
-  const duration = performance.now() - startTime;
+  duration = performance.now() - startTime;
   console.log('matchpattern_match false on '+url_decoded+' took '+duration+'ms');
   
   return false;
@@ -609,7 +611,8 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   }
 });
 
-chrome.runtime.onInstalled.addListener(() => {
+chrome.runtime.onInstalled.addListener( function(){
+  //console.log("onInstalled.addListener");
   get_translations()
   get_formatters()
   get_matchpatterns()
@@ -681,7 +684,7 @@ chrome.storage.local.get(['matchpatterns', 'MPcacheTime'], function (result) {
       }
 
       window.matchpatterns[i].matchpatternregex = RE
-      console.log("Matchpattern ["+i+"] on property " + window.matchpatterns[i].prop + " is "+window.matchpatterns[i].matchpatternregex)
+      //console.log("Matchpattern ["+i+"] on property " + window.matchpatterns[i].prop + " is "+window.matchpatterns[i].matchpatternregex)
     }
     if ((Object.keys(window.matchpatterns).length < 99)  || (result.MPcacheTime < Date.now() - 1000*60*60*24*7)) { 
       get_matchpatterns()
