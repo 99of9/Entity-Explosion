@@ -19,9 +19,7 @@
   },
   "permissions": [
   	"tabs", 
-  	"storage", 
-	"declarativeNetRequest",
-    "declarativeNetRequestFeedback"
+  	"storage"
   ],
   "host_permissions": [
 	"https://commons.wikimedia.org/w/api.php", 
