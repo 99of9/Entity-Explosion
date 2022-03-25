@@ -6,31 +6,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Entity Explosion</title>
 
-
-  <link rel="stylesheet" href="./bootstrap.min.css">
-  <link rel="stylesheet" href="./font-awesome.min.css">
+  <link rel="stylesheet" href="./bootstrap.min.css"> <!-- this seems connected to the "RESOURCE FAILED TO LOAD" error, but is required for pretty dropdowns -->
+  <!--<link rel="stylesheet" href="./font-awesome.min.css">-->
 
   <script src="jquery-3.6.0.min.js"></script>
-  <script src="bootstrap.min.js"></script>
+  <!--<script src="bootstrap.min.js"></script>-->
 
 </head>
 <body style = "min-width: 400px; max-width: 500px;">
  <script src="popup.js" charset="utf-8"></script>
 
- <!-- <div class="container" style="margin-bottom: 50px;"> -->
   <div style="margin-bottom: 0px;">
 
     <!-- here is where the lookup URL and WD item will be displayed -->
     <div id="div0" style="word-wrap: break-word;"></div>
     <div class="form-horizontal input-group-addon">
-    <!-- <form class="form-inline" role="form"> -->
-
         <div class="form-group">
             <label for="box0" class="col-sm-4 control-label" id="boxLabel0">language/língua/Sprache/idioma/语言/言語</label>
             <div class="col-sm-5">
                 <select name="languageDropdown" id="box0" class="form-control">
-                  <!-- this list was originally compiled from data from https://w.wiki/XU5 -->
-                  <!-- now it is automatically loaded when background.js runs a query and gets all the languages back from WD -->
+                  <!-- this list is automatically loaded when background.js runs a query and gets all the languages back from WD -->
 				  <!--<option value='en' selected='selected'>English</option>-->
                 </select>
             </div>
@@ -50,7 +45,6 @@
 
      <!--Here is where the info gets inserted-->
     <div id="div_title" style="background-color:#FFFFFF;padding:0px"></div>
-    <!--<div id="div_title" style="background-color:#FFFFFF;padding:20px;padding-top:0px;padding-bottom:10px;padding-right:0px;"></div> -->
     <div id="div_wdlink" style="background-color:#EEEEEE;padding:5px;padding-bottom:0px;"></div>
     <div id="div_wiki" style="background-color:#EEEEEE;padding:5px;padding-top:0px;"></div>
     <div id="div1" style="background-color:#FFFFFF;padding:5px;"></div>
@@ -67,7 +61,6 @@
         </div>
     </div>
 
-   	<!-- </div> /.container -->
-	<script src="item-properties.js"></script>
+ 	<script src="item-properties.js"></script>
 </body>
 </html>

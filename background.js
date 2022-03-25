@@ -1,22 +1,21 @@
-window.language_translations = {}
-window.formatters = {}
-window.matchpatterns = {}
-window.savedIsoLanguage = 'en' //default start with English
+// background.js
+
+language_translations = {}
+formatters = {}
+matchpatterns = {}
+savedIsoLanguage = 'en' //default start with English
 
 chrome.storage.sync.get(['IsoLanguage'], function (result) {
   if (typeof result !== 'undefined') {
     if (typeof result.IsoLanguage !== 'undefined') {
-      window.savedIsoLanguage = result.IsoLanguage;
+      savedIsoLanguage = result.IsoLanguage;
     }
   }
 });
 
-
 dummy_translations()
 
-
 function binarySearch(list, value) {
-
   //if (typeof value == 'undefined') return -1;
 
   var startIndex = 0,
@@ -59,7 +58,7 @@ function url_matches_formatters(url) {
   var url_host = url.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0]
 
   //console.log('formatters')
-  //console.log(window.formatters);
+  //console.log(formatters);
 
   //quick screen for valid Wikimedia sites
   if ((url_host.includes("commons.wikimedia.org")) ||
@@ -79,10 +78,10 @@ function url_matches_formatters(url) {
 
   const startTime = performance.now();
   var duration;
-  //console.log('init length '+Object.keys(window.formatters).length)
+  //console.log('init length '+Object.keys(formatters).length)
 
   // binary search to find a matching host only (e.g. "inaturalist.com" without anything before or after)
-  var match_index = binarySearch(window.formatters, url_host);
+  var match_index = binarySearch(formatters, url_host);
 
   if (match_index == -1) {
     //const duration = performance.now() - startTime;
@@ -90,33 +89,29 @@ function url_matches_formatters(url) {
     return false;
   } else {
     //we have a match to the host, and know the match_index in the array. Other matches may be just above or below in the list.
-    //COULD return a really rough true here:
-    //const duration = performance.now() - startTime;
-    //console.log('prop_regex true '+ url_host +'='+window.formatters[match_index].formatregex+' took '+duration+'ms');
-    //return true;
-
+    //COULD return a really rough true here, see version 0.9.1
     //BUT INSTEAD now look for the a *true* match, including the full formatregex
-    for (i = match_index; i < Object.keys(window.formatters).length; i++) {
+    for (i = match_index; i < Object.keys(formatters).length; i++) {
       //console.log('test rough match i='+i)
-      if ((window.formatters[i].formatter.split('/')[0] != url_host)) {
+      if ((formatters[i].formatter.split('/')[0] != url_host)) {
         //we've gone out of the matching hosts
         break;
       }
-      if (url_cut.match(window.formatters[i].formatregex)) {
+      if (url_cut.match(formatters[i].formatregex)) {
         duration = performance.now() - startTime;
-        console.log('prop_regex true '+ url_cut +'='+window.formatters[i].formatregex+' took '+duration+'ms');
+        console.log('prop_regex true '+ url_cut +'='+formatters[i].formatregex+' took '+duration+'ms');
         return true;
       }
     }
     for (i = match_index - 1; i >= 0; i--) {
       //console.log('test rough match i='+i)
-      if ((window.formatters[i].formatter.split('/')[0] != url_host)) {
+      if ((formatters[i].formatter.split('/')[0] != url_host)) {
         //we've gone out of the matching hosts
         break;
       }
-      if (url_cut.match(window.formatters[i].formatregex)) {
+      if (url_cut.match(formatters[i].formatregex)) {
         duration = performance.now() - startTime;
-        console.log('prop_regex true '+ url_cut +'='+window.formatters[i].formatregex+' took '+duration+'ms');
+        console.log('prop_regex true '+ url_cut +'='+formatters[i].formatregex+' took '+duration+'ms');
         return true;
       }
     }
@@ -126,30 +121,17 @@ function url_matches_formatters(url) {
     return false;
   }
 
-  // old linear matching with full regex match
-  //for (i = 0; i < Object.keys(window.formatters).length; i++) {
-  //	if (url.match(window.formatters[i].formatregex)) {
-  //		const duration = performance.now() - startTime;
-  //		console.log('prop_regex true '+ url +'='+window.formatters[i].formatregex+' took '+duration+'ms');
-  //		return true;
-  //	}
-  //}
-  //const duration = performance.now() - startTime;
-  //console.log('prop_regex false took '+duration+'ms');
-  //return false;
+  // old linear matching with full regex match in version 0.9.1
 }
 
 function url_matches_matchpatterns(url) {
 
   var url_decoded = decodeURIComponent(url);
-  
-  //console.log(decodeURIComponent('https://developer.mozilla.org/ru/docs/JavaScript_%D1%88%D0%B5%D0%BB%D0%BB%D1%8B%3A'))
-
   var url_cut = url.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
   var url_host = url.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0]
 
   //console.log('matchpattern')
-  //console.log(window.matchpattern);
+  //console.log(matchpattern);
 
   //quick screen for valid Wikimedia sites
   if ((url_host.includes("commons.wikimedia.org")) ||
@@ -169,61 +151,18 @@ function url_matches_matchpatterns(url) {
 
   const startTime = performance.now();
   var duration;
-  //console.log('init length '+Object.keys(window.formatters).length)
+  //console.log('init length '+Object.keys(formatters).length)
 
-  // binary search to find a matching host only (e.g. "inaturalist.com" without anything before or after)
-  
   /*
-  var match_index = binarySearchMP(window.matchpattern, url_host);
-
-  if (match_index == -1) {
-    //const duration = performance.now() - startTime;
-    //console.log('prop_regex false took '+duration+'ms');
-    return false;
-  } else {
-    //we have a match to the host, and know the match_index in the array. Other matches may be just above or below in the list.
-    //COULD return a really rough true here:
-    //const duration = performance.now() - startTime;
-    //console.log('prop_regex true '+ url_host +'='+window.formatters[match_index].formatregex+' took '+duration+'ms');
-    //return true;
-
-    //BUT INSTEAD now look for the a *true* match, including the full formatregex
-    for (i = match_index; i < Object.keys(window.formatters).length; i++) {
-      //console.log('test rough match i='+i)
-      if ((window.formatters[i].formatter.split('/')[0] != url_host)) {
-        //we've gone out of the matching hosts
-        break;
-      }
-      if (url_cut.match(window.formatters[i].formatregex)) {
-        //const duration = performance.now() - startTime;
-        //console.log('prop_regex true '+ url_cut +'='+window.formatters[i].formatregex+' took '+duration+'ms');
-        return true;
-      }
-    }
-    for (i = match_index - 1; i >= 0; i--) {
-      //console.log('test rough match i='+i)
-      if ((window.formatters[i].formatter.split('/')[0] != url_host)) {
-        //we've gone out of the matching hosts
-        break;
-      }
-      if (url_cut.match(window.formatters[i].formatregex)) {
-        //const duration = performance.now() - startTime;
-        //console.log('prop_regex true '+ url_cut +'='+window.formatters[i].formatregex+' took '+duration+'ms');
-        return true;
-      }
-    }
-
-    //const duration = performance.now() - startTime;
-    //console.log('prop_regex rough-false took '+duration+'ms');
-    return false;
-  }
+   Is a binary search possible? To find and limit it to a matching host first?
+  (e.g. "inaturalist.com" without anything before or after). 
+   See version 0.9.1 for code from a previous attempt. 
   */
- 
   // linear matching with full regex match
-  for (i = 0; i < Object.keys(window.matchpatterns).length; i++) {
-  	if (url_decoded.match(window.matchpatterns[i].matchpatternregex)) {
+  for (i = 0; i < Object.keys(matchpatterns).length; i++) {
+  	if (url_decoded.match(matchpatterns[i].matchpatternregex)) {
   		duration = performance.now() - startTime;
-  		console.log('matchpattern_match true '+ url_decoded +'='+window.matchpatterns[i].matchpatternregex+' took '+duration+'ms');
+  		console.log('matchpattern_match true '+ url_decoded +'='+matchpatterns[i].matchpatternregex+' took '+duration+'ms');
   		return true;
   	}
   }
@@ -240,11 +179,11 @@ function setIconBasedOnURL(url) {
 
     //if (url_matches_formatters(url)) {
     if (url_matches_formatters(url)) {
-      chrome.browserAction.setIcon({ path: "./EE-crimson-38.png" });
+      chrome.action.setIcon({ path: "./EE-crimson-38.png" });
 	} else if (url_matches_matchpatterns(url)) {
-      chrome.browserAction.setIcon({ path: "./EE-crimson-38.png" });
+      chrome.action.setIcon({ path: "./EE-crimson-38.png" });
     } else {
-      chrome.browserAction.setIcon({ path: "./EE-grey-38.png" });
+      chrome.action.setIcon({ path: "./EE-grey-38.png" });
     }
   }
 }
@@ -256,19 +195,26 @@ function handleMessage(request, sender, sendResponse) {
   if (typeof request.languageplease !== 'undefined') {
     var sending = chrome.runtime.sendMessage({
       response: "saved Languages Update",
-      jsonLanguages: JSON.stringify(window.language_translations),
-      iso: window.savedIsoLanguage
+      jsonLanguages: JSON.stringify(language_translations),
+      iso: savedIsoLanguage
     });
   }
   if (typeof request.saveisoplease !== 'undefined') {
-    window.savedIsoLanguage = request.isoLanguage
+    savedIsoLanguage = request.isoLanguage
 
-    chrome.storage.sync.set({ IsoLanguage: window.savedIsoLanguage }, function () {
-      console.log('Language change saved, iso=' + window.savedIsoLanguage);
+    chrome.storage.sync.set({ IsoLanguage: savedIsoLanguage }, function () {
+      console.log('Language change saved, iso=' + savedIsoLanguage);
     });
 
   }
+  //return Promise.resolve("Dummy response to keep the console quiet"); //https://github.com/mozilla/webextension-polyfill/issues/130
+
+  //https://stackoverflow.com/questions/55224629/what-caused-the-unchecked-runtime-lasterror-the-message-port-closed-before-a-r
+  Promise.resolve("").then(result => sendResponse(result));
+  return true;
+
 }
+
 chrome.runtime.onMessage.addListener(handleMessage);
 
 function dummy_translations() {
@@ -289,7 +235,7 @@ function dummy_translations() {
     tionary: "Wiktionary",
     species: "Wikispecies"
   };
-  window.language_translations[0] = translation
+  language_translations[0] = translation
 
 }
 
@@ -297,41 +243,7 @@ function matchpatterntostring(MP) {
 	
   // maybe it's alredy escaped correctly??
   var MPstring = MP;
-  //return MPstring;	
-
-  // try to fix URL encoding, e.g. of the ":" -> "%3A" at https://www.wikidata.org/wiki/Property:P6821
-  //patt = /\:/g;
-  //MPstring = MPstring.replace(patt, '\%3A');
-
-	
-	
-  //var patt = /\//g;
-  //var MPstring = MP.replace(patt, '\\/');
-
-  //patt = /\(\?i\)/g; // all our queries will be flagged case-insensitive, and (?i) wrecks the regex in .js anyway 
-  //MPstring = MPstring.replace(patt, '')
-
-  //patt = /\./g;
-  //MPstring = MPstring.replace(patt, '\.');
-  //patt = /\[/g;
-  //MPstring = MPstring.replace(patt, '\[');
-  //patt = /\^/g;
-  //MPstring = MPstring.replace(patt, '\^');
-  //patt = /\|/g;
-  //MPstring = MPstring.replace(patt, '\|');
-  //patt = /\?/g;
-  //MPstring = MPstring.replace(patt, '\?');
-  //patt = /\*/g;
-  //MPstring = MPstring.replace(patt, '\*');
-  //patt = /\+/g;
-  //MPstring = MPstring.replace(patt, '\+');
-  //patt = /\(/g;
-  //MPstring = MPstring.replace(patt, '\(');
-  //patt = /\)/g;
-  //MPstring = MPstring.replace(patt, '\)');
-  //patt = /\$/g;
-  //MPstring = MPstring.replace(patt, '\$');
-
+  // see version 0.9.1 for old escaping
   return MPstring;
 
 }
@@ -399,26 +311,34 @@ function get_formatters() {
 
   console.log("Running formatter URL query (moderate)")
 
-  $.ajax({
-    type: 'GET',
-    url: 'https://query.wikidata.org/sparql?query=' + encodedQuery,
-    headers: {
-      Accept: 'application/sparql-results+json'
-    },
-    success: function (returnedJson) {
-      text = ''
+	fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
+ 		 headers: {
+    		'Accept': 'application/json'
+  		}
+	})
+		.then(
+			function (response) {
+				//console.log(response);
+				return response.json();
+			}
+		  )
+		.then(
+			function (data) {
+				//console.log(data);
+				
+			    text = ''
 
-      //console.log('encode '+returnedJson.results.bindings.length+' formatter-regex')
+      //console.log('encode '+data.results.bindings.length+' formatter-regex')
       //const startTime = performance.now();
 
-      for (i = 0; i < returnedJson.results.bindings.length; i++) {
+      for (i = 0; i < data.results.bindings.length; i++) {
 
         var flags = "gi" //always case insensitive for now - this is just a quick check anyway. To do something strict, build the i in only on removal of (?i)
 
         var prop_regex_formatter = {
-          prop: returnedJson.results.bindings[i].prop.value,
-          regex: returnedJson.results.bindings[i].regex.value,
-          formatter: returnedJson.results.bindings[i].formatter_url.value,
+          prop: data.results.bindings[i].prop.value,
+          regex: data.results.bindings[i].regex.value,
+          formatter: data.results.bindings[i].formatter_url.value,
         }
 
         var formatregex = combine_format_regex(prop_regex_formatter.formatter, prop_regex_formatter.regex)
@@ -434,18 +354,23 @@ function get_formatters() {
           RE = new RegExp("QUESTIONABLE REGEX", flags);
           prop_regex_formatter.formatregex = RE;
         }
-        window.formatters[i] = prop_regex_formatter
+        formatters[i] = prop_regex_formatter
       }
 
       //const duration = performance.now() - startTime;
       //console.log('prop_regex took '+duration+'ms');
 
-      if (Object.keys(window.formatters).length > 99) {
-        chrome.storage.local.set({ formatters: JSON.stringify(window.formatters), FcacheTime:Date.now() }, function () { });
+      if (Object.keys(formatters).length > 99) {
+        chrome.storage.local.set({ formatters: JSON.stringify(formatters), FcacheTime:Date.now() }, function () { });
       }
-
-    }
-  });
+	return;
+	}
+	)
+ 	.catch(
+		function (error) {
+		console.error('Unable to get items.', error);
+	}
+  )
 }
 
 function get_matchpatterns() {
@@ -462,55 +387,68 @@ function get_matchpatterns() {
 
   var encodedQuery = encodeURIComponent(string);
 
-  console.log("Running matchpattern query (moderate)")
+  console.log("Running matchpattern query (moderate) "+'https://query.wikidata.org/sparql?query=' + encodedQuery);
 
-  $.ajax({
-    type: 'GET',
-    url: 'https://query.wikidata.org/sparql?query=' + encodedQuery,
-    headers: {
-      Accept: 'application/sparql-results+json'
-    },
-    success: function (returnedJson) {
-      text = ''
+	fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
+ 		 headers: {
+    		'Accept': 'application/json'
+  		}
+	})
+		.then(
+			function (response) {
+				//console.log(response);
+				return response.json();
+			}
+		  )
+		.then(
+			function (data) {
+				//console.log(data);
+				
+			    text = ''
 
-      //console.log('encode '+returnedJson.results.bindings.length+' matchpattern')
-      //const startTime = performance.now();
+			    //console.log('encode '+data.bindings.length+' matchpattern')
+      			//const startTime = performance.now();
 
-      for (i = 0; i < returnedJson.results.bindings.length; i++) {
+      			for (i = 0; i < data.results.bindings.length; i++) {
 
-        var flags = "gi" //always case insensitive for now - this is just a quick check anyway. To do something strict, build the i in only on removal of (?i)
+        		var flags = "gi" //always case insensitive for now - this is just a quick check anyway. To do something strict, build the i in only on removal of (?i)
 
-        var prop_matchpattern_replacement = {
-          prop: returnedJson.results.bindings[i].prop.value,
-          matchpattern: returnedJson.results.bindings[i].matchpattern.value,
-          //DISABLED WHILE IT CAN"T HANDLE SOME RETURNING EMPTY replacement: returnedJson.results.bindings[i].replacement.value,
-        }
+        		var prop_matchpattern_replacement = {
+          			prop: data.results.bindings[i].prop.value,
+          			matchpattern: data.results.bindings[i].matchpattern.value,
+          			//DISABLED WHILE IT CAN"T HANDLE SOME RETURNING EMPTY replacement: data.results.bindings[i].replacement.value,
+        		}
 
-        //var formatregex = combine matchpattern and binding?
+		        //var formatregex = combine matchpattern and binding?
 
-        var RE;
-        try {
-         RE = new RegExp(prop_matchpattern_replacement.matchpattern, flags);
-         prop_matchpattern_replacement.matchpatternregex = RE;
-        }
-        catch (e) {
-          //console.log(e.message);
-          console.log("questionable matchpattern for "+prop_matchpattern_replacement.prop)
-          RE = new RegExp("QUESTIONABLE MATCHPATTERN", flags);
-          prop_matchpattern_replacement.matchpatternregex = RE;
-        }
-        window.matchpatterns[i] = prop_matchpattern_replacement
-      }
+		        var RE;
+		        try {
+         			RE = new RegExp(prop_matchpattern_replacement.matchpattern, flags);
+         			prop_matchpattern_replacement.matchpatternregex = RE;
+        		}
+        		catch (e) {
+          			//console.log(e.message);
+          			console.log("questionable matchpattern for "+prop_matchpattern_replacement.prop)
+          			RE = new RegExp("QUESTIONABLE MATCHPATTERN", flags);
+          			prop_matchpattern_replacement.matchpatternregex = RE;
+        		}
+        		matchpatterns[i] = prop_matchpattern_replacement
+		      }
 
-      //const duration = performance.now() - startTime;
-      //console.log('prop_regex took '+duration+'ms');
+      			//const duration = performance.now() - startTime;
+      			//console.log('prop_regex took '+duration+'ms');
 
-      if (Object.keys(window.matchpatterns).length > 99) {
-        chrome.storage.local.set({ matchpatterns: JSON.stringify(window.matchpatterns), MPcacheTime: Date.now() }, function () { });
-      }
-
-    }
-  });
+      			if (Object.keys(matchpatterns).length > 99) {
+        			chrome.storage.local.set({ matchpatterns: JSON.stringify(matchpatterns), MPcacheTime: Date.now() }, function () { });
+      			}
+				return;
+			}
+		  )
+ 	    .catch(
+			function (error) {
+				console.error('Unable to get items.', error);
+			}
+		  )
 }
 
 
@@ -559,42 +497,56 @@ function get_translations() {
 
   console.log("Running language translation query (big)")
 
-  $.ajax({
-    type: 'GET',
-    url: 'https://query.wikidata.org/sparql?query=' + encodedQuery,
-    headers: {
-      Accept: 'application/sparql-results+json'
-    },
-    success: function (returnedJson) {
+
+	fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
+ 		 headers: {
+    		'Accept': 'application/json'
+  		}
+	})
+		.then(
+			function (response) {
+				//console.log(response);
+				return response.json();
+			}
+		  )
+		.then(
+			function (data) {
+				//console.log(data);
+
       text = ''
-      for (i = 0; i < returnedJson.results.bindings.length; i++) {
+      for (i = 0; i < data.results.bindings.length; i++) {
 
         var translation = {
-          lang: returnedJson.results.bindings[i].lang.value,
-          pedia: returnedJson.results.bindings[i].pedia.value,
-          tongue: returnedJson.results.bindings[i].tongue.value,
+          lang: data.results.bindings[i].lang.value,
+          pedia: data.results.bindings[i].pedia.value,
+          tongue: data.results.bindings[i].tongue.value,
         }
-        if (typeof returnedJson.results.bindings[i].data !== 'undefined') { translation.data = returnedJson.results.bindings[i].data.value }
-        if (typeof returnedJson.results.bindings[i].entity !== 'undefined') { translation.entity = returnedJson.results.bindings[i].entity.value }
-        if (typeof returnedJson.results.bindings[i].language !== 'undefined') { translation.language = returnedJson.results.bindings[i].language.value }
-        if (typeof returnedJson.results.bindings[i].commons !== 'undefined') { translation.commons = returnedJson.results.bindings[i].commons.value }
-        if (typeof returnedJson.results.bindings[i].books !== 'undefined') { translation.books = returnedJson.results.bindings[i].books.value }
-        if (typeof returnedJson.results.bindings[i].news !== 'undefined') { translation.news = returnedJson.results.bindings[i].news.value }
-        if (typeof returnedJson.results.bindings[i].quote !== 'undefined') { translation.quote = returnedJson.results.bindings[i].quote.value }
-        if (typeof returnedJson.results.bindings[i].source !== 'undefined') { translation.source = returnedJson.results.bindings[i].source.value }
-        if (typeof returnedJson.results.bindings[i].versity !== 'undefined') { translation.versity = returnedJson.results.bindings[i].versity.value }
-        if (typeof returnedJson.results.bindings[i].voyage !== 'undefined') { translation.voyage = returnedJson.results.bindings[i].voyage.value }
-        if (typeof returnedJson.results.bindings[i].tionary !== 'undefined') { translation.tionary = returnedJson.results.bindings[i].tionary.value }
-        if (typeof returnedJson.results.bindings[i].species !== 'undefined') { translation.species = returnedJson.results.bindings[i].species.value }
+        if (typeof data.results.bindings[i].data !== 'undefined') { translation.data = data.results.bindings[i].data.value }
+        if (typeof data.results.bindings[i].entity !== 'undefined') { translation.entity = data.results.bindings[i].entity.value }
+        if (typeof data.results.bindings[i].language !== 'undefined') { translation.language = data.results.bindings[i].language.value }
+        if (typeof data.results.bindings[i].commons !== 'undefined') { translation.commons = data.results.bindings[i].commons.value }
+        if (typeof data.results.bindings[i].books !== 'undefined') { translation.books = data.results.bindings[i].books.value }
+        if (typeof data.results.bindings[i].news !== 'undefined') { translation.news = data.results.bindings[i].news.value }
+        if (typeof data.results.bindings[i].quote !== 'undefined') { translation.quote = data.results.bindings[i].quote.value }
+        if (typeof data.results.bindings[i].source !== 'undefined') { translation.source = data.results.bindings[i].source.value }
+        if (typeof data.results.bindings[i].versity !== 'undefined') { translation.versity = data.results.bindings[i].versity.value }
+        if (typeof data.results.bindings[i].voyage !== 'undefined') { translation.voyage = data.results.bindings[i].voyage.value }
+        if (typeof data.results.bindings[i].tionary !== 'undefined') { translation.tionary = data.results.bindings[i].tionary.value }
+        if (typeof data.results.bindings[i].species !== 'undefined') { translation.species = data.results.bindings[i].species.value }
 
-        window.language_translations[i] = translation
+        language_translations[i] = translation
       }
-      if (Object.keys(window.language_translations).length > 99) {
-        chrome.storage.local.set({ langtrans: window.language_translations , cacheTime: Date.now() }, function () { });
+      if (Object.keys(language_translations).length > 99) {
+        chrome.storage.local.set({ langtrans: language_translations , cacheTime: Date.now() }, function () { });
       }
-
-    }
-  });
+	return;
+	}
+	)
+    .catch(
+		function (error) {
+		console.error('Unable to get items.', error);
+	}
+  )
 }
 
 chrome.tabs.onActivated.addListener(function (info) {
@@ -620,11 +572,11 @@ chrome.runtime.onInstalled.addListener( function(){
 
 chrome.storage.local.get(['langtrans', 'cacheTime'], function (result) {
   if ((typeof result.langtrans !== 'undefined') && (typeof result.cacheTime !=='undefined')) {
-    window.language_translations = result.langtrans
+    language_translations = result.langtrans
 
-    console.log('Reloaded '+Object.keys(window.language_translations).length+' language translations from cache: ' + window.language_translations +' cacheTime: '+ result.cacheTime +', '+((Date.now()-result.cacheTime)*0.001)+'s ago');
+    console.log('Reloaded '+Object.keys(language_translations).length+' language translations from cache: ' + language_translations +' cacheTime: '+ result.cacheTime +', '+((Date.now()-result.cacheTime)*0.001)+'s ago');
 
-    if ((Object.keys(window.language_translations).length < 99) || (result.cacheTime < Date.now() - 1000*60*60*24*7)) {
+    if ((Object.keys(language_translations).length < 99) || (result.cacheTime < Date.now() - 1000*60*60*24*7)) {
 	  console.log('Cached language translations insufficient or outdated. cacheTime: '+ result.cacheTime);
       get_translations()
     }
@@ -636,26 +588,26 @@ chrome.storage.local.get(['langtrans', 'cacheTime'], function (result) {
 
 chrome.storage.local.get(['formatters', 'FcacheTime'], function (result) {
   if ((typeof result.formatters !== 'undefined') && (typeof result.FcacheTime !=='undefined')) {
-    window.formatters = JSON.parse(result.formatters)
+    formatters = JSON.parse(result.formatters)
 
-    console.log('Reloaded '+Object.keys(window.formatters).length+' formatters from cache: ' + window.formatters +' FcacheTime: '+ result.FcacheTime +', '+((Date.now()-result.FcacheTime)*0.001)+'s ago');
+    console.log('Reloaded '+Object.keys(formatters).length+' formatters from cache: ' + formatters +' FcacheTime: '+ result.FcacheTime +', '+((Date.now()-result.FcacheTime)*0.001)+'s ago');
 
     // now need to correct for this bug: https://bugs.chromium.org/p/chromium/issues/detail?id=380964
     // recalculate all formatregex from formatter, regex
-    for (var i = 0; i < Object.keys(window.formatters).length; i++) {
-      var formatregex_str = combine_format_regex(window.formatters[i].formatter, window.formatters[i].regex)
+    for (var i = 0; i < Object.keys(formatters).length; i++) {
+      var formatregex_str = combine_format_regex(formatters[i].formatter, formatters[i].regex)
       var RE;
       try {
         RE = new RegExp(formatregex_str, "gi");
       }
       catch (e) {
         //console.log(e.message);
-        console.log("Regex on property " + window.formatters[i].prop + " apparently not consistent with JS regex evaluation. No cause for concern.")
+        console.log("Regex on property " + formatters[i].prop + " apparently not consistent with JS regex evaluation. No cause for concern.")
         RE = new RegExp("QUESTIONABLE REGEX", "gi");
       }
-      window.formatters[i].formatregex = RE
+      formatters[i].formatregex = RE
     }
-    if ((Object.keys(window.formatters).length < 99)  || (result.FcacheTime < Date.now() - 1000*60*60*24*7)) {
+    if ((Object.keys(formatters).length < 99)  || (result.FcacheTime < Date.now() - 1000*60*60*24*7)) {
       get_formatters()
     }
   } else {
@@ -665,28 +617,28 @@ chrome.storage.local.get(['formatters', 'FcacheTime'], function (result) {
 
 chrome.storage.local.get(['matchpatterns', 'MPcacheTime'], function (result) {
   if ((typeof result.matchpatterns !== 'undefined') && (typeof result.MPcacheTime !=='undefined')) {
-    window.matchpatterns = JSON.parse(result.matchpatterns)
+    matchpatterns = JSON.parse(result.matchpatterns)
 
-    console.log('Reloaded '+Object.keys(window.matchpatterns).length+' matchpatterns from cache: ' + window.matchpatterns +' MPcacheTime: '+ result.MPcacheTime +', '+((Date.now()-result.MPcacheTime)*0.001)+'s ago');
+    console.log('Reloaded '+Object.keys(matchpatterns).length+' matchpatterns from cache: ' + matchpatterns +' MPcacheTime: '+ result.MPcacheTime +', '+((Date.now()-result.MPcacheTime)*0.001)+'s ago');
 
     // now need to correct for this bug: https://bugs.chromium.org/p/chromium/issues/detail?id=380964
     // recalculate all matchpatternregex from matchpattern, regex
-    for (var i = 0; i < Object.keys(window.matchpatterns).length; i++) {
-      var matchpatternregex_str = matchpatterntostring(window.matchpatterns[i].matchpattern)
+    for (var i = 0; i < Object.keys(matchpatterns).length; i++) {
+      var matchpatternregex_str = matchpatterntostring(matchpatterns[i].matchpattern)
       var RE;
       try {
         RE = new RegExp(matchpatternregex_str, "gi");
       }
       catch (e) {
         //console.log(e.message);
-        console.log("Matchpattern on property " + window.matchpatterns[i].prop + " apparently not consistent with JS regex evaluation. No cause for concern.")
+        console.log("Matchpattern on property " + matchpatterns[i].prop + " apparently not consistent with JS regex evaluation. No cause for concern.")
         RE = new RegExp("QUESTIONABLE REGEX", "gi");
       }
 
-      window.matchpatterns[i].matchpatternregex = RE
-      //console.log("Matchpattern ["+i+"] on property " + window.matchpatterns[i].prop + " is "+window.matchpatterns[i].matchpatternregex)
+      matchpatterns[i].matchpatternregex = RE
+      //console.log("Matchpattern ["+i+"] on property " + matchpatterns[i].prop + " is "+matchpatterns[i].matchpatternregex)
     }
-    if ((Object.keys(window.matchpatterns).length < 99)  || (result.MPcacheTime < Date.now() - 1000*60*60*24*7)) { 
+    if ((Object.keys(matchpatterns).length < 99)  || (result.MPcacheTime < Date.now() - 1000*60*60*24*7)) { 
       get_matchpatterns()
     }
   } else {

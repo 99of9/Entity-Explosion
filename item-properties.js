@@ -1,3 +1,5 @@
+//importScripts('jquery-3.6.0.min.js')
+
 var isoLanguage
 var savedIsoLanguage
 var tabURL
@@ -40,6 +42,12 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       initiateRedraw(savedIsoLanguage);
     }
   }
+  //return Promise.resolve("Dummy response to keep the console quiet"); //https://github.com/mozilla/webextension-polyfill/issues/130
+
+  //https://stackoverflow.com/questions/55224629/what-caused-the-unchecked-runtime-lasterror-the-message-port-closed-before-a-r
+  Promise.resolve("").then(result => sendResponse(result));
+  return true;
+
 })
 
 function selectElement(id, valueToSelect) {
@@ -100,11 +108,11 @@ function redrawLabels(isoLanguage) {
 
 function specific_website_QID_search(isoLanguage, tabURL) {
   var string = '';
-  // create URI-encoded query string to get corresponding Wikidata items name and IRI, example: https://w.wiki/4udf
+  // create URI-encoded query string to get corresponding Wikidata items name and IRI, example: https://w.wiki/4udm
   // would work better if any trailing "/" was first removed from the tabURL   
   var tabURL_stripped = tabURL.replace(/\/$/, "");
 
-  console.log('direct URL test: '+tabURL_stripped);
+  //console.log('direct URL test: '+tabURL_stripped);
 
   string = 
   	'SELECT ?iri ?iriLabel WHERE {'
@@ -116,41 +124,53 @@ function specific_website_QID_search(isoLanguage, tabURL) {
 	
   var encodedQuery = encodeURIComponent(string);
 
-  // send query to endpoint
-  $.ajax({
-    type: 'GET',
-    url: 'https://query.wikidata.org/sparql?query=' + encodedQuery,
-    headers: {
-      Accept: 'application/sparql-results+json'
-    },
-    success: function (returnedJson) {
-      if (returnedJson.results.bindings.length == 0) {
-        chrome.browserAction.setIcon({ path: "./EE-black-38.png" });
+  fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
+ 	 headers: {
+   		'Accept': 'application/json'
+ 	}
+  })
+	.then(
+		function (response) {
+			//console.log(response);
+			return response.json();
+		}
+	  )
+	.then(
+		function (data) {
+			//console.log(data);
+
+      if (data.results.bindings.length == 0) {
+        chrome.action.setIcon({ path: "./EE-black-38.png" });
         no_result();
       } else {
-        for (i = 0; i < returnedJson.results.bindings.length; i++) {
+        for (i = 0; i < data.results.bindings.length; i++) {
           // concatenate the Q number on the end of the label (Q extracted from iri after 31 other url characters)
-          label = returnedJson.results.bindings[i].iriLabel.value + ' (' + returnedJson.results.bindings[i].iri.value.substring(31, returnedJson.results.bindings[i].iri.value.length) + ')'
-          iri = returnedJson.results.bindings[i].iri.value
+          label = data.results.bindings[i].iriLabel.value + ' (' + data.results.bindings[i].iri.value.substring(31, data.results.bindings[i].iri.value.length) + ')'
+          iri = data.results.bindings[i].iri.value
           // add the new information to the dropdown list
           $("#box1").append("<option value='" + iri + "'>" + label + '</option>');
         }
 		  
-        chrome.browserAction.setIcon({ path: "./EE-emerald-38.png" });
-        if (returnedJson.results.bindings.length == 1) {
+        chrome.action.setIcon({ path: "./EE-emerald-38.png" });
+        if (data.results.bindings.length == 1) {
           document.getElementById("box1").selectedIndex = "1"; //when only one item is returned, it's a match
           box1change();
         }
-      }
-    }
-  });
+	  }
+	}
+	)
+ 	.catch(
+		function (error) {
+		console.error('Unable to get items.', error);
+	}
+  )
 }
 
 function general_QID_search(isoLanguage, tabURL) {
   var string = '';
   // create URI-encoded query string to get corresponding Wikidata items name and IRI, example: https://w.wiki/XZg https://w.wiki/3uQa
   
-  console.log('general QID search: '+tabURL);
+  //console.log('general QID search: '+tabURL);
   
   string = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>'
     + 'PREFIX wd: <http://www.wikidata.org/entity/>'
@@ -187,35 +207,46 @@ function general_QID_search(isoLanguage, tabURL) {
 
   var encodedQuery = encodeURIComponent(string);
 
-  // send query to endpoint
-  $.ajax({
-    type: 'GET',
-    url: 'https://query.wikidata.org/sparql?query=' + encodedQuery,
-    headers: {
-      Accept: 'application/sparql-results+json'
-    },
-    success: function (returnedJson) {
-      if (returnedJson.results.bindings.length == 0) {
-        chrome.browserAction.setIcon({ path: "./EE-black-38.png" });
+  fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
+ 	 headers: {
+   		'Accept': 'application/json'
+ 	}
+  })
+	.then(
+		function (response) {
+			//console.log(response);
+			return response.json();
+		}
+	  )
+	.then(
+		function (data) {
+			//console.log(data);
+      if (data.results.bindings.length == 0) {
+        chrome.action.setIcon({ path: "./EE-black-38.png" });
         //no_result();
 		specific_website_QID_search(isoLanguage, tabURL);
       } else {
-        for (i = 0; i < returnedJson.results.bindings.length; i++) {
+        for (i = 0; i < data.results.bindings.length; i++) {
           // concatenate the Q number on the end of the label (Q extracted from iri after 31 other url characters)
-          label = returnedJson.results.bindings[i].iriLabel.value + ' (' + returnedJson.results.bindings[i].iri.value.substring(31, returnedJson.results.bindings[i].iri.value.length) + ')'
-          iri = returnedJson.results.bindings[i].iri.value
+          label = data.results.bindings[i].iriLabel.value + ' (' + data.results.bindings[i].iri.value.substring(31, data.results.bindings[i].iri.value.length) + ')'
+          iri = data.results.bindings[i].iri.value
           // add the new information to the dropdown list
           $("#box1").append("<option value='" + iri + "'>" + label + '</option>');
         }
 		  
-        chrome.browserAction.setIcon({ path: "./EE-emerald-38.png" });
-        if (returnedJson.results.bindings.length == 1) {
+        chrome.action.setIcon({ path: "./EE-emerald-38.png" });
+        if (data.results.bindings.length == 1) {
           document.getElementById("box1").selectedIndex = "1"; //when only one item is returned, it's a match
           box1change();
         }
       }
-    }
-  });
+		}
+	)
+ 	.catch(
+		function (error) {
+		console.error('Unable to get items.', error);
+	}
+  )
 }
 
 function nthIndex(str, pat, n) {
@@ -231,27 +262,33 @@ function wiki_QID_search(isoLanguage, tabURL) {
   var encodedTitle = tabURL.substring(1 + tabURL.lastIndexOf("/"));
   var site = tabURL.substring(0, nthIndex(tabURL, "/", 3));
   
-  console.log('wik QID search: '+tabURL);
+  //console.log('wiki QID search: '+tabURL);
  
   var queryString = site + "/w/api.php?action=query&prop=pageprops&titles=" + encodedTitle + "&format=json";
 
   // send query to endpoint, see https://en.wikipedia.org/wiki/Wikipedia:Finding_a_Wikidata_ID
-  $.ajax({
-    type: 'GET',
-    url: queryString,
-    headers: {
-      Accept: 'application/json'
-    },
-    success: function (result) {
-
+  fetch(queryString, {
+ 	 headers: {
+   		'Accept': 'application/json'
+ 	}
+  })
+	.then(
+		function (response) {
+			//console.log(response);
+			return response.json();
+		}
+	  )
+	.then(
+		function (data) {
+			//console.log(data);
       var count = 0
 
-      //console.log("length: "+Object.values(result.query.pages).length)
-      for (i = 0; i < Object.values(result.query.pages).length; i++) {
-        if (typeof Object.values(result.query.pages)[i].pageprops !== 'undefined') {
-          if (typeof Object.values(result.query.pages)[i].pageprops.wikibase_item !== 'undefined') {
+      //console.log("RESULT->DATA check, length: "+Object.values(data.query.pages).length)
+      for (i = 0; i < Object.values(data.query.pages).length; i++) {
+        if (typeof Object.values(data.query.pages)[i].pageprops !== 'undefined') {
+          if (typeof Object.values(data.query.pages)[i].pageprops.wikibase_item !== 'undefined') {
             count = count + 1
-            QID = Object.values(result.query.pages)[i].pageprops.wikibase_item
+            QID = Object.values(data.query.pages)[i].pageprops.wikibase_item
             // concatenate the Q number on the end of the label (Q extracted from iri after 31 other url characters)
             label = encodedTitle + ' (' + QID + ')'
             label = replaceAll(label, "_", " ");
@@ -262,24 +299,29 @@ function wiki_QID_search(isoLanguage, tabURL) {
         }
       }
       if (count == 0) {
-        chrome.browserAction.setIcon({ path: "./EE-black-38.png" });
+        chrome.action.setIcon({ path: "./EE-black-38.png" });
         no_result();
       } else {
-        chrome.browserAction.setIcon({ path: "./EE-emerald-38.png" });
+        chrome.action.setIcon({ path: "./EE-emerald-38.png" });
         if (count == 1) {
           document.getElementById("box1").selectedIndex = "1"; //when only one item is returned, it's a match
           box1change();
         }
       }
     }
-  });
+	)
+ 	.catch(
+		function (error) {
+		console.error('Unable to get items.', error);
+	}
+  )
 }
 
 function wikidata_QID_search(isoLanguage, tabURL) {
   var encodedTitle = tabURL.substring(1 + tabURL.lastIndexOf("/"));
   var site = tabURL.substring(0, nthIndex(tabURL, "/", 3));
 
-  console.log('wikidata QID search: '+tabURL);
+  //console.log('wikidata QID search: '+tabURL);
 
   if (encodedTitle.startsWith("Property:")) {
     QID = encodedTitle.substring(9)
@@ -294,7 +336,7 @@ function wikidata_QID_search(isoLanguage, tabURL) {
   // add the new information to the dropdown list
   $("#box1").append("<option value='" + iri + "'>" + label + '</option>');
 
-  chrome.browserAction.setIcon({ path: "./EE-emerald-38.png" });
+  chrome.action.setIcon({ path: "./EE-emerald-38.png" });
   document.getElementById("box1").selectedIndex = "1"; //when only one item is returned, it's a match
   box1change();
 }
@@ -421,18 +463,24 @@ function div1change() {
     + 'ORDER BY ASC(?property)';
   var encodedQuery = encodeURIComponent(string);
 
-  // send query to endpoint
-  $.ajax({
-    type: 'GET',
-    url: 'https://query.wikidata.org/sparql?query=' + encodedQuery,
-    headers: {
-      Accept: 'application/sparql-results+json'
-    },
-    success: function (returnedJson) {
+  fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
+ 	 headers: {
+   		'Accept': 'application/json'
+ 	}
+  })
+	.then(
+		function (response) {
+			//console.log(response);
+			return response.json();
+		}
+	  )
+	.then(
+		function (data) {
+			//console.log(data);
       text = ''
-      for (i = 0; i < returnedJson.results.bindings.length; i++) {
-        property = returnedJson.results.bindings[i].property.value
-        value = returnedJson.results.bindings[i].value.value
+      for (i = 0; i < data.results.bindings.length; i++) {
+        property = data.results.bindings[i].property.value
+        value = data.results.bindings[i].value.value
         text = text + property + ': <b>' + value + '</b><br/>'
       }
       //$("#div1").html(text);
@@ -450,7 +498,12 @@ function div1change() {
 
       $('#searchSpinner').hide();
     }
-  });
+	)
+ 	.catch(
+		function (error) {
+		console.error('Unable to get items.', error);
+	}
+  )
 }
 
 function div2change() {
@@ -475,18 +528,24 @@ function div2change() {
 
   var encodedQuery = encodeURIComponent(string);
 
-  // send query to endpoint
-  $.ajax({
-    type: 'GET',
-    url: 'https://query.wikidata.org/sparql?query=' + encodedQuery,
-    headers: {
-      Accept: 'application/sparql-results+json'
-    },
-    success: function (returnedJson) {
+  fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
+ 	 headers: {
+   		'Accept': 'application/json'
+ 	}
+  })
+	.then(
+		function (response) {
+			//console.log(response);
+			return response.json();
+		}
+	  )
+	.then(
+		function (data) {
+			//console.log(data);
       text = ''
-      for (i = 0; i < returnedJson.results.bindings.length; i++) {
-        property = returnedJson.results.bindings[i].property.value
-        value = returnedJson.results.bindings[i].valueUri.value
+      for (i = 0; i < data.results.bindings.length; i++) {
+        property = data.results.bindings[i].property.value
+        value = data.results.bindings[i].valueUri.value
 
         if ((value.startsWith("http://")) || ((value.startsWith("https://")))) {
           text = text + property + ': <b><a target="_blank" href="' + value + '">' + value + '</a></b><br/>'
@@ -507,11 +566,14 @@ function div2change() {
 	  for (var i = 0; i < tags.length; i++) {
     	$("#div2").append(tags[i].innerHTML)
   	  }
-
-
       $('#searchSpinner').hide();
     }
-  });
+	)
+ 	.catch(
+		function (error) {
+		console.error('Unable to get items.', error);
+	}
+  )
 }
 
 function div3change() {
@@ -561,17 +623,23 @@ function div3change() {
 
   var encodedQuery = encodeURIComponent(string);
 
-  // send query to endpoint
-  $.ajax({
-    type: 'GET',
-    url: 'https://query.wikidata.org/sparql?query=' + encodedQuery,
-    headers: {
-      Accept: 'application/sparql-results+json'
-    },
-    success: function (returnedJson) {
+  fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
+ 	 headers: {
+   		'Accept': 'application/json'
+ 	}
+  })
+	.then(
+		function (response) {
+			//console.log(response);
+			return response.json();
+		}
+	  )
+	.then(
+		function (data) {
+			//console.log(data);
       text = ''
 
-      var clonedJson = jQuery.extend({}, returnedJson);
+      var clonedJson = jQuery.extend({}, data);
 
       for (i = 0; i < clonedJson.results.bindings.length; i++) {
         score = 0;
@@ -686,7 +754,12 @@ function div3change() {
 
 
     }
-  });
+	)
+ 	.catch(
+		function (error) {
+		console.error('Unable to get items.', error);
+	}
+  )
 }
 
 function div_wiki_change() {
@@ -701,19 +774,25 @@ function div_wiki_change() {
 				+'}'
   var encodedQuery = encodeURIComponent(string);
 
-  // send query to endpoint
-  $.ajax({
-    type: 'GET',
-    url: 'https://query.wikidata.org/sparql?query=' + encodedQuery,
-    headers: {
-      Accept: 'application/sparql-results+json'
-    },
-    success: function (returnedJson) {
-	  text = ''
-	  for (var i = 0; i < returnedJson.results.bindings.length; i++) {
+  fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
+ 	 headers: {
+   		'Accept': 'application/json'
+ 	}
+  })
+	.then(
+		function (response) {
+			//console.log(response);
+			return response.json();
+		}
+	  )
+	.then(
+		function (data) {
+			//console.log(data);
+ 	  text = ''
+	  for (var i = 0; i < data.results.bindings.length; i++) {
 				
-		var article = decodeURIComponent(returnedJson.results.bindings[i].article.value)  // the decode fixes characters from other scripts, e.g. Māori
-		var articlelang = returnedJson.results.bindings[i].articlelang.value
+		var article = decodeURIComponent(data.results.bindings[i].article.value)  // the decode fixes characters from other scripts, e.g. Māori
+		var articlelang = data.results.bindings[i].articlelang.value
 				
 		site = 'article' //default, will apply to "other sites"
 
@@ -830,7 +909,12 @@ function div_wiki_change() {
   	  }
 
     }
-  });
+	)
+ 	.catch(
+		function (error) {
+		console.error('Unable to get items.', error);
+	}
+  )
 }
 
 function div_title_change() {
@@ -852,31 +936,38 @@ function div_title_change() {
     + '} LIMIT 1'
   var encodedQuery = encodeURIComponent(string);
 
-  // send query to endpoint
-  $.ajax({
-    type: 'GET',
-    url: 'https://query.wikidata.org/sparql?query=' + encodedQuery,
-    headers: {
-      Accept: 'application/sparql-results+json'
-    },
-    success: function (returnedJson) {
+
+  fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
+ 	 headers: {
+   		'Accept': 'application/json'
+ 	}
+  })
+	.then(
+		function (response) {
+			//console.log(response);
+			return response.json();
+		}
+	  )
+	.then(
+		function (data) {
+			//console.log(data);
       text = ''
-      for (var i = 0; i < returnedJson.results.bindings.length; i++) {
+      for (var i = 0; i < data.results.bindings.length; i++) {
 		//there should only be one set of results (length=1)
 
-		if (typeof returnedJson.results.bindings[i].image !== 'undefined') {
-          var desc = returnedJson.results.bindings[i].image.value.substr(51)
+		if (typeof data.results.bindings[i].image !== 'undefined') {
+          var desc = data.results.bindings[i].image.value.substr(51)
           //text = text + '<h4>' + desc + '</h4>'
           text = text + '<a target="_blank" href="https://commons.wikimedia.org/wiki/File:' + desc + '"><img src="https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/' + desc + '&width=106" style="float:right;height:106px;"></a>'
 		}
 		
         text = text + '<div style="background-color:#FFFFFF;padding:20px;padding-top:10px;padding-bottom:10px;padding-right:0px;">'
-		if (typeof returnedJson.results.bindings[i].itemLabel !== 'undefined') {
-		  var label = returnedJson.results.bindings[i].itemLabel.value
+		if (typeof data.results.bindings[i].itemLabel !== 'undefined') {
+		  var label = data.results.bindings[i].itemLabel.value
           text = text + '<h3>' + label + '</h3>'
 		}
-		if (typeof returnedJson.results.bindings[i].itemDesc !== 'undefined') {
-          var desc = returnedJson.results.bindings[i].itemDesc.value
+		if (typeof data.results.bindings[i].itemDesc !== 'undefined') {
+          var desc = data.results.bindings[i].itemDesc.value
           text = text + '<h5>' + desc + '</h5>'
 		}
         text = text + '</div>'
@@ -897,7 +988,12 @@ function div_title_change() {
   	  }
 
     }
-  });
+	)
+ 	.catch(
+		function (error) {
+		console.error('Unable to get items.', error);
+	}
+  )
 }
 
 function box1change() {
@@ -918,7 +1014,7 @@ function gettabURL(callback) {
     currentWindow: true
   }, function (tabs) {
     tabURL = decodeURIComponent(tabs[0].url); // e.g. to fix https://www.quora.com/topic/M%C4%81ori-People
-    console.log(tabURL);
+    //console.log(tabURL);
     callback();
   });
 }
@@ -933,6 +1029,8 @@ function initiateRedraw(iso) {
 requestLanguages()
 
 $(document).ready(function () {
+// this is a jquery function https://learn.jquery.com/using-jquery-core/document-ready/
+// the contents of this will only execute once the DOM is ready for JS code to execute
   // not searching initially, so hide the spinner icon
   $('#searchSpinner').hide();
 
