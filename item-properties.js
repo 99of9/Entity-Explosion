@@ -124,6 +124,16 @@ function specific_website_QID_search(isoLanguage, tabURL) {
 	
   var encodedQuery = encodeURIComponent(string);
 
+  // try showing a link to the query while it's running (in case it gets stuck 
+  text = '<p><a target="_blank" href="https://query.wikidata.org/#'+encodedQuery+'">Query 2</a> sent to Wikidata...</p>';
+  const parser = new DOMParser()
+  const parsed = parser.parseFromString(text, 'text/html')
+  const tags = parsed.getElementsByTagName('body')
+  for (var i = 0; i < tags.length; i++) {
+    $("#div_wdlink").append(tags[i].innerHTML)
+  }
+
+
   fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
  	 headers: {
    		'Accept': 'application/json'
@@ -206,6 +216,16 @@ function general_QID_search(isoLanguage, tabURL) {
     + 'ORDER BY ASC(?name)';
 
   var encodedQuery = encodeURIComponent(string);
+
+	// try showing a link to the query while it's running (in case it gets stuck 
+  text = '<p><a target="_blank" href="https://query.wikidata.org/#'+encodedQuery+'">Query 1</a> sent to Wikidata...</p>';
+  const parser = new DOMParser()
+  const parsed = parser.parseFromString(text, 'text/html')
+  const tags = parsed.getElementsByTagName('body')
+  for (var i = 0; i < tags.length; i++) {
+    $("#div_wdlink").append(tags[i].innerHTML)
+  }
+
 
   fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
  	 headers: {
@@ -921,7 +941,7 @@ function div_title_change() {
   var iri = $("#box1").val();
   var isoLanguage = $("#box0").val();
 
-  // model query here: https://w.wiki/3Jwr
+  // model query here: https://w.wiki/5xSu
   var string = 'PREFIX schema: <http://schema.org/>'
     + 'SELECT DISTINCT ?itemLabel ?itemDesc ?image WHERE {'
 	+ 'OPTIONAL {<' + iri + '> rdfs:label ?itemLabel.'
@@ -933,7 +953,9 @@ function div_title_change() {
     + '?subProperties wikibase:directClaim ?propertyRel.'
     + '<' + iri + '> ?propertyRel ?image.'
 	+ '}'
-    + '} LIMIT 1'
+    + '}'
+	+ 'ORDER BY ASC(xsd:integer(STRAFTER(STR(?subProperties), "P")))'
+	+ 'LIMIT 1'
   var encodedQuery = encodeURIComponent(string);
 
 
