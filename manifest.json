@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Entity Explosion",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "Discover links and information about the same topic on other sites. Data live from Wikidata.",
   "icons": {
    "38": "EE-grey-38.png"
