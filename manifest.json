@@ -4,7 +4,9 @@
   "version": "0.9.4",
   "description": "Discover links and information about the same topic on other sites. Data live from Wikidata.",
   "icons": {
-   "38": "EE-grey-38.png"
+   "38": "EE-grey-38.png",
+   "48": "EE-grey-48.png",
+   "128": "EE-tile-square-icon-128.png"
   },
   "action": {
 	"default_popup": "popup.html",
