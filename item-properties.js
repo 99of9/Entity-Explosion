@@ -150,7 +150,7 @@ function specific_website_QID_search(isoLanguage, tabURL) {
 			//console.log(data);
 
       if (data.results.bindings.length == 0) {
-        chrome.action.setIcon({ path: "./EE-black-38.png" });
+        chrome.action.setIcon({ path: "./images/EE-black-38.png" });
         no_result();
       } else {
         for (i = 0; i < data.results.bindings.length; i++) {
@@ -161,7 +161,7 @@ function specific_website_QID_search(isoLanguage, tabURL) {
           $("#box1").append("<option value='" + iri + "'>" + label + '</option>');
         }
 		  
-        chrome.action.setIcon({ path: "./EE-emerald-38.png" });
+        chrome.action.setIcon({ path: "./images/EE-emerald-38.png" });
         if (data.results.bindings.length == 1) {
           document.getElementById("box1").selectedIndex = "1"; //when only one item is returned, it's a match
           box1change();
@@ -201,15 +201,15 @@ function general_QID_search(isoLanguage, tabURL) {
     + 'BIND (STRAFTER( ?formatter_url, "$1" ) AS ?f_url_end )'
     + 'FILTER(STRSTARTS( ?test_url, ?f_url_start ))'
     + 'FILTER(STRENDS( ?test_url, ?f_url_end ))'
-    + 'BIND ( SUBSTR( ?test_url, 1+STRLEN(?f_url_start), STRLEN(?test_url)-STRLEN(?f_url_start)-STRLEN(?f_url_end) ) AS ?id_uncut )'
+    + 'BIND (SUBSTR( ?test_url, 1+STRLEN(?f_url_start), STRLEN(?test_url)-STRLEN(?f_url_start)-STRLEN(?f_url_end)) AS ?id_uncut )'
     + '{?prop p:P1793/ps:P1793 ?regex .}'
     + 'UNION'
     + '{?prop p:P2302 ?statement .'
     + '?statement ?ps wd:Q21502404 .'
     +  '?statement pq:P1793 ?regex .}'
-	+ 'BIND ( REPLACE (?regex, "\\\\\\\\", "\\\\\\\\\\\\\\\\" , "i") AS ?escapedregex )'
-    + 'BIND ( REPLACE (?id_uncut, CONCAT("(",?escapedregex,").*"),"$1","i") AS ?id )'
-    + 'BIND ( LCASE(?id) AS ?lcid)'
+    + 'BIND (REPLACE (?regex, "\\\\\\\\", "\\\\\\\\\\\\\\\\" , "i") AS ?escapedregex)'
+    + 'BIND (REPLACE (?id_uncut, CONCAT("(",?escapedregex,").*"),"$1","i") AS ?id)'
+    + 'BIND (LCASE(?id) AS ?lcid)'
     + '?prop wikibase:directClaim ?propRel .'
     + '{?iri ?propRel ?id .} UNION {?iri ?propRel ?lcid .}'
     + "SERVICE wikibase:label { bd:serviceParam wikibase:language '" + isoLanguage + "' } ."
@@ -243,7 +243,7 @@ function general_QID_search(isoLanguage, tabURL) {
 		function (data) {
 			//console.log(data);
       if (data.results.bindings.length == 0) {
-        chrome.action.setIcon({ path: "./EE-black-38.png" });
+        chrome.action.setIcon({ path: "./images/EE-black-38.png" });
         //no_result();
 		specific_website_QID_search(isoLanguage, tabURL);
       } else {
@@ -255,7 +255,7 @@ function general_QID_search(isoLanguage, tabURL) {
           $("#box1").append("<option value='" + iri + "'>" + label + '</option>');
         }
 		  
-        chrome.action.setIcon({ path: "./EE-emerald-38.png" });
+        chrome.action.setIcon({ path: "./images/EE-emerald-38.png" });
         if (data.results.bindings.length == 1) {
           document.getElementById("box1").selectedIndex = "1"; //when only one item is returned, it's a match
           box1change();
@@ -320,10 +320,10 @@ function wiki_QID_search(isoLanguage, tabURL) {
         }
       }
       if (count == 0) {
-        chrome.action.setIcon({ path: "./EE-black-38.png" });
+        chrome.action.setIcon({ path: "./images/EE-black-38.png" });
         no_result();
       } else {
-        chrome.action.setIcon({ path: "./EE-emerald-38.png" });
+        chrome.action.setIcon({ path: "./images/EE-emerald-38.png" });
         if (count == 1) {
           document.getElementById("box1").selectedIndex = "1"; //when only one item is returned, it's a match
           box1change();
@@ -357,7 +357,7 @@ function wikidata_QID_search(isoLanguage, tabURL) {
   // add the new information to the dropdown list
   $("#box1").append("<option value='" + iri + "'>" + label + '</option>');
 
-  chrome.action.setIcon({ path: "./EE-emerald-38.png" });
+  chrome.action.setIcon({ path: "./images/EE-emerald-38.png" });
   document.getElementById("box1").selectedIndex = "1"; //when only one item is returned, it's a match
   box1change();
 }
@@ -981,7 +981,7 @@ function div_title_change() {
 		if (typeof data.results.bindings[i].image !== 'undefined') {
           var desc = data.results.bindings[i].image.value.substr(51)
           //text = text + '<h4>' + desc + '</h4>'
-          text = text + '<a target="_blank" href="https://commons.wikimedia.org/wiki/File:' + desc + '"><img src="https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/' + desc + '&width=106" style="float:right;height:106px;"></a>'
+          text = text + '<a target="_blank" href="https://commons.wikimedia.org/wiki/File:' + desc + '"><img src="https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/' + desc + '&width=106" crossorigin="anonymous" referrerpolicy="no-referrer" style="float:right;height:106px;"></a>'
 		}
 		
         text = text + '<div style="background-color:#FFFFFF;padding:20px;padding-top:10px;padding-bottom:10px;padding-right:0px;">'

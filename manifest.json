@@ -1,12 +1,12 @@
 {
   "manifest_version": 3,
   "name": "Entity Explosion",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "description": "Discover links and information about the same topic on other sites. Data live from Wikidata.",
   "icons": {
-   "38": "EE-grey-38.png",
-   "48": "EE-grey-48.png",
-   "128": "EE-tile-square-icon-128.png"
+   "38": "images/EE-grey-38.png",
+   "48": "images/EE-grey-48.png",
+   "128": "images/EE-tile-square-icon-128.png"
   },
   "action": {
 	"default_popup": "popup.html",

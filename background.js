@@ -179,11 +179,11 @@ function setIconBasedOnURL(url) {
 
     //if (url_matches_formatters(url)) {
     if (url_matches_formatters(url)) {
-      chrome.action.setIcon({ path: "./EE-crimson-38.png" });
+      chrome.action.setIcon({ path: "./images/EE-crimson-38.png" });
 	} else if (url_matches_matchpatterns(url)) {
-      chrome.action.setIcon({ path: "./EE-crimson-38.png" });
+      chrome.action.setIcon({ path: "./images/EE-crimson-38.png" });
     } else {
-      chrome.action.setIcon({ path: "./EE-grey-38.png" });
+      chrome.action.setIcon({ path: "./images/EE-grey-38.png" });
     }
   }
 }
