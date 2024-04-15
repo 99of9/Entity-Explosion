@@ -1,16 +1,17 @@
 {
   "manifest_version": 3,
-  "name": "Entity Explosion",
+  "name": "__MSG_extName__",
   "version": "0.9.5",
-  "description": "Discover links and information about the same topic on other sites. Data live from Wikidata.",
+  "description": "__MSG_extDesc__",
+  "default_locale": "en",
   "icons": {
    "38": "images/EE-grey-38.png",
-   "48": "images/EE-grey-48.png",
+   "48": "images/EE_tile_square-icon-filled-white-48.png",
    "128": "images/EE-tile-square-icon-128.png"
   },
   "action": {
 	"default_popup": "popup.html",
-    "default_title": "Entity Explosion"
+    "default_title": "__MSG_extName__"
   },
   "background": {
      "service_worker": "background.js"
@@ -28,6 +29,7 @@
 	"https://species.wikimedia.org/w/api.php", 
 	"https://*.wikipedia.org/w/api.php",
 	"https://*.wikibooks.org/w/api.php",
+	"https://*.wikifunctions.org/w/api.php",
 	"https://*.wikinews.org/w/api.php",
 	"https://*.wikiquote.org/w/api.php",
 	"https://*.wikisource.org/w/api.php",

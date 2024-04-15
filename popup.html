@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="html">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,13 +8,23 @@
 
   <link rel="stylesheet" href="./bootstrap.min.css"> <!-- this seems connected to the "RESOURCE FAILED TO LOAD" error, but is required for pretty dropdowns -->
   <!--<link rel="stylesheet" href="./font-awesome.min.css">-->
-
-  <script src="jquery-3.6.0.min.js"></script>
+  <!-- Custom CSS -->
+  <style>
+  .custom-img {
+    float: right;
+    height: 50px;
+    margin-top: 0; /* Adjusts the top margin */
+    margin-right: 0; /* Adjusts the right margin */
+  }  
+  </style>
+	
+	
+	
+  <script src="jquery-3.6.0.min.js"></script> <!--should be loaded before bootstrap -->
   <!--<script src="bootstrap.min.js"></script>-->
 
 </head>
 <body style = "min-width: 400px; max-width: 500px;">
- <script src="popup.js" charset="utf-8"></script>
 
   <div style="margin-bottom: 0px;">
 
@@ -35,7 +45,7 @@
             <label for="box1" class="col-sm-4 control-label" id="boxLabel1">entity</label>
             <div class="col-sm-5">
                 <select name="statusDropdown" id="box1" class="form-control">
-                    <option value='' selected='selected'>(Select)</option>
+                    <option value='' selected='selected' id="select">(Select)</option>
                 </select>
             </div>
         </div>
@@ -51,17 +61,18 @@
     <div id="div2" style="background-color:#FFFFFF;padding:5px;"></div>
     <div id="div3" style="background-color:#EEEEEE;padding:5px;"></div>
 
-	<div class="container" style="width:100%">
-	    <a target="_blank" href="https://commons.wikimedia.org/wiki/File:Wikidata-logo.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Wikidata-logo.svg/320px-Wikidata-logo.svg.png" crossorigin="anonymous"
-  referrerpolicy="no-referrer" width=40px style="float:right;"></a>
-	    <div id="div_footer1" style="margin:0px; text-align:left; font-size:x-small">
-        Live data provided by this extension is from <a target="_blank" href="https://www.wikidata.org/">Wikidata</a><sup>TM</sup> and is licensed <a target="_blank" href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>
+	<div class="container" style="width:100%;">
+	    <a target="_blank" href="https://commons.wikimedia.org/wiki/File:Wikidata-logo.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Wikidata-logo.svg/320px-Wikidata-logo.svg.png" crossorigin="anonymous" referrerpolicy="no-referrer" style="float:right; height:45px; margin-top:0; margin-right:0;"></a>
+		
+	    <div id="div_footer1" dir=ltr style="margin:0px; text-align:left; font-size:x-small">
+        <span id="footer1a">Live data provided by this extension is from</span> <a target="_blank" href="https://www.wikidata.org/" id="footer_Wikidata">Wikidata</a><sup id="TM">TM</sup> <span id="footer1b">and is licensed</span> <a target="_blank" href="https://creativecommons.org/publicdomain/zero/1.0/" id="CC0">CC0</a>
         </div>
-	    <div id="div_footer2" style="margin:0px; text-align:left; font-size:x-small">
-        <a target="_blank" href="https://www.wikidata.org/wiki/Wikidata:Entity_Explosion"><span id="ExtensionName">Entity Explosion</span></a> version <span id="ExtensionVersion">0.0</span> by <a target="_blank" href="https://www.wikidata.org/wiki/User:99of9">Toby Hudson</a>;
+	    <div id="div_footer2" dir=ltr style="margin:0px; text-align:left; font-size:x-small;">
+        <a target="_blank" href="https://www.wikidata.org/wiki/Wikidata:Entity_Explosion"><span id="ExtensionName">Entity Explosion</span></a> <span id="footer_version">version</span> <span id="ExtensionVersion">0.0</span> <span id="footer2a">by</span> <a target="_blank" href="https://www.wikidata.org/wiki/User:99of9" id="TobyHudson">Toby Hudson</a>;
         </div>
     </div>
 
+	<script src="popup.js" charset="utf-8"></script>
  	<script src="item-properties.js"></script>
 </body>
 </html>

@@ -1,0 +1,100 @@
+{
+  "extName": {
+	  "message": "Entity Explosion",
+	  "description": "Extension name in manifest, and also in the footer of popup.html."
+  },
+  "extDesc": {
+	  "message": "Discover links and information about the same topic on other sites. Data live from Wikidata.",
+	  "description": "Extension description in manifest."
+  },
+  "select": {
+	  "message": "(select)",
+	  "description": "from setStatusOptions() in item-properties.js"
+  },
+  "noResultDropdown": {
+	  "message": "(no result)",
+	  "description": "from noresult() in item-properties.js"
+  },
+  "noResult1": {
+	  "message": "No result was found on Wikidata. If other items on this site resolve correctly, this ID may be missing from the item",
+	  "description": "from noresult() in item-properties.js"
+  },
+  "search": {
+	  "message": "search",
+	  "description": "from noresult() in item-properties.js"
+  },
+  "noResult2": {
+	  "message": ", or a ",
+	  "description": "from noresult() in item-properties.js"
+  },
+  "newItem": {
+	  "message": "new item",
+	  "description": "from noresult() in item-properties.js"
+  },
+  "noResult3": {
+	  "message": "could be created.",
+	  "description": "from noresult() in item-properties.js"
+  },
+  "query1": {
+	  "message": "query 1",
+	  "description": "from general_QID_search() in item-properties.js"
+  },
+  "query2": {
+	  "message": "query 2",
+	  "description": "from specific_website_QID_search() in item-properties.js"
+  },
+  "sentToWikidata": {
+	  "message": "sent to Wikidata...",
+	  "description": "from general_QID_search() and specific_website_QID_search() in item-properties.js"
+  },	
+  "footer1a": {
+	  "message": "Live data provided by this extension is from",
+	  "description": "Part of the footer in div_footer1 in popup.html"
+  },
+  "Wikidata": {
+	  "message": "Wikidata",
+	  "description": "Part of the footer in div_footer1 in popup.html"
+  },
+  "TM": {
+	  "message": "TM",
+	  "description": "Short for Trade Mark. This will be superscripted after Wikidata. Part of the footer in div_footer1 in popup.html"
+  },
+  "footer1b": {
+	  "message": "and is licensed",
+	  "description": "Part of the footer in div_footer1 in popup.html"
+  },
+  "CC0": {
+	  "message": "CC0",
+	  "description": "Short for Creative Commons 0. This will be linked to the license. Part of the footer in div_footer1 in popup.html"
+  },
+  "version": {
+	  "message": "version",
+	  "description": "This is just the word version. The actual version number will be calculated automatically. Part of the footer in div_footer1 in popup.html"
+  },
+  "footer2a": {
+	  "message": "by",
+	  "description": "Part of the footer in div_footer1 in popup.html"
+  },
+  "TobyHudson": {
+	  "message": "Toby Hudson",
+	  "description": "This is the name of the developer. It will be linked to his userpage. Part of the footer in div_footer1 in popup.html"
+  },
+  "initialBoxLabel0": {
+	  "message": "language/língua/Sprache/idioma/语言/言語",
+	  "description": "The initial boxlabel0 in popup.html. Make sure your language is represented first in this string, but don't replace all other languages unless one is already yours (in which case it should be swapped with the first (English). The retained language diversity is required to indicate that the user needs to choose an internal (content) language, whether or not their i18n language is translated."
+  },	
+	
+	
+  "xx": {
+	  "message": "",
+	  "description": ""
+  },
+  "yy": {
+	  "message": "",
+	  "description": ""
+  },
+  "zz": {
+	  "message": "",
+	  "description": ""
+  }
+}

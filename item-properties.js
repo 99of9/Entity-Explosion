@@ -5,12 +5,19 @@ var savedIsoLanguage
 var tabURL
 var language_translations
 
+const ltre = "\u{2066}" //202a
+const rtle = "\u{2067}" //202b
+const pdf = "\u{2069}" //202c
+
+//languages_right_to_left.txt in supplementary folder, broadly from https://w.wiki/9kv6 with two extras from https://w.wiki/9kuv
+const rtl_language_codes = ["acm","aeb-arab","ar","arc","arq","ary","arz","azb","bjn","bqi","ckb","dv","ett","fa","fa-af","glk","hbo","he","hno","khw","kk-arab","kmz","ks","ks-arab","ku-arab","ky-arab","lrc","luz","ms-arab","mzn","nqo","ota","otk","pnb","ps","sdh","syc","ug","uzs","xpu","yi"]
+
 // a set of examples from https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/sendMessage
 function handleResponse(message) {
   //console.log(`Message from the background script:  ${message.response}`);
 }
 function handleError(error) {
-  //console.log(`Error: ${error}`);
+  console.log(`Error: ${error}`);
 }
 function requestLanguages() {
   var sending = chrome.runtime.sendMessage({
@@ -20,10 +27,11 @@ function requestLanguages() {
 }
 function sendIsoLanguage() {
   var sending = chrome.runtime.sendMessage({
-    greeting: "please save this language: " + savedIsoLanguage,
-    isoLanguage: savedIsoLanguage,
+    greeting: "please save this language: " + isoLanguage, //2024-04-14 was savedIsoLanguage in this line and below?
+    isoLanguage: isoLanguage,
     saveisoplease: true
   });
+  savedIsoLanguage = isoLanguage;
 }
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
@@ -39,7 +47,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         handleError(ex);
       }
 
-      initiateRedraw(savedIsoLanguage);
+      initiateRedraw(isoLanguage);
     }
   }
   //return Promise.resolve("Dummy response to keep the console quiet"); //https://github.com/mozilla/webextension-polyfill/issues/130
@@ -55,25 +63,92 @@ function selectElement(id, valueToSelect) {
   element.value = valueToSelect;
 }
 
+// Function to find the language name by its code, given a list of language_translations
+//function getLanguageName(language_translations, code) {
+//  var language = language_translations.find(lang => lang.lang === code);
+//  return language ? language.tongue : code;
+//}
+function getLanguageName(language_translations, code) {
+  for (var i = 0; i < Object.keys(language_translations).length; i++) {
+    if (language_translations[i].lang === code) {
+      return language_translations[i].tongue;
+    }
+  }
+  return code; // Return the two letter code if the name is not found
+}
+
+function getStringBeforeHyphen(inputString) {
+    const index = inputString.indexOf("-");
+    if (index !== -1) {
+        return inputString.substring(0, index);
+    }
+    // If no hyphen is found, return the entire input string.
+    return inputString;
+}
+
 
 function update_languagebox(language_translations) {
   var selection = document.getElementById("box0");
+	
+  // use Hebrew as a test for how right-to-left languages should display the languages in the dropdown
+  if (rtl_language_codes.includes(isoLanguage)) {
+	//this does it once and for all for the whole list, see below for an item by item alignment
+    //document.getElementById("box0").style.textAlign='right';
+    //document.getElementById("box1").style.textAlign='right';
+  }  
+	
+	
   while (selection.firstChild) {
     selection.removeChild(selection.firstChild);
   }
 
   //add English at the start as a default
+  //var o = document.createElement("option");
+  //o.value = "en";
+  //o.text = "[en] English";
+	
+  //add i18n language (with variant removed) at the start as a default
   var o = document.createElement("option");
-  o.value = "en";
-  o.text = "[en] English";
+  //var ui_locale = chrome.i18n.getMessage('@@ui_locale');
+  var ui_locale = getStringBeforeHyphen(chrome.i18n.getUILanguage().toLowerCase());
+  if (ui_locale != chrome.i18n.getUILanguage().toLowerCase()) {
+	// only add this variant-reduced version to the list if it actually is a variant
+	o.value = ui_locale;
+    o.text = '[' + ui_locale + '] ' + getLanguageName(language_translations, ui_locale);
+    if (rtl_language_codes.includes(isoLanguage)) {
+		o.style.textAlign='right';
+		o.text = getLanguageName(language_translations, ui_locale)+' ['+ui_locale+']';
+	}  
+  	selection.appendChild(o);
+  }
+	
+  //add i18n language (with variant in place) next as a likely selection
+  var o = document.createElement("option");
+  var ui_locale = chrome.i18n.getUILanguage().toLowerCase();
+  o.value = ui_locale;
+  o.text = '[' + ui_locale + '] ' + getLanguageName(language_translations, ui_locale);
+  if (rtl_language_codes.includes(isoLanguage)) {
+		o.style.textAlign='right';
+		o.text = getLanguageName(language_translations, ui_locale)+' ['+ui_locale+']';
+  }  
   selection.appendChild(o);
+	
   for (var i = 0; i < Object.keys(language_translations).length; i++) {
-    var o = document.createElement("option");
+    o = document.createElement("option");
     o.value = language_translations[i].lang;
     o.text = '['+language_translations[i].lang+']     '+language_translations[i].tongue;
+
+	// use Hebrew as a test for how right-to-left languages should display the languages in the dropdown
+	if (rtl_language_codes.includes(isoLanguage)) {
+		//this does it item by item, see above for once and for all for the whole list alignment
+		o.style.textAlign='right';
+		//this puts the code at the right
+		o.text = language_translations[i].tongue+'    ['+language_translations[i].lang+']';
+	}  
+
     selection.appendChild(o);
 
-    if (o.value == savedIsoLanguage) {
+    if (o.value == isoLanguage) {
       selection.selectedIndex = i + 1;
     }
   }
@@ -99,6 +174,27 @@ function redrawLabels(isoLanguage) {
 
           $("#boxLabel0").text(language);
           $("#boxLabel1").text(entity);
+			
+          // use Hebrew as a test for how right-to-left languages should display the languages in the dropdown
+          if (rtl_language_codes.includes(isoLanguage)) {
+            document.getElementById("box0").style.textAlign='right';
+            document.getElementById("box1").style.textAlign='right';
+            document.getElementById("div_title").style.textAlign='right';
+            document.getElementById("div_wdlink").style.textAlign='right';
+            document.getElementById("div_wiki").style.textAlign='right';
+            document.getElementById("div1").style.textAlign='right';
+            document.getElementById("div2").style.textAlign='right';
+            document.getElementById("div3").style.textAlign='right';
+          } else {
+            document.getElementById("box0").style.textAlign='left';
+            document.getElementById("box1").style.textAlign='left';
+            document.getElementById("div_title").style.textAlign='left';
+            document.getElementById("div_wdlink").style.textAlign='left';
+            document.getElementById("div_wiki").style.textAlign='left';
+            document.getElementById("div1").style.textAlign='left';
+            document.getElementById("div2").style.textAlign='left';
+            document.getElementById("div3").style.textAlign='left';
+          }
           break
         }
       }
@@ -125,7 +221,7 @@ function specific_website_QID_search(isoLanguage, tabURL) {
   var encodedQuery = encodeURIComponent(string);
 
   // try showing a link to the query while it's running (in case it gets stuck 
-  text = '<p><a target="_blank" href="https://query.wikidata.org/#'+encodedQuery+'">Query 2</a> sent to Wikidata...</p>';
+  text = '<p><a target="_blank" href="https://query.wikidata.org/#'+encodedQuery+'">' + chrome.i18n.getMessage("query2") + '</a> '+chrome.i18n.getMessage("sentToWikidata")+'</p>';
   const parser = new DOMParser()
   const parsed = parser.parseFromString(text, 'text/html')
   const tags = parsed.getElementsByTagName('body')
@@ -219,7 +315,7 @@ function general_QID_search(isoLanguage, tabURL) {
   var encodedQuery = encodeURIComponent(string);
 
 	// try showing a link to the query while it's running (in case it gets stuck 
-  text = '<p><a target="_blank" href="https://query.wikidata.org/#'+encodedQuery+'">Query 1</a> sent to Wikidata...</p>';
+  text = '<p><a target="_blank" href="https://query.wikidata.org/#'+encodedQuery+'">' + chrome.i18n.getMessage("query1") + '</a> '+chrome.i18n.getMessage("sentToWikidata")+'</p>';
   const parser = new DOMParser()
   const parsed = parser.parseFromString(text, 'text/html')
   const tags = parsed.getElementsByTagName('body')
@@ -366,19 +462,24 @@ function wikidata_QID_search(isoLanguage, tabURL) {
 function setStatusOptions(isoLanguage) {
   // start the status dropdown over with "Select/Selecionar/Wählen" as the first option
   $("#box1 option:gt(0)").remove();
+  /*	
   if (isoLanguage == 'en') { $("#box1 option").text("(Select)"); }
   if (isoLanguage == 'pt') { $("#box1 option").text("(Selecionar)"); }
   if (isoLanguage == 'de') { $("#box1 option").text("(Wählen)"); }
   if (isoLanguage == 'es') { $("#box1 option").text("(Seleccionar)"); }
   if (isoLanguage == 'zh-hans') { $("#box1 option").text("(选择)"); }
   if (isoLanguage == 'zh-hant') { $("#box1 option").text("(選擇)"); }
-
+  */
+  //$("#box1 option").text = chrome.i18n.getMessage("select");
+  document.getElementById("select").textContent = chrome.i18n.getMessage("select");
+	
   if (typeof tabURL !== 'undefined') {
     if ((tabURL.includes("commons.wikimedia.org")) ||
       (tabURL.includes("species.wikimedia.org")) ||
       (tabURL.includes(".wikipedia.org")) ||
       (tabURL.includes(".wikibooks.org")) ||
       (tabURL.includes(".wikinews.org")) ||
+      (tabURL.includes("wikifunctions.org")) ||
       (tabURL.includes(".wikiquote.org")) ||
       (tabURL.includes(".wikisource.org")) ||
       (tabURL.includes(".wikiversity.org")) ||
@@ -398,7 +499,7 @@ function box0change() {
   // searching, so show the spinner icon
   $('#searchSpinner').show();
   isoLanguage = $("#box0").val();
-  savedIsoLanguage = isoLanguage;
+  //savedIsoLanguage = isoLanguage;
   sendIsoLanguage()
   redrawLabels(isoLanguage)
 
@@ -410,8 +511,15 @@ function box0change() {
 
 
 function no_result() {
-  text = '<p>No result was found on Wikidata. If other items on this site resolve correctly, this ID may be missing from the item (<a target="_blank"  href="https://www.wikidata.org/w/index.php?sort=relevance&search=&title=Special:Search&profile=advanced&fulltext=1&advancedSearch-current=%7B%7D&ns0=1&ns146=1">search</a>), or a <a target="_blank" href="https://www.wikidata.org/wiki/Special:NewItem">new item</a> could be created.</p>';
+  //text = '<p>'+chrome.i18n.getMessage("noResult")+' (<a target="_blank"  href="https://www.wikidata.org/w/index.php?sort=relevance&search=&title=Special:Search&profile=advanced&fulltext=1&advancedSearch-current=%7B%7D&ns0=1&ns146=1">search</a>), or a <a target="_blank" href="https://www.wikidata.org/wiki/Special:NewItem">new item</a> could be created.</p>';
 
+  text = '<p>'
+    + chrome.i18n.getMessage("noResult1")
+    + ' (<a target="_blank" href="https://www.wikidata.org/w/index.php?sort=relevance&search=&title=Special:Search&profile=advanced&fulltext=1&advancedSearch-current=%7B%7D&ns0=1&ns146=1">'
+    + chrome.i18n.getMessage("search")+ '</a>)' +chrome.i18n.getMessage("noResult2")
+    + '<a target="_blank" href="https://www.wikidata.org/wiki/Special:NewItem">'
+    + chrome.i18n.getMessage("newItem") +'</a> '+ chrome.i18n.getMessage("noResult3") + '</p>';
+	
   const parser = new DOMParser()
   const parsed = parser.parseFromString(text, 'text/html')
   const tags = parsed.getElementsByTagName('body')
@@ -424,7 +532,7 @@ function no_result() {
   //  $("#div_wdlink").append(tag.innerHTML)
   //}
 
-  $("#box1 option").text("(no result)");
+  $("#box1 option").text(chrome.i18n.getMessage("noResultDropdown"));
 }
 
 function div_wd_change() {
@@ -440,7 +548,12 @@ function div_wd_change() {
       if (typeof language_translations[i].lang !== 'undefined') {
         if (language_translations[i].lang.localeCompare(isoLanguage) == 0) {
           if (typeof language_translations[i].data !== 'undefined') {
-            text = text + language_translations[i].data
+			//text = text + language_translations[i].data
+			if (rtl_language_codes.includes(isoLanguage)) {
+			  text = text + rtle + language_translations[i].data
+			} else {
+			  text = text + ltre + language_translations[i].data
+			}
           } else {
             text = text + 'Wikidata'
           }
@@ -449,7 +562,7 @@ function div_wd_change() {
       }
     }
   }
-  text = text + ': <b><a target="_blank" href="' + iri + '">' + iri.substring(31, iri.length) + '</a></b><br/>';
+  text = text + ': <b><a target="_blank" href="' + iri + '">'+ ltre + iri.substring(31, iri.length) + pdf +'</a></b><br/>';
   //$("#div_wdlink").html(text);
 
   const parser = new DOMParser()
@@ -502,7 +615,11 @@ function div1change() {
       for (i = 0; i < data.results.bindings.length; i++) {
         property = data.results.bindings[i].property.value
         value = data.results.bindings[i].value.value
-        text = text + property + ': <b>' + value + '</b><br/>'
+		if (rtl_language_codes.includes(isoLanguage)) {
+			text = text + rtle + property + ': <b>' + value + pdf + '</b><br/>'
+		} else {
+			text = text + ltre + property + ': <b>' + value + pdf + '</b><br/>'			
+		}
       }
       //$("#div1").html(text);
 
@@ -510,9 +627,6 @@ function div1change() {
       const parsed = parser.parseFromString(text, 'text/html')
       const tags = parsed.getElementsByTagName('body')
       $("#div1").html('');
-      //for (const tag of tags) {
-      //  $("#div1").append(tag.innerHTML)
-      //}
 	  for (var i = 0; i < tags.length; i++) {
     	$("#div1").append(tags[i].innerHTML)
   	  }
@@ -569,10 +683,21 @@ function div2change() {
         value = data.results.bindings[i].valueUri.value
 
         if ((value.startsWith("http://")) || ((value.startsWith("https://")))) {
-          text = text + property + ': <b><a target="_blank" href="' + value + '">' + value + '</a></b><br/>'
+          //text = text + property + ': <b><a target="_blank" href="' + value + '">' + value + '</a></b><br/>'
+		  if (rtl_language_codes.includes(isoLanguage)) {
+			text = text + rtle + rtle + property + ': '+ pdf + '<b><a target="_blank" href="' + value + '">' + rtle + value + pdf + pdf +'</a></b><br/>'
+		  } else {
+			text = text + ltre + ltre + property + ': '+ pdf + '<b><a target="_blank" href="' + value + '">' + ltre + value + pdf + pdf +'</a></b><br/>'
+		  }			
         } else {
-          text = text + property + ': <b>' + value + '</b><br/>'
-        }
+          //text = text + property + ': <b>' + value + '</b><br/>'
+		  if (rtl_language_codes.includes(isoLanguage)) {
+			text = text + rtle + rtle + property + ': '+ pdf +'<b>' + ltre + value + pdf + pdf + '</b><br/>'
+			//the latter ltre here is to preserve ltr-default results e.g. signed time strings like "-665000000-01-01T00:00:00Z" at Q729
+		  } else {
+			text = text + ltre + ltre + property + ': '+ pdf +'<b>' + ltre + value + pdf + pdf + '</b><br/>'
+		  }
+		}
 
       }
       //$("#div2").html(text);
@@ -585,7 +710,7 @@ function div2change() {
       //  $("#div2").append(tag.innerHTML)
       //}
 	  for (var i = 0; i < tags.length; i++) {
-    	$("#div2").append(tags[i].innerHTML)
+		$("#div2").append(tags[i].innerHTML)  
   	  }
       $('#searchSpinner').hide();
     }
@@ -749,14 +874,26 @@ function div3change() {
           }
         }
 
-        text = text + property
+        //text = text + property;
+		if (rtl_language_codes.includes(isoLanguage)) {
+			text = text + rtle + property + ' '
+		} else {
+			text = text + ltre + property + ' '
+		}
+
         if (typeof clonedJson.results.bindings[i].lang !== 'undefined') {
           if (clonedJson.results.bindings[i].lang.value !== isoLanguage) {
-            text = text + ' [' + clonedJson.results.bindings[i].lang.value + ']'
+            text = text + ltre+'[' + clonedJson.results.bindings[i].lang.value + ']'+pdf
           }
         }
         //text = text+ ': <b><a target="_blank" href="'+encodeURI(linkURL)+'">' + value + '</a></b>' + ' score:'+clonedJson.results.bindings[i].score+'<br/>'
-        text = text + ': <b><a target="_blank" href="' + encodeURI(linkURL) + '">' + value + '</a></b><br/>'
+ 		if (rtl_language_codes.includes(isoLanguage)) {
+			text = text + rtle + ': '+ pdf
+		} else {
+			text = text + ltre + ': '+ pdf
+		}
+
+		text = text + '<b><a target="_blank" href="' + encodeURI(linkURL) + '">' +ltre + value + pdf + '</a></b>'+ pdf +'<br/>'
 
 
         $('#searchSpinner').hide();
@@ -860,6 +997,13 @@ function div_wiki_change() {
                       site = 'Wikibooks'
                     }
                   }
+                  if (article.includes("wikifunctions.")) {
+                    if (typeof language_translations[j].functions !== 'undefined') {
+                      site = language_translations[j].functions
+                    } else {
+                      site = 'Wikifunctions'
+                    }
+                  }
                   if (article.includes(".wikinews.")) {
                     if (typeof language_translations[j].news !== 'undefined') {
                       site = language_translations[j].news
@@ -909,7 +1053,14 @@ function div_wiki_change() {
 
           name = replaceAll(article.substring(1 + article.lastIndexOf("/")), "_", " ");
           //console.log(text+" <... + ...>"+name+" i= "+i)
-          text = text + site + ': <b><a target="_blank" href="' + article + '">' + name + '</a></b><br/>'
+			
+          //text = text + site + ': <b><a target="_blank" href="' + article + '">' + name + '</a></b><br/>'
+		  if (rtl_language_codes.includes(isoLanguage)) {
+			text = text + rtle + site + ': <b><a target="_blank" href="' + article + '">' + name + pdf + '</a></b><br/>'
+		  } else {
+			text = text + ltre + site + ': <b><a target="_blank" href="' + article + '">' + name + pdf +'</a></b><br/>'
+		  }
+	
         }
 
         $('#searchSpinner').hide();
@@ -981,10 +1132,20 @@ function div_title_change() {
 		if (typeof data.results.bindings[i].image !== 'undefined') {
           var desc = data.results.bindings[i].image.value.substr(51)
           //text = text + '<h4>' + desc + '</h4>'
-          text = text + '<a target="_blank" href="https://commons.wikimedia.org/wiki/File:' + desc + '"><img src="https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/' + desc + '&width=106" crossorigin="anonymous" referrerpolicy="no-referrer" style="float:right;height:106px;"></a>'
+		  if (rtl_language_codes.includes(isoLanguage)) {
+          	text = text + '<a target="_blank" href="https://commons.wikimedia.org/wiki/File:' + desc + '"><img src="https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/' + desc + '&width=106" crossorigin="anonymous" referrerpolicy="no-referrer" style="float:left;height:106px;"></a>'
+		  } else {
+          	text = text + '<a target="_blank" href="https://commons.wikimedia.org/wiki/File:' + desc + '"><img src="https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/' + desc + '&width=106" crossorigin="anonymous" referrerpolicy="no-referrer" style="float:right;height:106px;"></a>'
+		  }
 		}
 		
-        text = text + '<div style="background-color:#FFFFFF;padding:20px;padding-top:10px;padding-bottom:10px;padding-right:0px;">'
+		if (rtl_language_codes.includes(isoLanguage)) {
+        	text = text + '<div style="background-color:#FFFFFF;padding:20px;padding-top:10px;padding-bottom:10px;padding-left:0px;">'
+		} else {
+        	text = text + '<div style="background-color:#FFFFFF;padding:20px;padding-top:10px;padding-bottom:10px;padding-right:0px;">'
+		}
+		  
+		  
 		if (typeof data.results.bindings[i].itemLabel !== 'undefined') {
 		  var label = data.results.bindings[i].itemLabel.value
           text = text + '<h3>' + label + '</h3>'
@@ -1054,6 +1215,37 @@ requestLanguages()
 $(document).ready(function () {
 // this is a jquery function https://learn.jquery.com/using-jquery-core/document-ready/
 // the contents of this will only execute once the DOM is ready for JS code to execute
+
+	//document.getElementById("html").style.direction="ltr";
+	
+  document.getElementById("boxLabel0").textContent = chrome.i18n.getMessage("initialBoxLabel0");
+  document.getElementById("footer1a").textContent = chrome.i18n.getMessage("footer1a");
+  document.getElementById("footer_Wikidata").textContent = chrome.i18n.getMessage("Wikidata");
+  document.getElementById("footer_version").textContent = chrome.i18n.getMessage("version");
+  document.getElementById("footer_Wikidata").textContent = chrome.i18n.getMessage("Wikidata");
+  document.getElementById("TM").textContent = chrome.i18n.getMessage("TM");
+  document.getElementById("footer1b").textContent = chrome.i18n.getMessage("footer1b");
+  document.getElementById("CC0").textContent = chrome.i18n.getMessage("CC0");
+
+  document.getElementById("ExtensionName").textContent = chrome.runtime.getManifest().name;
+  document.getElementById("ExtensionVersion").textContent = chrome.runtime.getManifest().version;
+  document.getElementById("footer2a").textContent = chrome.i18n.getMessage("footer2a");
+  document.getElementById("TobyHudson").textContent = chrome.i18n.getMessage("TobyHudson");
+
+  var ui_locale = chrome.i18n.getUILanguage().toLowerCase();
+  if (rtl_language_codes.includes(ui_locale)) {
+		document.getElementById("div_footer1").style.textAlign='right';
+		document.getElementById("div_footer2").style.textAlign='right';
+		document.getElementById("div_footer1").dir='rtl';
+		document.getElementById("div_footer2").dir='rtl';
+  } else {
+		document.getElementById("div_footer1").style.textAlign='left';
+		document.getElementById("div_footer2").style.textAlign='left';
+		document.getElementById("div_footer1").dir='ltr';
+		document.getElementById("div_footer2").dir='ltr';	  
+  }
+
+	
   // not searching initially, so hide the spinner icon
   $('#searchSpinner').hide();
 
@@ -1073,7 +1265,4 @@ $(document).ready(function () {
       initiateRedraw(savedIsoLanguage)
     }
   });
-
-  document.getElementById("ExtensionName").textContent = chrome.runtime.getManifest().name;
-  document.getElementById("ExtensionVersion").textContent = chrome.runtime.getManifest().version;
 });

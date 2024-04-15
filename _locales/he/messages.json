@@ -1,0 +1,100 @@
+{
+  "extName": {
+	  "message": "פיצוץ ישות",
+	  "description": "Extension name in manifest."
+  },
+  "extDesc": {
+	  "message": "גלה קישורים ומידע על אותו נושא באתרים אחרים. נתונים חיים מוויקינתונים.",
+	  "description": "Extension description in manifest."
+  },
+  "select": {
+	  "message": "(בחר)",
+	  "description": "from setStatusOptions() in item-properties.js"
+  },
+  "noResultDropdown": {
+	  "message": "(אין תוצאה)",
+	  "description": "from noresult() in item-properties.js"
+  },
+  "noResult1": {
+	  "message": "לא נמצאה תוצאה בוויקינתונים. אם פריטים אחרים באתר זה נפתרים כראוי, ייתכן שהזיהוי הזה חסר בפריט",
+	  "description": "from noresult() in item-properties.js"
+  },
+  "search": {
+	  "message": "חיפוש",
+	  "description": "from noresult() in item-properties.js"
+  },
+  "noResult2": {
+	  "message": " או א ",
+	  "description": "from noresult() in item-properties.js"
+  },
+  "newItem": {
+	  "message": "פריט חדש",
+	  "description": "from noresult() in item-properties.js"
+  },
+  "noResult3": {
+	  "message": "יכול להיווצר",
+	  "description": "from noresult() in item-properties.js"
+  },
+  "query1": {
+	  "message": "שאילתה 1",
+	  "description": "from general_QID_search() in item-properties.js"
+  },
+  "query2": {
+	  "message": "שאילתה 2",
+	  "description": "from specific_website_QID_search() in item-properties.js"
+  },
+  "sentToWikidata": {
+	  "message": "נשלח לויקידאטה",
+	  "description": "from general_QID_search() and specific_website_QID_search() in item-properties.js"
+  },	
+  "footer1a": {
+	  "message": "הנתונים החיים שסופקו על ידי הרחבה זו הם מ",
+	  "description": "Part of the footer in div_footer1 in popup.html"
+  },
+  "Wikidata": {
+	  "message": "ויקינתונים",
+	  "description": "Part of the footer in div_footer1 in popup.html"
+  },
+  "TM": {
+	  "message": "סימן מסחרי",
+	  "description": "Short for Trade Mark. This will be superscripted after Wikidata. Part of the footer in div_footer1 in popup.html"
+  },
+  "footer1b": {
+	  "message": "והוא בעל רישיון",
+	  "description": "Part of the footer in div_footer1 in popup.html"
+  },
+  "CC0": {
+	  "message": "CC0",
+	  "description": "Short for Creative Commons 0. This will be linked to the license. Part of the footer in div_footer1 in popup.html"
+  },
+  "version": {
+	  "message": "גִרְסָה",
+	  "description": "This is just the word version. The actual version number will be calculated automatically. Part of the footer in div_footer1 in popup.html"
+  },
+  "footer2a": {
+	  "message": "על ידי",
+	  "description": "Part of the footer in div_footer1 in popup.html"
+  },
+  "TobyHudson": {
+	  "message": "Toby Hudson",
+	  "description": "This is the name of the developer. It will be linked to his userpage. Part of the footer in div_footer1 in popup.html"
+  },
+  "initialBoxLabel0": {
+	  "message": "שפה/language/língua/idioma/语言/言語",
+	  "description": "The initial boxlabel0 in popup.html. Make sure your language is represented first in this string, but don't replace all other languages unless one is already yours (in which case it should be swapped with the first (English). The retained language diversity is required to indicate that the user needs to choose an internal (content) language, whether or not their i18n language is translated."
+  },	
+	
+	
+  "xx": {
+	  "message": "",
+	  "description": ""
+  },
+  "yy": {
+	  "message": "",
+	  "description": ""
+  },
+  "zz": {
+	  "message": "",
+	  "description": ""
+  }
+}

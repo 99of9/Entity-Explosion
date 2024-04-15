@@ -2,8 +2,11 @@
 
 language_translations = {}
 formatters = {}
-matchpatterns = {}
-savedIsoLanguage = 'en' //default start with English
+let matchpatterns = [];
+//savedIsoLanguage = 'en'; //default start with English
+savedIsoLanguage = chrome.i18n.getMessage('@@ui_locale'); //overwrite with ui_locale
+savedIsoLanguage = getStringBeforeHyphen(chrome.i18n.getUILanguage().toLowerCase()); //overwrite a different way ui_locale without variant
+console.log('initial IsoLanguage '+savedIsoLanguage);
 
 chrome.storage.sync.get(['IsoLanguage'], function (result) {
   if (typeof result !== 'undefined') {
@@ -14,6 +17,15 @@ chrome.storage.sync.get(['IsoLanguage'], function (result) {
 });
 
 dummy_translations()
+
+function getStringBeforeHyphen(inputString) {
+    const index = inputString.indexOf("-");
+    if (index !== -1) {
+        return inputString.substring(0, index);
+    }
+    // If no hyphen is found, return the entire input string.
+    return inputString;
+}
 
 function binarySearch(list, value) {
   //if (typeof value == 'undefined') return -1;
@@ -51,6 +63,26 @@ function binarySearch(list, value) {
 }
 
 
+function isValidWikimediaSite(url_host) {
+  const wikimediaSites = [
+    "commons.wikimedia.org",
+    "species.wikimedia.org",
+    ".wikipedia.org",
+    ".wikibooks.org",
+    "wikifunctions.org",
+    ".wikinews.org",
+    ".wikiquote.org",
+    ".wikisource.org",
+    ".wikiversity.org",
+    ".wikivoyage.org",
+    "wikidata.org",
+    ".wiktionary.org"
+  ];
+
+  return wikimediaSites.some(site => url_host.includes(site));
+}
+
+
 
 function url_matches_formatters(url) {
 
@@ -61,18 +93,7 @@ function url_matches_formatters(url) {
   //console.log(formatters);
 
   //quick screen for valid Wikimedia sites
-  if ((url_host.includes("commons.wikimedia.org")) ||
-    (url_host.includes("species.wikimedia.org")) ||
-    (url_host.includes(".wikipedia.org")) ||
-    (url_host.includes(".wikibooks.org")) ||
-    (url_host.includes(".wikinews.org")) ||
-    (url_host.includes(".wikiquote.org")) ||
-    (url_host.includes(".wikisource.org")) ||
-    (url_host.includes(".wikiversity.org")) ||
-    (url_host.includes(".wikivoyage.org")) ||
-    (url_host.includes("wikidata.org")) ||
-    (url_host.includes(".wiktionary.org"))
-  ) {
+  if (isValidWikimediaSite(url_host)) {
     return true;
   }
 
@@ -134,18 +155,7 @@ function url_matches_matchpatterns(url) {
   //console.log(matchpattern);
 
   //quick screen for valid Wikimedia sites
-  if ((url_host.includes("commons.wikimedia.org")) ||
-    (url_host.includes("species.wikimedia.org")) ||
-    (url_host.includes(".wikipedia.org")) ||
-    (url_host.includes(".wikibooks.org")) ||
-    (url_host.includes(".wikinews.org")) ||
-    (url_host.includes(".wikiquote.org")) ||
-    (url_host.includes(".wikisource.org")) ||
-    (url_host.includes(".wikiversity.org")) ||
-    (url_host.includes(".wikivoyage.org")) ||
-    (url_host.includes("wikidata.org")) ||
-    (url_host.includes(".wiktionary.org"))
-  ) {
+  if (isValidWikimediaSite(url_host)) {
     return true;
   }
 
@@ -158,16 +168,47 @@ function url_matches_matchpatterns(url) {
   (e.g. "inaturalist.com" without anything before or after). 
    See version 0.9.1 for code from a previous attempt. 
   */
-  // linear matching with full regex match
-  for (i = 0; i < Object.keys(matchpatterns).length; i++) {
+	
+	
+	
+  try { url_object = new URL(url_decoded)  }
+  	catch (e) { 
+		console.log('matchpattern_match false because url cant be constructed');
+		return false; 
+	}
+
+	
+	function checkHostFloor(matchpattern) {
+		return matchpattern.hostname>=url_host;
+	}
+	function checkHostCeiling(matchpattern) {
+		return matchpattern.hostname<=url_host;
+	}
+	// the print statements below are mostly for debugging, and can be suppressed for production
+	try {
+  		console.log( 'start matchpatterns search for '+url_host+' at: '+matchpatterns.findIndex(checkHostFloor) +' which is '+ matchpatterns[matchpatterns.findIndex(checkHostFloor)].hostname);
+		console.log( 'end matchpatterns search for '+url_host+' at: '+matchpatterns.findLastIndex(checkHostCeiling)+' which is '+ matchpatterns[matchpatterns.findLastIndex(checkHostCeiling)].hostname);
+	} catch (e) {
+		console.log('cant print matchpattern search, some hostnames are undefined');
+		return false;
+	}
+	
+  /* linear matching of ALL ITEMS with full regex match. This is a more thorough check, but takes much longer than the floor-ceiling range below.
+  for (i = 0; i < Object.keys(matchpatterns).length; i++) {  */
+	
+  // linear matching of floor-ceiling range with full regex match
+  for (i = matchpatterns.findIndex(checkHostFloor); i <= matchpatterns.findLastIndex(checkHostCeiling); i++) { 
+	 
+	console.log('check hostname: '+i+': '+matchpatterns[i].hostname+' patternregex '+matchpatterns[i].matchpatternregex);  
+	  
   	if (url_decoded.match(matchpatterns[i].matchpatternregex)) {
   		duration = performance.now() - startTime;
-  		console.log('matchpattern_match true '+ url_decoded +'='+matchpatterns[i].matchpatternregex+' took '+duration+'ms');
+  		console.log('matchpattern_match true '+ url_decoded+' (hostname '+matchpatterns[i].hostname +') ='+matchpatterns[i].matchpatternregex+' (hostname '+url_host+' or '+url_object.hostname+') took '+duration+'ms');
   		return true;
   	}
   }
   duration = performance.now() - startTime;
-  console.log('matchpattern_match false on '+url_decoded+' took '+duration+'ms');
+  console.log('matchpattern_match false on '+url_decoded+' hostname '+url_object.hostname+' took '+duration+'ms');
   
   return false;
 
@@ -227,6 +268,7 @@ function dummy_translations() {
     pedia: "Wikipedia",
     commons: "Wikimedia Commons",
     books: "Wikibooks",
+    functions: "Wikifunctions",
     news: "Wikinews",
     quote: "Wikiquote",
     source: "Wikisource",
@@ -424,7 +466,28 @@ function get_matchpatterns() {
 		        var RE;
 		        try {
          			RE = new RegExp(prop_matchpattern_replacement.matchpattern, flags);
-         			prop_matchpattern_replacement.matchpatternregex = RE;
+         			prop_matchpattern_replacement.matchpatternregex = RE;		
+					
+	/* TEST TRACKING HOSTNAME/DOMAIN 2024-04-03 */  
+					var domain_in_matchpattern_regexp = new RegExp("\\/\\(?\\^?\\(?\\??\\:?http\\(?\\:?s?\\)?\\??\\\\?:\\\\?\\/?\\\\?\\/?\\(?\\??\\:?(www)?\\\\?\\.?\\)?\\??([^/]*)","g");
+					var domainmatches = domain_in_matchpattern_regexp.exec(RE);
+					var domain ='';
+					if (domainmatches){ 
+						domain=domainmatches[2];
+						domain = domain.replace(/\\/g, '').replace(/[^a-zA-Z0-9.]/g, '').replace(/^[.]+/, '');
+					}
+					if (domain) {
+						prop_matchpattern_replacement.hostname = domain;
+						//console.log(matchpatterns[i].matchpatternregex+' <<<>>>  '+domain);
+					} else {
+						console.log('URL Match Pattern (P8966) from '+prop_matchpattern_replacement.prop+' has no easily apparent hostname.')
+						//console.log(RE+' <<<>>>  '+domainmatches);
+						//console.log(domain_in_matchpattern_regexp);  
+						prop_matchpattern_replacement.hostname = 'ZZZDefaultHostname';
+					}
+	/* END 2024-04-03 */  
+							
+					
         		}
         		catch (e) {
           			//console.log(e.message);
@@ -435,6 +498,28 @@ function get_matchpatterns() {
         		matchpatterns[i] = prop_matchpattern_replacement
 		      }
 
+				
+				function compare_hostnames(a, b) {
+  					let hostnameA = a.hostname ? a.hostname : 'ZZZ unresolved hostname';
+  					let hostnameB = b.hostname ? b.hostname : 'ZZZ unresolved hostname';
+
+  					if (hostnameA < hostnameB) {
+    					return -1;
+  					}
+  					if (hostnameA > hostnameB) {
+    					return 1;
+  					}
+  					return 0;
+				}
+
+				
+				if (Array.isArray(matchpatterns)) {
+    				matchpatterns.sort(compare_hostnames);
+				} else {
+					console.log("matchpatterns is not an array");
+				}
+
+				
       			//const duration = performance.now() - startTime;
       			//console.log('prop_regex took '+duration+'ms');
 
@@ -457,7 +542,7 @@ function get_translations() {
   var string = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>'
     + 'PREFIX wd: <http://www.wikidata.org/entity/>'
     + 'PREFIX wdt: <http://www.wikidata.org/prop/direct/>'
-    + 'SELECT DISTINCT ?lang ?data ?entity ?language ?tongue ?pedia ?commons ?books ?news ?quote ?source ?versity ?voyage ?tionary ?species WHERE {'
+    + 'SELECT DISTINCT ?lang ?data ?entity ?language ?tongue ?pedia ?commons ?books ?functions ?news ?quote ?source ?versity ?voyage ?tionary ?species WHERE {'
     + ' hint:Query hint:optimizer "None".'
     + '  ?tongueitem wdt:P424 ?lang .'
     + '  ?tongueitem wdt:P31/wdt:P279* wd:Q17376908 .'
@@ -473,6 +558,8 @@ function get_translations() {
     + '    FILTER(LANG(?commons)=?lang)}'
     + '  OPTIONAL{wd:Q367 rdfs:label ?books .'
     + '    FILTER(LANG(?books)=?lang)}'
+    + '  OPTIONAL{wd:Q104587954 rdfs:label ?functions .'
+    + '    FILTER(LANG(?functions)=?lang)}'
     + '  OPTIONAL{wd:Q964 rdfs:label ?news .'
     + '    FILTER(LANG(?news)=?lang)}'
     + '  OPTIONAL{wd:Q369 rdfs:label ?quote .'
@@ -526,6 +613,7 @@ function get_translations() {
         if (typeof data.results.bindings[i].language !== 'undefined') { translation.language = data.results.bindings[i].language.value }
         if (typeof data.results.bindings[i].commons !== 'undefined') { translation.commons = data.results.bindings[i].commons.value }
         if (typeof data.results.bindings[i].books !== 'undefined') { translation.books = data.results.bindings[i].books.value }
+        if (typeof data.results.bindings[i].functions !== 'undefined') { translation.functions = data.results.bindings[i].functions.value }
         if (typeof data.results.bindings[i].news !== 'undefined') { translation.news = data.results.bindings[i].news.value }
         if (typeof data.results.bindings[i].quote !== 'undefined') { translation.quote = data.results.bindings[i].quote.value }
         if (typeof data.results.bindings[i].source !== 'undefined') { translation.source = data.results.bindings[i].source.value }
@@ -574,14 +662,15 @@ chrome.storage.local.get(['langtrans', 'cacheTime'], function (result) {
   if ((typeof result.langtrans !== 'undefined') && (typeof result.cacheTime !=='undefined')) {
     language_translations = result.langtrans
 
-    console.log('Reloaded '+Object.keys(language_translations).length+' language translations from cache: ' + language_translations +' cacheTime: '+ result.cacheTime +', '+((Date.now()-result.cacheTime)*0.001)+'s ago');
+    console.log('Reloaded '+Object.keys(language_translations).length+' language translations from cache. cacheTime: '+ result.cacheTime +', '+((Date.now()-result.cacheTime)*0.001)+'s ago');
+	//console.log(language_translations);
 
     if ((Object.keys(language_translations).length < 99) || (result.cacheTime < Date.now() - 1000*60*60*24*7)) {
 	  console.log('Cached language translations insufficient or outdated. cacheTime: '+ result.cacheTime);
       get_translations()
     }
   } else {
-    //console.log('Failed to find saved translations, new query.')
+    console.log('Failed to find saved translations, new query.')
     get_translations()
   }
 });
@@ -590,8 +679,9 @@ chrome.storage.local.get(['formatters', 'FcacheTime'], function (result) {
   if ((typeof result.formatters !== 'undefined') && (typeof result.FcacheTime !=='undefined')) {
     formatters = JSON.parse(result.formatters)
 
-    console.log('Reloaded '+Object.keys(formatters).length+' formatters from cache: ' + formatters +' FcacheTime: '+ result.FcacheTime +', '+((Date.now()-result.FcacheTime)*0.001)+'s ago');
-
+    console.log('Reloaded '+Object.keys(formatters).length+' formatters from cache. FcacheTime: '+ result.FcacheTime +', '+((Date.now()-result.FcacheTime)*0.001)+'s ago');
+	//console.log(formatters)
+	  
     // now need to correct for this bug: https://bugs.chromium.org/p/chromium/issues/detail?id=380964
     // recalculate all formatregex from formatter, regex
     for (var i = 0; i < Object.keys(formatters).length; i++) {
@@ -619,7 +709,8 @@ chrome.storage.local.get(['matchpatterns', 'MPcacheTime'], function (result) {
   if ((typeof result.matchpatterns !== 'undefined') && (typeof result.MPcacheTime !=='undefined')) {
     matchpatterns = JSON.parse(result.matchpatterns)
 
-    console.log('Reloaded '+Object.keys(matchpatterns).length+' matchpatterns from cache: ' + matchpatterns +' MPcacheTime: '+ result.MPcacheTime +', '+((Date.now()-result.MPcacheTime)*0.001)+'s ago');
+    console.log('Reloaded '+Object.keys(matchpatterns).length+' matchpatterns from cache. MPcacheTime: '+ result.MPcacheTime +', '+((Date.now()-result.MPcacheTime)*0.001)+'s ago');
+	//console.log(matchpatterns)
 
     // now need to correct for this bug: https://bugs.chromium.org/p/chromium/issues/detail?id=380964
     // recalculate all matchpatternregex from matchpattern, regex
