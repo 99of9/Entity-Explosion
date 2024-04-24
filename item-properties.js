@@ -5,9 +5,9 @@ var savedIsoLanguage
 var tabURL
 var language_translations
 
-const ltre = "\u{2066}" //202a
-const rtle = "\u{2067}" //202b
-const pdf = "\u{2069}" //202c
+const ltre = "\u{2066}"
+const rtle = "\u{2067}"
+const pdf = "\u{2069}"
 
 //languages_right_to_left.txt in supplementary folder, broadly from https://w.wiki/9kv6 with two extras from https://w.wiki/9kuv
 const rtl_language_codes = ["acm","aeb-arab","ar","arc","arq","ary","arz","azb","bjn","bqi","ckb","dv","ett","fa","fa-af","glk","hbo","he","hno","khw","kk-arab","kmz","ks","ks-arab","ku-arab","ky-arab","lrc","luz","ms-arab","mzn","nqo","ota","otk","pnb","ps","sdh","syc","ug","uzs","xpu","yi"]
@@ -231,8 +231,10 @@ function specific_website_QID_search(isoLanguage, tabURL) {
 
 
   fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
+	 //method: 'GET',
  	 headers: {
-   		'Accept': 'application/json'
+   		'Accept': 'application/json'//,
+		//'Api-User-Agent': 'Entity-Explosion (https://www.wikidata.org/wiki/Wikidata:Entity_Explosion)'
  	}
   })
 	.then(
@@ -325,8 +327,10 @@ function general_QID_search(isoLanguage, tabURL) {
 
 
   fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
+	 //method: 'GET',
  	 headers: {
-   		'Accept': 'application/json'
+   		'Accept': 'application/json'//,
+		//'Api-User-Agent': 'Entity-Explosion (https://www.wikidata.org/wiki/Wikidata:Entity_Explosion)'
  	}
   })
 	.then(
@@ -385,8 +389,10 @@ function wiki_QID_search(isoLanguage, tabURL) {
 
   // send query to endpoint, see https://en.wikipedia.org/wiki/Wikipedia:Finding_a_Wikidata_ID
   fetch(queryString, {
+	 method: 'GET',
  	 headers: {
-   		'Accept': 'application/json'
+   		'Accept': 'application/json',
+	    'Api-User-Agent': 'Entity-Explosion (https://www.wikidata.org/wiki/Wikidata:Entity_Explosion)'
  	}
   })
 	.then(
@@ -598,8 +604,10 @@ function div1change() {
   var encodedQuery = encodeURIComponent(string);
 
   fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
- 	 headers: {
-   		'Accept': 'application/json'
+ 	 //method: 'GET',
+	 headers: {
+   		'Accept': 'application/json'//,
+		//'Api-User-Agent': 'Entity-Explosion (https://www.wikidata.org/wiki/Wikidata:Entity_Explosion)'
  	}
   })
 	.then(
@@ -664,8 +672,10 @@ function div2change() {
   var encodedQuery = encodeURIComponent(string);
 
   fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
+	 //method: 'GET',
  	 headers: {
-   		'Accept': 'application/json'
+   		'Accept': 'application/json'//,
+	    //'Api-User-Agent': 'Entity-Explosion (https://www.wikidata.org/wiki/Wikidata:Entity_Explosion)'
  	}
   })
 	.then(
@@ -770,8 +780,10 @@ function div3change() {
   var encodedQuery = encodeURIComponent(string);
 
   fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
+	 //method: 'GET',
  	 headers: {
-   		'Accept': 'application/json'
+   		'Accept': 'application/json'//,
+		//'Api-User-Agent': 'Entity-Explosion (https://www.wikidata.org/wiki/Wikidata:Entity_Explosion)'
  	}
   })
 	.then(
@@ -915,7 +927,7 @@ function div3change() {
 	)
  	.catch(
 		function (error) {
-		console.error('Unable to get items.', error);
+		console.log('Unable to get items: ', error);
 	}
   )
 }
@@ -933,8 +945,10 @@ function div_wiki_change() {
   var encodedQuery = encodeURIComponent(string);
 
   fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
+	 //method: 'GET',
  	 headers: {
-   		'Accept': 'application/json'
+   		'Accept': 'application/json'//,
+		//'Api-User-Agent': 'Entity-Explosion (https://www.wikidata.org/wiki/Wikidata:Entity_Explosion)'
  	}
   })
 	.then(
@@ -1112,8 +1126,10 @@ function div_title_change() {
 
 
   fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
+	 //method: 'GET',
  	 headers: {
-   		'Accept': 'application/json'
+   		'Accept': 'application/json'//,
+		//'Api-User-Agent': 'Entity-Explosion (https://www.wikidata.org/wiki/Wikidata:Entity_Explosion)'
  	}
   })
 	.then(
@@ -1236,11 +1252,13 @@ $(document).ready(function () {
   if (rtl_language_codes.includes(ui_locale)) {
 		document.getElementById("div_footer1").style.textAlign='right';
 		document.getElementById("div_footer2").style.textAlign='right';
+	    document.getElementById("wdlogo").style.float='left';
 		document.getElementById("div_footer1").dir='rtl';
 		document.getElementById("div_footer2").dir='rtl';
   } else {
 		document.getElementById("div_footer1").style.textAlign='left';
 		document.getElementById("div_footer2").style.textAlign='left';
+	    document.getElementById("wdlogo").style.float='right';
 		document.getElementById("div_footer1").dir='ltr';
 		document.getElementById("div_footer2").dir='ltr';	  
   }

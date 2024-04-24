@@ -1,0 +1,86 @@
+{
+  "extName": {
+	  "message": "การระเบิดขององค์กร",
+	  "description": "ชื่อส่วนขยายในไฟล์ manifest และในส่วนท้ายของ popup.html"
+  },
+  "extDesc": {
+	  "message": "ค้นหาลิงก์และข้อมูลเกี่ยวกับหัวข้อเดียวกันบนเว็บไซต์อื่น ข้อมูลสดจาก Wikidata",
+	  "description": "คำอธิบายส่วนขยายในไฟล์ manifest"
+  },
+  "select": {
+	  "message": "(เลือก)",
+	  "description": "จาก setStatusOptions() ใน item-properties.js"
+  },
+  "noResultDropdown": {
+	  "message": "(ไม่มีผลลัพธ์)",
+	  "description": "จาก noresult() ใน item-properties.js"
+  },
+  "noResult1": {
+	  "message": "ไม่พบผลลัพธ์ใน Wikidata หากรายการอื่นๆ บนเว็บไซต์นี้แก้ไขได้ถูกต้อง รหัสนี้อาจหายไปจากรายการ",
+	  "description": "จาก noresult() ใน item-properties.js"
+  },
+  "search": {
+	  "message": "ค้นหา",
+	  "description": "จาก noresult() ใน item-properties.js"
+  },
+  "noResult2": {
+	  "message": ", หรือ",
+	  "description": "จาก noresult() ใน item-properties.js"
+  },
+  "newItem": {
+	  "message": "รายการใหม่",
+	  "description": "จาก noresult() ใน item-properties.js"
+  },
+  "noResult3": {
+	  "message": "สามารถสร้างได้",
+	  "description": "จาก noresult() ใน item-properties.js"
+  },
+  "query1": {
+	  "message": "คำถาม 1",
+	  "description": "จาก general_QID_search() ใน item-properties.js"
+  },
+  "query2": {
+	  "message": "คำถาม 2",
+	  "description": "จาก specific_website_QID_search() ใน item-properties.js"
+  },
+  "sentToWikidata": {
+	  "message": "ส่งไปยัง Wikidata...",
+	  "description": "จาก general_QID_search() และ specific_website_QID_search() ใน item-properties.js"
+  },	
+  "footer1a": {
+	  "message": "ข้อมูลสดที่ส่วนขยายนี้ให้มาจาก",
+	  "description": "ส่วนหนึ่งของส่วนท้ายใน div_footer1 ใน popup.html"
+  },
+  "Wikidata": {
+	  "message": "Wikidata",
+	  "description": "ส่วนหนึ่งของส่วนท้ายใน div_footer1 ใน popup.html"
+  },
+  "TM": {
+	  "message": "TM",
+	  "description": "ย่อจาก Trade Mark จะถูกเขียนเป็นตัวยกขึ้นหลังจาก Wikidata ส่วนหนึ่งของส่วนท้ายใน div_footer1 ใน popup.html"
+  },
+  "footer1b": {
+	  "message": "และได้รับใบอนุญาต",
+	  "description": "ส่วนหนึ่งของส่วนท้ายใน div_footer1 ใน popup.html"
+  },
+  "CC0": {
+	  "message": "CC0",
+	  "description": "ย่อจาก Creative Commons 0 จะถูกเชื่อมโยงไปยังใบอนุญาต ส่วนหนึ่งของส่วนท้ายใน div_footer1 ใน popup.html"
+  },
+  "version": {
+	  "message": "เวอร์ชัน",
+	  "description": "นี่เป็นแค่คำว่าเวอร์ชัน หมายเลขเวอร์ชันจริงจะถูกคำนวณโดยอัตโนมัติ ส่วนหนึ่งของส่วนท้ายใน div_footer1 ใน popup.html"
+  },
+  "footer2a": {
+	  "message": "โดย",
+	  "description": "ส่วนหนึ่งของส่วนท้ายใน div_footer1 ใน popup.html"
+  },
+  "TobyHudson": {
+	  "message": "Toby Hudson",
+	  "description": "นี่คือชื่อของผู้พัฒนา จะถูกเชื่อมโยงไปยังหน้าผู้ใช้ของเขา ส่วนหนึ่งของส่วนท้ายใน div_footer1 ใน popup.html"
+  },
+  "initialBoxLabel0": {
+	  "message": "ภาษา/language/língua/Sprache/idioma/语言/言語",
+	  "description": "boxlabel0 เริ่มต้นใน popup.html ตรวจสอบให้แน่ใจว่าภาษาของคุณได้รับการแทนที่แรกในสตริงนี้ แต่ไม่ต้องแทนที่ภาษาอื่นทั้งหมด ยกเว้นว่าภาษาหนึ่งเป็นภาษาของคุณ (ในกรณีนั้นควรจะสลับกับภาษาแรก (ภาษาอังกฤษ) ความหลากหลายของภาษาที่ถูกเก็บไว้จำเป็นต้องระบุว่าผู้ใช้จำเป็นต้องเลือกภาษาภายใน (เนื้อหา) ไม่ว่าภาษา i18n ของพวกเขาจะถูกแปลหรือไม่"
+  }
+}

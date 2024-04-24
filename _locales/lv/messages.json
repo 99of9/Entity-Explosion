@@ -1,0 +1,86 @@
+{
+  "extName": {
+	  "message": "Entitātes Eksplozija",
+	  "description": "Paplašinājuma nosaukums manifestā, kā arī popup.html kājenes daļā."
+  },
+  "extDesc": {
+	  "message": "Atklājiet saites un informāciju par to pašu tēmu citās vietnēs. Dati tiešraidē no Wikidata.",
+	  "description": "Paplašinājuma apraksts manifestā."
+  },
+  "select": {
+	  "message": "(izvēlēties)",
+	  "description": "no setStatusOptions() funkcijas item-properties.js failā"
+  },
+  "noResultDropdown": {
+	  "message": "(nav rezultātu)",
+	  "description": "no noresult() funkcijas item-properties.js failā"
+  },
+  "noResult1": {
+	  "message": "Wikidata nav atrasts neviens rezultāts. Ja citi šīs vietnes objekti tiek pareizi atrisināti, šis ID var būt trūkstošs objektā",
+	  "description": "no noresult() funkcijas item-properties.js failā"
+  },
+  "search": {
+	  "message": "meklēt",
+	  "description": "no noresult() funkcijas item-properties.js failā"
+  },
+  "noResult2": {
+	  "message": ", vai ",
+	  "description": "no noresult() funkcijas item-properties.js failā"
+  },
+  "newItem": {
+	  "message": "jauns objekts",
+	  "description": "no noresult() funkcijas item-properties.js failā"
+  },
+  "noResult3": {
+	  "message": "varētu tikt izveidots.",
+	  "description": "no noresult() funkcijas item-properties.js failā"
+  },
+  "query1": {
+	  "message": "vaicājums 1",
+	  "description": "no general_QID_search() funkcijas item-properties.js failā"
+  },
+  "query2": {
+	  "message": "vaicājums 2",
+	  "description": "no specific_website_QID_search() funkcijas item-properties.js failā"
+  },
+  "sentToWikidata": {
+	  "message": "nosūtīts uz Wikidata...",
+	  "description": "no general_QID_search() un specific_website_QID_search() funkcijām item-properties.js failā"
+  },	
+  "footer1a": {
+	  "message": "Šī paplašinājuma sniegtie tiešraides dati ir no",
+	  "description": "Daļa no kājenes div_footer1 popup.html lapā"
+  },
+  "Wikidata": {
+	  "message": "Wikidata",
+	  "description": "Daļa no kājenes div_footer1 popup.html lapā"
+  },
+  "TM": {
+	  "message": "TM",
+	  "description": "Saīsinājums no Preču Zīme. Tas tiks uzrakstīts augšrakstā pēc Wikidata. Daļa no kājenes div_footer1 popup.html lapā"
+  },
+  "footer1b": {
+	  "message": "un ir licencēts",
+	  "description": "Daļa no kājenes div_footer1 popup.html lapā"
+  },
+  "CC0": {
+	  "message": "CC0",
+	  "description": "Saīsinājums no Creative Commons 0. Tas tiks saistīts ar licenci. Daļa no kājenes div_footer1 popup.html lapā"
+  },
+  "version": {
+	  "message": "versija",
+	  "description": "Tas ir tikai vārds versija. Patiesais versijas numurs tiks automātiski aprēķināts. Daļa no kājenes div_footer1 popup.html lapā"
+  },
+  "footer2a": {
+	  "message": "autors",
+	  "description": "Daļa no kājenes div_footer1 popup.html lapā"
+  },
+  "TobyHudson": {
+	  "message": "Toby Hudson",
+	  "description": "Tas ir izstrādātāja vārds. Tas tiks saistīts ar viņa lietotāja lapu. Daļa no kājenes div_footer1 popup.html lapā"
+  },
+  "initialBoxLabel0": {
+	  "message": "valoda/língua/Sprache/idioma/语言/言語",
+	  "description": "Sākotnējais boxlabel0 popup.html lapā. Pārliecinieties, ka jūsu valoda ir pārstāvēta pirmā šajā virknē, bet neaizstājiet visas citas valodas, ja viena jau ir jūsu (šajā gadījumā tā jāapmaina ar pirmo (angļu). Saglabātā valodu daudzveidība ir nepieciešama, lai norādītu, ka lietotājam jāizvēlas iekšējā (satura) valoda, neatkarīgi no tā, vai viņa i18n valoda ir tulkota."
+  }
+}

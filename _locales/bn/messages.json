@@ -1,0 +1,86 @@
+{
+  "extName": {
+	  "message": "এন্টিটি বিস্ফোরণ",
+	  "description": "ম্যানিফেস্টে এক্সটেনশনের নাম, এবং popup.html এর ফুটারেও।"
+  },
+  "extDesc": {
+	  "message": "অন্যান্য সাইটে একই বিষয়ে লিঙ্ক এবং তথ্য আবিষ্কার করুন। ডেটা উইকিডাটা থেকে লাইভ।",
+	  "description": "ম্যানিফেস্টে এক্সটেনশনের বর্ণনা।"
+  },
+  "select": {
+	  "message": "(নির্বাচন করুন)",
+	  "description": "item-properties.js এর setStatusOptions() থেকে"
+  },
+  "noResultDropdown": {
+	  "message": "(ফলাফল নেই)",
+	  "description": "item-properties.js এর noresult() থেকে"
+  },
+  "noResult1": {
+	  "message": "উইকিডাটায় কোনো ফলাফল পাওয়া যায়নি। যদি এই সাইটের অন্যান্য আইটেম ঠিকভাবে সমাধান হয়, তাহলে এই আইডি আইটেম থেকে অনুপস্থিত হতে পারে",
+	  "description": "item-properties.js এর noresult() থেকে"
+  },
+  "search": {
+	  "message": "অনুসন্ধান",
+	  "description": "item-properties.js এর noresult() থেকে"
+  },
+  "noResult2": {
+	  "message": ", অথবা একটি ",
+	  "description": "item-properties.js এর noresult() থেকে"
+  },
+  "newItem": {
+	  "message": "নতুন আইটেম",
+	  "description": "item-properties.js এর noresult() থেকে"
+  },
+  "noResult3": {
+	  "message": "তৈরি করা সম্ভব।",
+	  "description": "item-properties.js এর noresult() থেকে"
+  },
+  "query1": {
+	  "message": "অনুসন্ধান ১",
+	  "description": "item-properties.js এর general_QID_search() থেকে"
+  },
+  "query2": {
+	  "message": "অনুসন্ধান ২",
+	  "description": "item-properties.js এর specific_website_QID_search() থেকে"
+  },
+  "sentToWikidata": {
+	  "message": "উইকিডাটায় পাঠানো হচ্ছে...",
+	  "description": "item-properties.js এর general_QID_search() এবং specific_website_QID_search() থেকে"
+  },	
+  "footer1a": {
+	  "message": "এই এক্সটেনশন দ্বারা প্রদত্ত লাইভ ডেটা হল",
+	  "description": "popup.html এর div_footer1 এর ফুটারের অংশ"
+  },
+  "Wikidata": {
+	  "message": "উইকিডাটা",
+	  "description": "popup.html এর div_footer1 এর ফুটারের অংশ"
+  },
+  "TM": {
+	  "message": "টিএম",
+	  "description": "ট্রেড মার্কের জন্য সংক্ষিপ্ত। এটি উইকিডাটার পরে সুপারস্ক্রিপ্ট হবে। popup.html এর div_footer1 এর ফুটারের অংশ"
+  },
+  "footer1b": {
+	  "message": "এবং লাইসেন্স প্রাপ্ত",
+	  "description": "popup.html এর div_footer1 এর ফুটারের অংশ"
+  },
+  "CC0": {
+	  "message": "সিসি০",
+	  "description": "ক্রিয়েটিভ কমন্স ০ এর জন্য সংক্ষিপ্ত। এটি লাইসেন্সের সাথে লিঙ্ক করা হবে। popup.html এর div_footer1 এর ফুটারের অংশ"
+  },
+  "version": {
+	  "message": "সংস্করণ",
+	  "description": "এটি শুধুমাত্র সংস্করণ শব্দ। আসল সংস্করণ নম্বরটি স্বয়ংক্রিয়ভাবে গণনা করা হবে। popup.html এর div_footer1 এর ফুটারের অংশ"
+  },
+  "footer2a": {
+	  "message": "দ্বারা",
+	  "description": "popup.html এর div_footer1 এর ফুটারের অংশ"
+  },
+  "TobyHudson": {
+	  "message": "টোবি হাডসন",
+	  "description": "এটি ডেভেলপারের নাম। এটি তার ব্যবহারকারী পৃষ্ঠার সাথে লিঙ্ক করা হবে। popup.html এর div_footer1 এর ফুটারের অংশ"
+  },
+  "initialBoxLabel0": {
+	  "message": "ভাষা/língua/Sprache/idioma/语言/言語",
+	  "description": ""
+  }
+}

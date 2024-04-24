@@ -354,9 +354,11 @@ function get_formatters() {
   console.log("Running formatter URL query (moderate)")
 
 	fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
- 		 headers: {
-    		'Accept': 'application/json'
-  		}
+		 method: 'GET',
+ 		 headers: new Headers( {
+    		'Accept': 'application/json'//,
+			//'Api-User-Agent': 'Entity-Explosion (https://www.wikidata.org/wiki/Wikidata:Entity_Explosion)'
+  		} )
 	})
 		.then(
 			function (response) {
@@ -432,9 +434,11 @@ function get_matchpatterns() {
   console.log("Running matchpattern query (moderate) "+'https://query.wikidata.org/sparql?query=' + encodedQuery);
 
 	fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
- 		 headers: {
-    		'Accept': 'application/json'
-  		}
+		 method: 'GET',
+ 		 headers: new Headers( {
+    		'Accept': 'application/json'//,
+			//'Api-User-Agent': 'Entity-Explosion (https://www.wikidata.org/wiki/Wikidata:Entity_Explosion)'
+  		} )
 	})
 		.then(
 			function (response) {
@@ -586,9 +590,11 @@ function get_translations() {
 
 
 	fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
- 		 headers: {
-    		'Accept': 'application/json'
-  		}
+		 method: 'GET',
+ 		 headers: new Headers( {
+    		'Accept': 'application/json'//,
+			//'Api-User-Agent': 'Entity-Explosion (https://www.wikidata.org/wiki/Wikidata:Entity_Explosion)'
+  		} )
 	})
 		.then(
 			function (response) {

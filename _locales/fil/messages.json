@@ -1,0 +1,86 @@
+{
+  "extName": {
+	  "message": "Pagsabog ng Entidad",
+	  "description": "Pangalan ng extension sa manifest, at sa footer din ng popup.html."
+  },
+  "extDesc": {
+	  "message": "Tuklasin ang mga link at impormasyon tungkol sa parehong paksa sa ibang mga site. Data ay live mula sa Wikidata.",
+	  "description": "Deskripsyon ng extension sa manifest."
+  },
+  "select": {
+	  "message": "(piliin)",
+	  "description": "mula sa setStatusOptions() sa item-properties.js"
+  },
+  "noResultDropdown": {
+	  "message": "(walang resulta)",
+	  "description": "mula sa noresult() sa item-properties.js"
+  },
+  "noResult1": {
+	  "message": "Walang resultang natagpuan sa Wikidata. Kung ang ibang mga item sa site na ito ay tama ang resolusyon, maaaring nawawala ang ID na ito mula sa item",
+	  "description": "mula sa noresult() sa item-properties.js"
+  },
+  "search": {
+	  "message": "hanapin",
+	  "description": "mula sa noresult() sa item-properties.js"
+  },
+  "noResult2": {
+	  "message": ", o isang ",
+	  "description": "mula sa noresult() sa item-properties.js"
+  },
+  "newItem": {
+	  "message": "bagong item",
+	  "description": "mula sa noresult() sa item-properties.js"
+  },
+  "noResult3": {
+	  "message": "maaaring malikha.",
+	  "description": "mula sa noresult() sa item-properties.js"
+  },
+  "query1": {
+	  "message": "pag-query 1",
+	  "description": "mula sa general_QID_search() sa item-properties.js"
+  },
+  "query2": {
+	  "message": "pag-query 2",
+	  "description": "mula sa specific_website_QID_search() sa item-properties.js"
+  },
+  "sentToWikidata": {
+	  "message": "ipinadala sa Wikidata...",
+	  "description": "mula sa general_QID_search() at specific_website_QID_search() sa item-properties.js"
+  },	
+  "footer1a": {
+	  "message": "Ang live data na ibinigay ng extension na ito ay mula sa",
+	  "description": "Bahagi ng footer sa div_footer1 sa popup.html"
+  },
+  "Wikidata": {
+	  "message": "Wikidata",
+	  "description": "Bahagi ng footer sa div_footer1 sa popup.html"
+  },
+  "TM": {
+	  "message": "TM",
+	  "description": "Maikli para sa Trade Mark. Ito ay magiging superscript pagkatapos ng Wikidata. Bahagi ng footer sa div_footer1 sa popup.html"
+  },
+  "footer1b": {
+	  "message": "at lisensyado",
+	  "description": "Bahagi ng footer sa div_footer1 sa popup.html"
+  },
+  "CC0": {
+	  "message": "CC0",
+	  "description": "Maikli para sa Creative Commons 0. Ito ay ililink sa lisensya. Bahagi ng footer sa div_footer1 sa popup.html"
+  },
+  "version": {
+	  "message": "bersyon",
+	  "description": "Ito ay ang salitang bersyon lamang. Ang aktwal na numero ng bersyon ay awtomatikong kakalkulahin. Bahagi ng footer sa div_footer1 sa popup.html"
+  },
+  "footer2a": {
+	  "message": "ni",
+	  "description": "Bahagi ng footer sa div_footer1 sa popup.html"
+  },
+  "TobyHudson": {
+	  "message": "Toby Hudson",
+	  "description": "Ito ang pangalan ng developer. Ito ay ililink sa kanyang userpage. Bahagi ng footer sa div_footer1 sa popup.html"
+  },
+  "initialBoxLabel0": {
+	  "message": "wika/língua/Sprache/idioma/语言/言語",
+	  "description": "Ang unang boxlabel0 sa popup.html. Siguraduhing ang iyong wika ay unang nirerepresenta sa string na ito, ngunit huwag palitan ang lahat ng iba pang mga wika maliban kung isa ay sa iyo na (sa kasong ito ay dapat itong ipalit sa una (Ingles). Ang pagpapanatili ng pagkakaiba-iba ng wika ay kinakailangan upang ipahiwatig na ang user ay kailangang pumili ng isang panloob (nilalaman) na wika, kahit na ang kanilang i18n na wika ay isinalin o hindi."
+  }
+}

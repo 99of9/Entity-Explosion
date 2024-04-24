@@ -14,9 +14,16 @@
     "default_title": "__MSG_extName__"
   },
   "background": {
-     "service_worker": "background.js"
+     "service_worker": "background.js"//, Firefox suggests the next line
+	 //"scripts":["background.js"]
   },
   "content_scripts": [  ],
+  //Firefox needs this
+  //"browser_specific_settings": {
+  //  "gecko": {
+  //    "id": "{b2dbb4cf-7425-4790-8bc4-b1ccbc818118}"
+  //  }
+  //},
   "content_security_policy": {
 	  "extension_pages": "script-src 'self'; object-src 'self'"
   },

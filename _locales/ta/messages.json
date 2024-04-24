@@ -1,0 +1,86 @@
+{
+  "extName": {
+	  "message": "உருவாக்கல் வெடிப்பு",
+	  "description": "நிர்வாக மதிப்பில் நீட்டிப்பு பெயர், மேலும் popup.html இன் அடிக்குறிப்பிலும்."
+  },
+  "extDesc": {
+	  "message": "மற்ற தளங்களில் அதே தலைப்பில் இணைப்புகள் மற்றும் தகவல்களை கண்டறியுங்கள். தரவு நேரடியாக விக்கிடாடாவில் இருந்து.",
+	  "description": "நிர்வாக விளக்கத்தில் நீட்டிப்பு."
+  },
+  "select": {
+	  "message": "(தேர்வு)",
+	  "description": "item-properties.js இல் இருந்து setStatusOptions()"
+  },
+  "noResultDropdown": {
+	  "message": "(முடிவு இல்லை)",
+	  "description": "item-properties.js இல் இருந்து noresult()"
+  },
+  "noResult1": {
+	  "message": "விக்கிடாடாவில் முடிவு கிடைக்கவில்லை. இந்த தளத்தில் ஏனைய உருப்படிகள் சரியாக தீர்வுகளை கிடைக்கின்றன என்றால், இந்த ஐடி உருப்படியில் காணப்படவில்லை",
+	  "description": "item-properties.js இல் இருந்து noresult()"
+  },
+  "search": {
+	  "message": "தேடல்",
+	  "description": "item-properties.js இல் இருந்து noresult()"
+  },
+  "noResult2": {
+	  "message": ", அல்லது ஒரு ",
+	  "description": "item-properties.js இல் இருந்து noresult()"
+  },
+  "newItem": {
+	  "message": "புதிய உருப்படி",
+	  "description": "item-properties.js இல் இருந்து noresult()"
+  },
+  "noResult3": {
+	  "message": "உருவாக்கப்படலாம்.",
+	  "description": "item-properties.js இல் இருந்து noresult()"
+  },
+  "query1": {
+	  "message": "வினவல் 1",
+	  "description": "item-properties.js இல் இருந்து general_QID_search()"
+  },
+  "query2": {
+	  "message": "வினவல் 2",
+	  "description": "item-properties.js இல் இருந்து specific_website_QID_search()"
+  },
+  "sentToWikidata": {
+	  "message": "விக்கிடாடாவுக்கு அனுப்பப்பட்டது...",
+	  "description": "item-properties.js இல் இருந்து general_QID_search() மற்றும் specific_website_QID_search()"
+  },	
+  "footer1a": {
+	  "message": "இந்த நீட்டிப்பு மூலம் வழங்கப்படும் நேரடி தரவு இதனால் இருக்கின்றது",
+	  "description": "div_footer1 இல் உள்ள அடிக்குறிப்பின் ஒரு பகுதி"
+  },
+  "Wikidata": {
+	  "message": "விக்கிடாடா",
+	  "description": "div_footer1 இல் உள்ள அடிக்குறிப்பின் ஒரு பகுதி"
+  },
+  "TM": {
+	  "message": "TM",
+	  "description": "வணிக முத்திரைக்கு சுருக்கம். இது விக்கிடாடாவின் பின்னால் மேலே வைக்கப்படும். div_footer1 இல் உள்ள அடிக்குறிப்பின் ஒரு பகுதி"
+  },
+  "footer1b": {
+	  "message": "மற்றும் அது உரிமம் பெற்றுள்ளது",
+	  "description": "div_footer1 இல் உள்ள அடிக்குறிப்பின் ஒரு பகுதி"
+  },
+  "CC0": {
+	  "message": "CC0",
+	  "description": "கிரியேட்டிவ் காமன்ஸ் 0 க்கு சுருக்கம். இது உரிமத்துடன் இணைக்கப்படும். div_footer1 இல் உள்ள அடிக்குறிப்பின் ஒரு பகுதி"
+  },
+  "version": {
+	  "message": "பதிப்பு",
+	  "description": "இது வெறுமனே பதிப்பு என்ற சொல். உண்மையான பதிப்பு எண்ணை தானாகவே கணக்கிடப்படும். div_footer1 இல் உள்ள அடிக்குறிப்பின் ஒரு பகுதி"
+  },
+  "footer2a": {
+	  "message": "மூலம்",
+	  "description": "div_footer1 இல் உள்ள அடிக்குறிப்பின் ஒரு பகுதி"
+  },
+  "TobyHudson": {
+	  "message": "Toby Hudson",
+	  "description": "இது டெவலப்பரின் பெயர். இது அவரது பயனர் பக்கத்துக்கு இணைக்கப்படும். div_footer1 இல் உள்ள அடிக்குறிப்பின் ஒரு பகுதி"
+  },
+  "initialBoxLabel0": {
+	  "message": "மொழி/língua/Sprache/idioma/语言/言語",
+	  "description": "popup.html இல் உள்ள ஆரம்ப boxlabel0. உங்கள் மொழி இந்த சரத்தில் முதன்முதலில் காணப்பட வேண்டும், ஆனால் அனைத்து மற்ற மொழிகளையும் மாற்ற வேண்டாம் தவிர ஒன்று ஏற்கனவே உங்களுக்கு சொந்தமானது (அப்போது அது முதன்முதலில் உள்ள (ஆங்கிலம்) உடன் மாற்றப்பட வேண்டும்). பயனர் உள்ளடக்க (உள்ளடக்க) மொழியை தேர்வு செய்ய வேண்டும் என்பதை குறிப்பிடுவதற்கு மொழி வைத்திருப்பு தேவைப்படுகின்றது, அவரது i18n மொழி மொழிபெயர்ப்பு செய்யப்பட்டதாக இருந்தாலும்."
+  }
+}

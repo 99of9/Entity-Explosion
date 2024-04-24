@@ -1,0 +1,100 @@
+{
+  "extName": {
+	  "message": "Експлозия на Същности",
+	  "description": "Име на разширението в манифеста, и също в долния колонтитул на popup.html."
+  },
+  "extDesc": {
+	  "message": "Открийте връзки и информация за същата тема на други сайтове. Данни на живо от Wikidata.",
+	  "description": "Описание на разширението в манифеста."
+  },
+  "select": {
+	  "message": "(изберете)",
+	  "description": "от setStatusOptions() в item-properties.js"
+  },
+  "noResultDropdown": {
+	  "message": "(няма резултат)",
+	  "description": "от noresult() в item-properties.js"
+  },
+  "noResult1": {
+	  "message": "Не е намерен резултат в Wikidata. Ако други елементи на този сайт се разрешават правилно, този идентификатор може да липсва от елемента",
+	  "description": "от noresult() в item-properties.js"
+  },
+  "search": {
+	  "message": "търсене",
+	  "description": "от noresult() в item-properties.js"
+  },
+  "noResult2": {
+	  "message": ", или ",
+	  "description": "от noresult() в item-properties.js"
+  },
+  "newItem": {
+	  "message": "нов елемент",
+	  "description": "от noresult() в item-properties.js"
+  },
+  "noResult3": {
+	  "message": "може да бъде създаден.",
+	  "description": "от noresult() в item-properties.js"
+  },
+  "query1": {
+	  "message": "заявка 1",
+	  "description": "от general_QID_search() в item-properties.js"
+  },
+  "query2": {
+	  "message": "заявка 2",
+	  "description": "от specific_website_QID_search() в item-properties.js"
+  },
+  "sentToWikidata": {
+	  "message": "изпратено до Wikidata...",
+	  "description": "от general_QID_search() и specific_website_QID_search() в item-properties.js"
+  },	
+  "footer1a": {
+	  "message": "Данните на живо, предоставени от това разширение, са от",
+	  "description": "Част от долния колонтитул в div_footer1 в popup.html"
+  },
+  "Wikidata": {
+	  "message": "Wikidata",
+	  "description": "Част от долния колонтитул в div_footer1 в popup.html"
+  },
+  "TM": {
+	  "message": "TM",
+	  "description": "Съкращение за Търговска Марка. Това ще бъде надписано след Wikidata. Част от долния колонтитул в div_footer1 в popup.html"
+  },
+  "footer1b": {
+	  "message": "и е лицензиран",
+	  "description": "Част от долния колонтитул в div_footer1 в popup.html"
+  },
+  "CC0": {
+	  "message": "CC0",
+	  "description": "Съкращение за Creative Commons 0. Това ще бъде свързано с лиценза. Част от долния колонтитул в div_footer1 в popup.html"
+  },
+  "version": {
+	  "message": "версия",
+	  "description": "Това е просто думата версия. Реалният номер на версията ще бъде изчислен автоматично. Част от долния колонтитул в div_footer1 в popup.html"
+  },
+  "footer2a": {
+	  "message": "от",
+	  "description": "Част от долния колонтитул в div_footer1 в popup.html"
+  },
+  "TobyHudson": {
+	  "message": "Toby Hudson",
+	  "description": "Това е името на разработчика. То ще бъде свързано с неговата потребителска страница. Част от долния колонтитул в div_footer1 в popup.html"
+  },
+  "initialBoxLabel0": {
+	  "message": "език/língua/Sprache/idioma/语言/言語",
+	  "description": "Първоначалният boxlabel0 в popup.html. Уверете се, че вашият език е представен първи в този низ, но не заменяйте всички други езици, освен ако един от тях вече не е ваш (в този случай той трябва да бъде разменен с първия (английски). Запазеното езиково разнообразие е необходимо, за да се покаже, че потребителят трябва да избере вътрешен (съдържателен) език, независимо дали неговият i18n език е преведен или не."
+  },	
+	
+	
+  "xx": {
+	  "message": "",
+	  "description": ""
+  },
+  "yy": {
+	  "message": "",
+	  "description": ""
+  },
+  "zz": {
+	  "message": "",
+	  "description": ""
+  }
+}

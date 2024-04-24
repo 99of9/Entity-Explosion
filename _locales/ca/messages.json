@@ -1,0 +1,86 @@
+{
+  "extName": {
+	  "message": "Explosió d'Entitat",
+	  "description": "Nom de l'extensió al manifest, i també al peu de pàgina de popup.html."
+  },
+  "extDesc": {
+	  "message": "Descobreix enllaços i informació sobre el mateix tema en altres llocs. Dades en directe des de Wikidata.",
+	  "description": "Descripció de l'extensió al manifest."
+  },
+  "select": {
+	  "message": "(selecciona)",
+	  "description": "de setStatusOptions() a item-properties.js"
+  },
+  "noResultDropdown": {
+	  "message": "(sense resultat)",
+	  "description": "de noresult() a item-properties.js"
+  },
+  "noResult1": {
+	  "message": "No s'ha trobat cap resultat a Wikidata. Si altres elements d'aquest lloc es resolen correctament, aquest ID pot faltar a l'element",
+	  "description": "de noresult() a item-properties.js"
+  },
+  "search": {
+	  "message": "cerca",
+	  "description": "de noresult() a item-properties.js"
+  },
+  "noResult2": {
+	  "message": ", o un ",
+	  "description": "de noresult() a item-properties.js"
+  },
+  "newItem": {
+	  "message": "nou element",
+	  "description": "de noresult() a item-properties.js"
+  },
+  "noResult3": {
+	  "message": "podria ser creat.",
+	  "description": "de noresult() a item-properties.js"
+  },
+  "query1": {
+	  "message": "consulta 1",
+	  "description": "de general_QID_search() a item-properties.js"
+  },
+  "query2": {
+	  "message": "consulta 2",
+	  "description": "de specific_website_QID_search() a item-properties.js"
+  },
+  "sentToWikidata": {
+	  "message": "enviat a Wikidata...",
+	  "description": "de general_QID_search() i specific_website_QID_search() a item-properties.js"
+  },	
+  "footer1a": {
+	  "message": "Les dades en directe proporcionades per aquesta extensió provenen de",
+	  "description": "Part del peu de pàgina a div_footer1 a popup.html"
+  },
+  "Wikidata": {
+	  "message": "Wikidata",
+	  "description": "Part del peu de pàgina a div_footer1 a popup.html"
+  },
+  "TM": {
+	  "message": "TM",
+	  "description": "Abreviatura de Marca Registrada. Això serà superscrit després de Wikidata. Part del peu de pàgina a div_footer1 a popup.html"
+  },
+  "footer1b": {
+	  "message": "i està llicenciat",
+	  "description": "Part del peu de pàgina a div_footer1 a popup.html"
+  },
+  "CC0": {
+	  "message": "CC0",
+	  "description": "Abreviatura de Creative Commons 0. Això estarà enllaçat amb la llicència. Part del peu de pàgina a div_footer1 a popup.html"
+  },
+  "version": {
+	  "message": "versió",
+	  "description": "Aquesta és només la paraula versió. El número real de la versió serà calculat automàticament. Part del peu de pàgina a div_footer1 a popup.html"
+  },
+  "footer2a": {
+	  "message": "per",
+	  "description": "Part del peu de pàgina a div_footer1 a popup.html"
+  },
+  "TobyHudson": {
+	  "message": "Toby Hudson",
+	  "description": "Aquest és el nom del desenvolupador. Estarà enllaçat amb la seva pàgina d'usuari. Part del peu de pàgina a div_footer1 a popup.html"
+  },
+  "initialBoxLabel0": {
+	  "message": "idioma/língua/Sprache/idioma/语言/言語",
+	  "description": "La etiqueta inicial de la caixa 0 a popup.html. Assegura't que la teva llengua està representada primer en aquesta cadena, però no substitueixis totes les altres llengües llevat que una ja sigui la teva (en aquest cas s'hauria d'intercanviar amb la primera (anglès). La diversitat de llengües retinguda és necessària per indicar que l'usuari ha de triar una llengua interna (de contingut), ja sigui o no traduïda la seva llengua i18n."
+  }
+}

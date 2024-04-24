@@ -1,0 +1,86 @@
+{
+  "extName": {
+	  "message": "Entity Explosion",
+	  "description": "扩展名在manifest中，也在popup.html的页脚中。"
+  },
+  "extDesc": {
+	  "message": "在其他网站上发现关于同一主题的链接和信息。数据来自Wikidata。",
+	  "description": "扩展描述在manifest中。"
+  },
+  "select": {
+	  "message": "(选择)",
+	  "description": "来自item-properties.js中的setStatusOptions()"
+  },
+  "noResultDropdown": {
+	  "message": "(无结果)",
+	  "description": "来自item-properties.js中的noresult()"
+  },
+  "noResult1": {
+	  "message": "在Wikidata上找不到结果。如果此站点上的其他项目正确解析，则此ID可能缺失在项目中",
+	  "description": "来自item-properties.js中的noresult()"
+  },
+  "search": {
+	  "message": "搜索",
+	  "description": "来自item-properties.js中的noresult()"
+  },
+  "noResult2": {
+	  "message": "，或者一个",
+	  "description": "来自item-properties.js中的noresult()"
+  },
+  "newItem": {
+	  "message": "新项目",
+	  "description": "来自item-properties.js中的noresult()"
+  },
+  "noResult3": {
+	  "message": "可以被创建。",
+	  "description": "来自item-properties.js中的noresult()"
+  },
+  "query1": {
+	  "message": "查询1",
+	  "description": "来自item-properties.js中的general_QID_search()"
+  },
+  "query2": {
+	  "message": "查询2",
+	  "description": "来自item-properties.js中的specific_website_QID_search()"
+  },
+  "sentToWikidata": {
+	  "message": "发送到Wikidata...",
+	  "description": "来自item-properties.js中的general_QID_search()和specific_website_QID_search()"
+  },	
+  "footer1a": {
+	  "message": "此扩展提供的实时数据来自",
+	  "description": "页脚在popup.html的div_footer1部分"
+  },
+  "Wikidata": {
+	  "message": "Wikidata",
+	  "description": "页脚在popup.html的div_footer1部分"
+  },
+  "TM": {
+	  "message": "TM",
+	  "description": "商标的缩写。这将在Wikidata后面标为上标。页脚在popup.html的div_footer1部分"
+  },
+  "footer1b": {
+	  "message": "并且已获得许可",
+	  "description": "页脚在popup.html的div_footer1部分"
+  },
+  "CC0": {
+	  "message": "CC0",
+	  "description": "Creative Commons 0的缩写。这将链接到许可证。页脚在popup.html的div_footer1部分"
+  },
+  "version": {
+	  "message": "版本",
+	  "description": "这只是单词版本。实际的版本号将自动计算。页脚在popup.html的div_footer1部分"
+  },
+  "footer2a": {
+	  "message": "由",
+	  "description": "页脚在popup.html的div_footer1部分"
+  },
+  "TobyHudson": {
+	  "message": "Toby Hudson",
+	  "description": "这是开发者的名字。它将链接到他的用户页面。页脚在popup.html的div_footer1部分"
+  },
+  "initialBoxLabel0": {
+	  "message": "语言/língua/Sprache/idioma/语言/言語",
+	  "description": "popup.html中的初始boxlabel0。确保您的语言首先在此字符串中表示，但不要替换所有其他语言，除非其中一个已经是您的（在这种情况下，它应与第一个（英语）交换）。保留语言多样性是必需的，以指示用户需要选择内部（内容）语言，无论他们的i18n语言是否被翻译。"
+  }
+}

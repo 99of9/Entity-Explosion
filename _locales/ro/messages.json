@@ -1,0 +1,86 @@
+{
+  "extName": {
+	  "message": "Explozie de Entitate",
+	  "description": "Numele extensiei în manifest, precum și în subsolul paginii popup.html."
+  },
+  "extDesc": {
+	  "message": "Descoperă link-uri și informații despre același subiect pe alte site-uri. Date în timp real de la Wikidata.",
+	  "description": "Descrierea extensiei în manifest."
+  },
+  "select": {
+	  "message": "(selectează)",
+	  "description": "din setStatusOptions() în item-properties.js"
+  },
+  "noResultDropdown": {
+	  "message": "(fără rezultat)",
+	  "description": "din noresult() în item-properties.js"
+  },
+  "noResult1": {
+	  "message": "Nu s-a găsit niciun rezultat pe Wikidata. Dacă alte elemente de pe acest site se rezolvă corect, acest ID poate lipsi din element",
+	  "description": "din noresult() în item-properties.js"
+  },
+  "search": {
+	  "message": "caută",
+	  "description": "din noresult() în item-properties.js"
+  },
+  "noResult2": {
+	  "message": ", sau un ",
+	  "description": "din noresult() în item-properties.js"
+  },
+  "newItem": {
+	  "message": "element nou",
+	  "description": "din noresult() în item-properties.js"
+  },
+  "noResult3": {
+	  "message": "ar putea fi creat.",
+	  "description": "din noresult() în item-properties.js"
+  },
+  "query1": {
+	  "message": "interogare 1",
+	  "description": "din general_QID_search() în item-properties.js"
+  },
+  "query2": {
+	  "message": "interogare 2",
+	  "description": "din specific_website_QID_search() în item-properties.js"
+  },
+  "sentToWikidata": {
+	  "message": "trimis la Wikidata...",
+	  "description": "din general_QID_search() și specific_website_QID_search() în item-properties.js"
+  },	
+  "footer1a": {
+	  "message": "Datele în timp real furnizate de această extensie provin de la",
+	  "description": "Parte a subsolului de pagină în div_footer1 în popup.html"
+  },
+  "Wikidata": {
+	  "message": "Wikidata",
+	  "description": "Parte a subsolului de pagină în div_footer1 în popup.html"
+  },
+  "TM": {
+	  "message": "TM",
+	  "description": "Prescurtare pentru Marcă înregistrată. Acesta va fi suprascris după Wikidata. Parte a subsolului de pagină în div_footer1 în popup.html"
+  },
+  "footer1b": {
+	  "message": "și este licențiat",
+	  "description": "Parte a subsolului de pagină în div_footer1 în popup.html"
+  },
+  "CC0": {
+	  "message": "CC0",
+	  "description": "Prescurtare pentru Creative Commons 0. Acesta va fi legat de licență. Parte a subsolului de pagină în div_footer1 în popup.html"
+  },
+  "version": {
+	  "message": "versiune",
+	  "description": "Acesta este doar cuvântul versiune. Numărul real al versiunii va fi calculat automat. Parte a subsolului de pagină în div_footer1 în popup.html"
+  },
+  "footer2a": {
+	  "message": "de",
+	  "description": "Parte a subsolului de pagină în div_footer1 în popup.html"
+  },
+  "TobyHudson": {
+	  "message": "Toby Hudson",
+	  "description": "Acesta este numele dezvoltatorului. Va fi legat de pagina sa de utilizator. Parte a subsolului de pagină în div_footer1 în popup.html"
+  },
+  "initialBoxLabel0": {
+	  "message": "limbă/language/língua/Sprache/idioma/语言/言語",
+	  "description": "Eticheta inițială a casetei în popup.html. Asigurați-vă că limba dvs. este reprezentată prima în acest șir, dar nu înlocuiți toate celelalte limbi, cu excepția cazului în care una este deja a dvs. (în acest caz, ar trebui să fie schimbată cu prima (engleză). Diversitatea lingvistică reținută este necesară pentru a indica faptul că utilizatorul trebuie să aleagă o limbă internă (de conținut), indiferent dacă limba sa i18n este tradusă."
+  }
+}

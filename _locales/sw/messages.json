@@ -1,0 +1,86 @@
+{
+  "extName": {
+	  "message": "Mlipuko wa Kiumbe",
+	  "description": "Jina la upanuzi katika maandishi, na pia katika sehemu ya chini ya popup.html."
+  },
+  "extDesc": {
+	  "message": "Gundua viungo na habari kuhusu mada ile ile kwenye tovuti zingine. Data moja kwa moja kutoka Wikidata.",
+	  "description": "Maelezo ya upanuzi katika maandishi."
+  },
+  "select": {
+	  "message": "(chagua)",
+	  "description": "kutoka setStatusOptions() katika item-properties.js"
+  },
+  "noResultDropdown": {
+	  "message": "(hakuna matokeo)",
+	  "description": "kutoka noresult() katika item-properties.js"
+  },
+  "noResult1": {
+	  "message": "Hakuna matokeo yalipatikana kwenye Wikidata. Ikiwa vitu vingine kwenye tovuti hii vinatatuliwa kwa usahihi, hii ID inaweza kukosekana kwenye kipengee",
+	  "description": "kutoka noresult() katika item-properties.js"
+  },
+  "search": {
+	  "message": "tafuta",
+	  "description": "kutoka noresult() katika item-properties.js"
+  },
+  "noResult2": {
+	  "message": ", au ",
+	  "description": "kutoka noresult() katika item-properties.js"
+  },
+  "newItem": {
+	  "message": "kipengee kipya",
+	  "description": "kutoka noresult() katika item-properties.js"
+  },
+  "noResult3": {
+	  "message": "inaweza kuundwa.",
+	  "description": "kutoka noresult() katika item-properties.js"
+  },
+  "query1": {
+	  "message": "swali 1",
+	  "description": "kutoka general_QID_search() katika item-properties.js"
+  },
+  "query2": {
+	  "message": "swali 2",
+	  "description": "kutoka specific_website_QID_search() katika item-properties.js"
+  },
+  "sentToWikidata": {
+	  "message": "imetumwa kwa Wikidata...",
+	  "description": "kutoka general_QID_search() na specific_website_QID_search() katika item-properties.js"
+  },	
+  "footer1a": {
+	  "message": "Data ya moja kwa moja inayotolewa na upanuzi huu inatoka",
+	  "description": "Sehemu ya sehemu ya chini katika div_footer1 katika popup.html"
+  },
+  "Wikidata": {
+	  "message": "Wikidata",
+	  "description": "Sehemu ya sehemu ya chini katika div_footer1 katika popup.html"
+  },
+  "TM": {
+	  "message": "TM",
+	  "description": "Fupi kwa alama ya biashara. Hii itakuwa juu ya Wikidata. Sehemu ya sehemu ya chini katika div_footer1 katika popup.html"
+  },
+  "footer1b": {
+	  "message": "na ina leseni",
+	  "description": "Sehemu ya sehemu ya chini katika div_footer1 katika popup.html"
+  },
+  "CC0": {
+	  "message": "CC0",
+	  "description": "Fupi kwa Creative Commons 0. Hii itaunganishwa na leseni. Sehemu ya sehemu ya chini katika div_footer1 katika popup.html"
+  },
+  "version": {
+	  "message": "toleo",
+	  "description": "Hii ni neno tu la toleo. Nambari halisi ya toleo itahesabiwa kiotomatiki. Sehemu ya sehemu ya chini katika div_footer1 katika popup.html"
+  },
+  "footer2a": {
+	  "message": "na",
+	  "description": "Sehemu ya sehemu ya chini katika div_footer1 katika popup.html"
+  },
+  "TobyHudson": {
+	  "message": "Toby Hudson",
+	  "description": "Hii ni jina la msanidi programu. Itaunganishwa na ukurasa wake wa mtumiaji. Sehemu ya sehemu ya chini katika div_footer1 katika popup.html"
+  },
+  "initialBoxLabel0": {
+	  "message": "lugha/language/língua/Sprache/idioma/语言/言語",
+	  "description": "Lebo ya kisanduku cha awali katika popup.html. Hakikisha lugha yako inawakilishwa kwanza katika kamba hii, lakini usibadilishe lugha zote zingine isipokuwa moja tayari ni yako (ambayo inapaswa kubadilishwa na ya kwanza (Kiingereza). Uanuwai wa lugha uliohifadhiwa unahitajika kuonyesha kuwa mtumiaji anahitaji kuchagua lugha ya ndani (ya maudhui), iwe lugha yao ya i18n imetafsiriwa au la."
+  }
+}

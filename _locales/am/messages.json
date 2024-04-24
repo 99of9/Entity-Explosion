@@ -1,0 +1,86 @@
+{
+  "extName": {
+    "message": "ኢንቲቲ ኤክስፖሎዥን",
+    "description": "ስም ቅጾች በማንፌስት ውስጥ፣ እና በፖፕአፕ ሂትምል የግምት ክፍል."
+  },
+  "extDesc": {
+    "message": "በሌሎች ጣቢያዎች ላይ በአንድ ጉዳይ ላይ ስለሚመለከቱ አገናኞችና መረጃዎችን እይታ ያግኙ። ውሂብ ከዊኪዳታ በቀጥታ ነው።",
+    "description": "ቅጾች መግለጫ በማንፌስት ውስጥ።"
+  },
+  "select": {
+    "message": "(ይምረጡ)",
+    "description": "ከ setStatusOptions() በ item-properties.js ውስጥ"
+  },
+  "noResultDropdown": {
+    "message": "(ምንም ውጤት የለም)",
+    "description": "ከ noresult() በ item-properties.js ውስጥ"
+  },
+  "noResult1": {
+    "message": "በዊኪዳታ ምንም ውጤት አልተገኘም። ከዚህ ጣቢያ ላይ ሌሎች ንጥረ ነገሮች ቢቀመጡ ትክክለኛውን እንዲያውቁ፣ ይህ መታወቂያ ከንጥረ ነገሩ ሊጠፋ ይችላል",
+    "description": "ከ noresult() በ item-properties.js ውስጥ"
+  },
+  "search": {
+    "message": "ፈልግ",
+    "description": "ከ noresult() በ item-properties.js ውስጥ"
+  },
+  "noResult2": {
+    "message": "፣ ወይም ",
+    "description": "ከ noresult() በ item-properties.js ውስጥ"
+  },
+  "newItem": {
+    "message": "አዲስ ንጥረ ነገር",
+    "description": "ከ noresult() በ item-properties.js ውስጥ"
+  },
+  "noResult3": {
+    "message": "መፍጠር ይቻላል።",
+    "description": "ከ noresult() በ item-properties.js ውስጥ"
+  },
+  "query1": {
+    "message": "ጥያቄ 1",
+    "description": "ከ general_QID_search() በ item-properties.js ውስጥ"
+  },
+  "query2": {
+    "message": "ጥያቄ 2",
+    "description": "ከ specific_website_QID_search() በ item-properties.js ውስጥ"
+  },
+  "sentToWikidata": {
+    "message": "ወደ ዊኪዳታ ተልኳል...",
+    "description": "ከ general_QID_search() እና specific_website_QID_search() በ item-properties.js ውስጥ"
+  },  
+  "footer1a": {
+    "message": "በዚህ ቅጾች የቀጥታ ውሂብ ከ",
+    "description": "የግምት ክፍል በ div_footer1 በ popup.html ውስጥ"
+  },
+  "Wikidata": {
+    "message": "ዊኪዳታ",
+    "description": "የግምት ክፍል በ div_footer1 በ popup.html ውስጥ"
+  },
+  "TM": {
+    "message": "TM",
+    "description": "እንደ የንግድ ምልክት ምንጭ። ይህ ከዊኪዳታ በኋላ በላይኛ ቁልፍ ይሆናል። የግምት ክፍል በ div_footer1 በ popup.html ውስጥ"
+  },
+  "footer1b": {
+    "message": "እና ተፈቅዶአል",
+    "description": "የግምት ክፍል በ div_footer1 በ popup.html ውስጥ"
+  },
+  "CC0": {
+    "message": "CC0",
+    "description": "እንደ ክሪዲቲቭ ኮምመንስ 0 ምንጭ። ይህ ከፍቃዱ ጋር ይገናኛል። የግምት ክፍል በ div_footer1 በ popup.html ውስጥ"
+  },
+  "version": {
+    "message": "እትም",
+    "description": "ይህ ቃል ብቻ እትም ነው። እውነተኛው እትም ቁጥር በራስ-ራሱ በራስ-ራሱ ይቀመጣል። የግምት ክፍል በ div_footer1 በ popup.html ውስጥ"
+  },
+  "footer2a": {
+    "message": "በ",
+    "description": "የግምት ክፍል በ div_footer1 በ popup.html ውስጥ"
+  },
+  "TobyHudson": {
+    "message": "Toby Hudson",
+    "description": "ይህ የተንቀሳቃሽ ስም ነው። እሱ ከተጠቃሚው ገጽ ጋር ይገናኛል። የግምት ክፍል በ div_footer1 በ popup.html ውስጥ"
+  },
+  "initialBoxLabel0": {
+    "message": "ቋንቋ/lingua/Sprache/idioma/语言/言語",
+    "description": "የመጀመሪያው ሳጥን መለያ በ popup.html ውስጥ። ቋንቋዎትን በዚህ ስትሪንግ ውስጥ በመጀመሪያ ይወክሉ፣ ነገር ግን ሌሎችን ቋንቋዎች ካልተተከሉ አትተካቸው። ቋንቋዎችን ለመምረጥ የተጠቃሚው ይፈልጋል ወይም አይፈልግም ማለት እንዲገልጽ የቋንቋ ትልቅ ስብስብ ይቀጥላል።"
+  }
+}

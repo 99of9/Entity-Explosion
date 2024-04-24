@@ -1,0 +1,86 @@
+{
+  "extName": {
+	  "message": "ఎంటిటీ విస్ఫోటన",
+	  "description": "మేనిఫెస్ట్ లో పొడిగించిన పేరు, మరియు popup.html యొక్క అడిగుడలో కూడా."
+  },
+  "extDesc": {
+	  "message": "ఇతర సైట్లలో అదే విషయం గురించి లింకులు మరియు సమాచారం కనుగొనండి. డేటా వికీడేటా నుండి ప్రత్యక్షంగా ఉంది.",
+	  "description": "మేనిఫెస్ట్ లో వివరణ వివరణ."
+  },
+  "select": {
+	  "message": "(ఎంచుకోండి)",
+	  "description": "item-properties.js నుండి setStatusOptions()"
+  },
+  "noResultDropdown": {
+	  "message": "(ఫలితం లేదు)",
+	  "description": "item-properties.js నుండి noresult()"
+  },
+  "noResult1": {
+	  "message": "వికీడేటాలో ఫలితం కనబడలేదు. ఈ సైట్లో ఇతర అంశాలు సరిగ్గా పరిష్కరించబడితే, ఈ ID అంశం నుండి మిస్సయ్యేందుకు ఉండవచ్చు",
+	  "description": "item-properties.js నుండి noresult()"
+  },
+  "search": {
+	  "message": "శోధన",
+	  "description": "item-properties.js నుండి noresult()"
+  },
+  "noResult2": {
+	  "message": ", లేదా ఒక ",
+	  "description": "item-properties.js నుండి noresult()"
+  },
+  "newItem": {
+	  "message": "కొత్త అంశం",
+	  "description": "item-properties.js నుండి noresult()"
+  },
+  "noResult3": {
+	  "message": "సృష్టించబడవచ్చు.",
+	  "description": "item-properties.js నుండి noresult()"
+  },
+  "query1": {
+	  "message": "ప్రశ్న 1",
+	  "description": "item-properties.js నుండి general_QID_search()"
+  },
+  "query2": {
+	  "message": "ప్రశ్న 2",
+	  "description": "item-properties.js నుండి specific_website_QID_search()"
+  },
+  "sentToWikidata": {
+	  "message": "వికీడేటాకు పంపబడింది...",
+	  "description": "item-properties.js నుండి general_QID_search() మరియు specific_website_QID_search()"
+  },	
+  "footer1a": {
+	  "message": "ఈ పొడిగించిన ప్రత్యక్ష డేటా ఇది నుండి అందించబడింది",
+	  "description": "div_footer1 లో ఉన్న అడిగుడల భాగం"
+  },
+  "Wikidata": {
+	  "message": "వికీడేటా",
+	  "description": "div_footer1 లో ఉన్న అడిగుడల భాగం"
+  },
+  "TM": {
+	  "message": "TM",
+	  "description": "ట్రేడ్ మార్క్ కోసం చిన్నము. ఇది వికీడేటా తరువాత సూపర్స్క్రిప్ట్ చేయబడుతుంది. div_footer1 లో ఉన్న అడిగుడల భాగం"
+  },
+  "footer1b": {
+	  "message": "మరియు ఇది లైసెన్స్ చేయబడింది",
+	  "description": "div_footer1 లో ఉన్న అడిగుడల భాగం"
+  },
+  "CC0": {
+	  "message": "CC0",
+	  "description": "క్రియేటివ్ కామన్స్ 0 కోసం చిన్నము. ఇది లైసెన్స్ కు లింక్ చేయబడుతుంది. div_footer1 లో ఉన్న అడిగుడల భాగం"
+  },
+  "version": {
+	  "message": "వెర్షన్",
+	  "description": "ఇది కేవలం వర్డ్ వెర్షన్. నిజమైన వెర్షన్ సంఖ్య స్వయంగా లెక్కించబడుతుంది. div_footer1 లో ఉన్న అడిగుడల భాగం"
+  },
+  "footer2a": {
+	  "message": "ద్వారా",
+	  "description": "div_footer1 లో ఉన్న అడిగుడల భాగం"
+  },
+  "TobyHudson": {
+	  "message": "Toby Hudson",
+	  "description": "ఇది డెవలపర్ యొక్క పేరు. ఇది ఆయన యూజర్పేజీకి లింక్ చేయబడుతుంది. div_footer1 లో ఉన్న అడిగుడల భాగం"
+  },
+  "initialBoxLabel0": {
+	  "message": "భాష/భాష/língua/Sprache/idioma/语言/言語",
+	  "description": "popup.html లో ప్రారంభించే boxlabel0. మీ భాషను ఈ స్ట్రింగ్ లో మొదటిగా ప్రతిపాదించాలి, కానీ మీరు ఇతర భాషలను మార్చకూడదు తప్పితే ఒకటి ఇప్పటికే మీదే ఉంది (అప్పుడు దానిని మొదటి (ఆంగ్లం) తో మార్చాలి). వినియోగదారు అంతర్గత (కంటెంట్) భాషను ఎంచుకోవాలని సూచించడానికి భాషా వైవిధ్యం అవసరం."
+  }
+}

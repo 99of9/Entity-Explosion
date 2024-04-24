@@ -1,0 +1,86 @@
+{
+  "extName": {
+	  "message": "Entiteetin Räjähdys",
+	  "description": "Laajennuksen nimi manifestissa ja myös popup.html alatunnisteessa."
+  },
+  "extDesc": {
+	  "message": "Löydä linkkejä ja tietoa samasta aiheesta muilta sivustoilta. Tiedot suoraan Wikidatasta.",
+	  "description": "Laajennuksen kuvaus manifestissa."
+  },
+  "select": {
+	  "message": "(valitse)",
+	  "description": "funktiosta setStatusOptions() tiedostossa item-properties.js"
+  },
+  "noResultDropdown": {
+	  "message": "(ei tuloksia)",
+	  "description": "funktiosta noresult() tiedostossa item-properties.js"
+  },
+  "noResult1": {
+	  "message": "Wikidatassa ei löytynyt tuloksia. Jos muut kohteet tällä sivustolla ratkeavat oikein, tämä ID voi puuttua kohteesta",
+	  "description": "funktiosta noresult() tiedostossa item-properties.js"
+  },
+  "search": {
+	  "message": "etsi",
+	  "description": "funktiosta noresult() tiedostossa item-properties.js"
+  },
+  "noResult2": {
+	  "message": ", tai ",
+	  "description": "funktiosta noresult() tiedostossa item-properties.js"
+  },
+  "newItem": {
+	  "message": "uusi kohde",
+	  "description": "funktiosta noresult() tiedostossa item-properties.js"
+  },
+  "noResult3": {
+	  "message": "voitaisiin luoda.",
+	  "description": "funktiosta noresult() tiedostossa item-properties.js"
+  },
+  "query1": {
+	  "message": "haku 1",
+	  "description": "funktiosta general_QID_search() tiedostossa item-properties.js"
+  },
+  "query2": {
+	  "message": "haku 2",
+	  "description": "funktiosta specific_website_QID_search() tiedostossa item-properties.js"
+  },
+  "sentToWikidata": {
+	  "message": "lähetetty Wikidataan...",
+	  "description": "funktioista general_QID_search() ja specific_website_QID_search() tiedostossa item-properties.js"
+  },	
+  "footer1a": {
+	  "message": "Tämän laajennuksen tarjoama reaaliaikainen data on peräisin",
+	  "description": "Osa alatunnisteesta div_footer1 popup.html:ssä"
+  },
+  "Wikidata": {
+	  "message": "Wikidata",
+	  "description": "Osa alatunnisteesta div_footer1 popup.html:ssä"
+  },
+  "TM": {
+	  "message": "TM",
+	  "description": "Lyhenne sanasta tavaramerkki. Tämä tulee yläindeksinä Wikidatan jälkeen. Osa alatunnisteesta div_footer1 popup.html:ssä"
+  },
+  "footer1b": {
+	  "message": "ja se on lisensoitu",
+	  "description": "Osa alatunnisteesta div_footer1 popup.html:ssä"
+  },
+  "CC0": {
+	  "message": "CC0",
+	  "description": "Lyhenne Creative Commons 0:sta. Tämä linkitetään lisenssiin. Osa alatunnisteesta div_footer1 popup.html:ssä"
+  },
+  "version": {
+	  "message": "versio",
+	  "description": "Tämä on vain sana versio. Todellinen versionumero lasketaan automaattisesti. Osa alatunnisteesta div_footer1 popup.html:ssä"
+  },
+  "footer2a": {
+	  "message": "tekijä",
+	  "description": "Osa alatunnisteesta div_footer1 popup.html:ssä"
+  },
+  "TobyHudson": {
+	  "message": "Toby Hudson",
+	  "description": "Tämä on kehittäjän nimi. Se linkitetään hänen käyttäjäsivulleen. Osa alatunnisteesta div_footer1 popup.html:ssä"
+  },
+  "initialBoxLabel0": {
+	  "message": "kieli/língua/Sprache/idioma/语言/言語",
+	  "description": "Alkuperäinen laatikon nimi0 popup.html:ssä. Varmista, että kielesi on edustettuna ensimmäisenä tässä merkkijonossa, mutta älä korvaa kaikkia muita kieliä, ellei yksi niistä ole jo sinun (jolloin se tulisi vaihtaa ensimmäisen (englannin) kanssa). Kielten monimuotoisuuden säilyttäminen on tarpeen osoittamaan, että käyttäjän on valittava sisäinen (sisältö) kieli, onko heidän i18n kielensä käännetty tai ei."
+  }
+}

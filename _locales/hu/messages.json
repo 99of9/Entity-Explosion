@@ -1,0 +1,86 @@
+{
+  "extName": {
+	  "message": "Entitás Robbanás",
+	  "description": "A bővítmény neve a manifestben, valamint a popup.html láblécében."
+  },
+  "extDesc": {
+	  "message": "Fedezze fel a linkeket és információkat ugyanarról a témáról más oldalakon. Adatok élőben a Wikidatáról.",
+	  "description": "A bővítmény leírása a manifestben."
+  },
+  "select": {
+	  "message": "(válasszon)",
+	  "description": "a setStatusOptions() függvényből az item-properties.js-ben"
+  },
+  "noResultDropdown": {
+	  "message": "(nincs eredmény)",
+	  "description": "a noresult() függvényből az item-properties.js-ben"
+  },
+  "noResult1": {
+	  "message": "Nem található eredmény a Wikidatán. Ha ezen az oldalon más elemek helyesen oldódnak fel, akkor ez az azonosító hiányozhat az elemből",
+	  "description": "a noresult() függvényből az item-properties.js-ben"
+  },
+  "search": {
+	  "message": "keresés",
+	  "description": "a noresult() függvényből az item-properties.js-ben"
+  },
+  "noResult2": {
+	  "message": ", vagy egy ",
+	  "description": "a noresult() függvényből az item-properties.js-ben"
+  },
+  "newItem": {
+	  "message": "új elem",
+	  "description": "a noresult() függvényből az item-properties.js-ben"
+  },
+  "noResult3": {
+	  "message": "létrehozható.",
+	  "description": "a noresult() függvényből az item-properties.js-ben"
+  },
+  "query1": {
+	  "message": "lekerdezés 1",
+	  "description": "a general_QID_search() függvényből az item-properties.js-ben"
+  },
+  "query2": {
+	  "message": "lekerdezés 2",
+	  "description": "a specific_website_QID_search() függvényből az item-properties.js-ben"
+  },
+  "sentToWikidata": {
+	  "message": "elküldve a Wikidatának...",
+	  "description": "a general_QID_search() és a specific_website_QID_search() függvényekből az item-properties.js-ben"
+  },	
+  "footer1a": {
+	  "message": "Az ezen a bővítményen keresztül élő adatok forrása",
+	  "description": "A lábléc része a div_footer1-ben a popup.html-ben"
+  },
+  "Wikidata": {
+	  "message": "Wikidata",
+	  "description": "A lábléc része a div_footer1-ben a popup.html-ben"
+  },
+  "TM": {
+	  "message": "TM",
+	  "description": "Rövidítése a Védjegynek. Ez a Wikidata után lesz felső indexben. A lábléc része a div_footer1-ben a popup.html-ben"
+  },
+  "footer1b": {
+	  "message": "és licencelve van",
+	  "description": "A lábléc része a div_footer1-ben a popup.html-ben"
+  },
+  "CC0": {
+	  "message": "CC0",
+	  "description": "A Creative Commons 0 rövidítése. Ez a licenchez lesz linkelve. A lábléc része a div_footer1-ben a popup.html-ben"
+  },
+  "version": {
+	  "message": "verzió",
+	  "description": "Ez csak a verzió szó. A tényleges verziószám automatikusan lesz kiszámítva. A lábléc része a div_footer1-ben a popup.html-ben"
+  },
+  "footer2a": {
+	  "message": "által",
+	  "description": "A lábléc része a div_footer1-ben a popup.html-ben"
+  },
+  "TobyHudson": {
+	  "message": "Toby Hudson",
+	  "description": "Ez a fejlesztő neve. A felhasználói oldalára lesz linkelve. A lábléc része a div_footer1-ben a popup.html-ben"
+  },
+  "initialBoxLabel0": {
+	  "message": "nyelv/língua/Sprache/idioma/语言/言語",
+	  "description": "Az első boxlabel0 a popup.html-ben. Győződjön meg róla, hogy az Ön nyelve legyen az első ebben a sorban, de ne cserélje le az összes többi nyelvet, kivéve, ha az egyik már az Öné (ebben az esetben cserélje ki az elsővel (angollal). A megtartott nyelvi sokféleség szükséges ahhoz, hogy jelezze a felhasználónak, hogy választania kell egy belső (tartalmi) nyelvet, függetlenül attól, hogy az i18n nyelve le van-e fordítva vagy sem."
+  }
+}

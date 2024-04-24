@@ -1,0 +1,100 @@
+{
+  "extName": {
+	  "message": "Explosion d'Entité",
+	  "description": "Nom de l'extension dans le manifeste, et aussi dans le pied de page de popup.html."
+  },
+  "extDesc": {
+	  "message": "Découvrez des liens et des informations sur le même sujet sur d'autres sites. Données en direct de Wikidata.",
+	  "description": "Description de l'extension dans le manifeste."
+  },
+  "select": {
+	  "message": "(sélectionner)",
+	  "description": "de setStatusOptions() dans item-properties.js"
+  },
+  "noResultDropdown": {
+	  "message": "(aucun résultat)",
+	  "description": "de noresult() dans item-properties.js"
+  },
+  "noResult1": {
+	  "message": "Aucun résultat trouvé sur Wikidata. Si d'autres éléments sur ce site se résolvent correctement, cet identifiant peut manquer à l'élément",
+	  "description": "de noresult() dans item-properties.js"
+  },
+  "search": {
+	  "message": "recherche",
+	  "description": "de noresult() dans item-properties.js"
+  },
+  "noResult2": {
+	  "message": ", ou un ",
+	  "description": "de noresult() dans item-properties.js"
+  },
+  "newItem": {
+	  "message": "nouvel élément",
+	  "description": "de noresult() dans item-properties.js"
+  },
+  "noResult3": {
+	  "message": "pourrait être créé.",
+	  "description": "de noresult() dans item-properties.js"
+  },
+  "query1": {
+	  "message": "requête 1",
+	  "description": "de general_QID_search() dans item-properties.js"
+  },
+  "query2": {
+	  "message": "requête 2",
+	  "description": "de specific_website_QID_search() dans item-properties.js"
+  },
+  "sentToWikidata": {
+	  "message": "envoyé à Wikidata...",
+	  "description": "de general_QID_search() et specific_website_QID_search() dans item-properties.js"
+  },	
+  "footer1a": {
+	  "message": "Les données en direct fournies par cette extension proviennent de",
+	  "description": "Partie du pied de page dans div_footer1 dans popup.html"
+  },
+  "Wikidata": {
+	  "message": "Wikidata",
+	  "description": "Partie du pied de page dans div_footer1 dans popup.html"
+  },
+  "TM": {
+	  "message": "TM",
+	  "description": "Abréviation de Marque Déposée. Ceci sera en exposant après Wikidata. Partie du pied de page dans div_footer1 dans popup.html"
+  },
+  "footer1b": {
+	  "message": "et est sous licence",
+	  "description": "Partie du pied de page dans div_footer1 dans popup.html"
+  },
+  "CC0": {
+	  "message": "CC0",
+	  "description": "Abréviation de Creative Commons 0. Ceci sera lié à la licence. Partie du pied de page dans div_footer1 dans popup.html"
+  },
+  "version": {
+	  "message": "version",
+	  "description": "C'est juste le mot version. Le numéro de version réel sera calculé automatiquement. Partie du pied de page dans div_footer1 dans popup.html"
+  },
+  "footer2a": {
+	  "message": "par",
+	  "description": "Partie du pied de page dans div_footer1 dans popup.html"
+  },
+  "TobyHudson": {
+	  "message": "Toby Hudson",
+	  "description": "C'est le nom du développeur. Il sera lié à sa page utilisateur. Partie du pied de page dans div_footer1 dans popup.html"
+  },
+  "initialBoxLabel0": {
+	  "message": "langue/língua/Sprache/idioma/语言/言語",
+	  "description": "Le initial boxlabel0 dans popup.html. Assurez-vous que votre langue est représentée en premier dans cette chaîne, mais ne remplacez pas toutes les autres langues à moins que l'une d'elles ne soit déjà la vôtre (auquel cas elle devrait être échangée avec la première (anglais). La diversité linguistique retenue est nécessaire pour indiquer que l'utilisateur doit choisir une langue interne (contenu), que sa langue i18n soit traduite ou non."
+  },	
+	
+	
+  "xx": {
+	  "message": "",
+	  "description": ""
+  },
+  "yy": {
+	  "message": "",
+	  "description": ""
+  },
+  "zz": {
+	  "message": "",
+	  "description": ""
+  }
+}

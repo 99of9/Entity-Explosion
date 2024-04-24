@@ -1,0 +1,86 @@
+{
+  "extName": {
+	  "message": "Exploze Entity",
+	  "description": "Název rozšíření v manifestu a také v zápatí popup.html."
+  },
+  "extDesc": {
+	  "message": "Objevte odkazy a informace o stejném tématu na jiných stránkách. Data živě z Wikidat.",
+	  "description": "Popis rozšíření v manifestu."
+  },
+  "select": {
+	  "message": "(vybrat)",
+	  "description": "z setStatusOptions() v item-properties.js"
+  },
+  "noResultDropdown": {
+	  "message": "(žádný výsledek)",
+	  "description": "z noresult() v item-properties.js"
+  },
+  "noResult1": {
+	  "message": "Na Wikidatech nebyl nalezen žádný výsledek. Pokud se ostatní položky na tomto webu správně vyřeší, tento ID může chybět u položky",
+	  "description": "z noresult() v item-properties.js"
+  },
+  "search": {
+	  "message": "hledat",
+	  "description": "z noresult() v item-properties.js"
+  },
+  "noResult2": {
+	  "message": ", nebo ",
+	  "description": "z noresult() v item-properties.js"
+  },
+  "newItem": {
+	  "message": "nová položka",
+	  "description": "z noresult() v item-properties.js"
+  },
+  "noResult3": {
+	  "message": "mohla by být vytvořena.",
+	  "description": "z noresult() v item-properties.js"
+  },
+  "query1": {
+	  "message": "dotaz 1",
+	  "description": "z general_QID_search() v item-properties.js"
+  },
+  "query2": {
+	  "message": "dotaz 2",
+	  "description": "z specific_website_QID_search() v item-properties.js"
+  },
+  "sentToWikidata": {
+	  "message": "odesláno do Wikidat...",
+	  "description": "z general_QID_search() a specific_website_QID_search() v item-properties.js"
+  },	
+  "footer1a": {
+	  "message": "Živá data poskytovaná tímto rozšířením pocházejí z",
+	  "description": "Část zápatí v div_footer1 v popup.html"
+  },
+  "Wikidata": {
+	  "message": "Wikidata",
+	  "description": "Část zápatí v div_footer1 v popup.html"
+  },
+  "TM": {
+	  "message": "TM",
+	  "description": "Zkratka pro Obchodní Značku. Toto bude horní index po Wikidatech. Část zápatí v div_footer1 v popup.html"
+  },
+  "footer1b": {
+	  "message": "a je licencováno",
+	  "description": "Část zápatí v div_footer1 v popup.html"
+  },
+  "CC0": {
+	  "message": "CC0",
+	  "description": "Zkratka pro Creative Commons 0. Toto bude odkazováno na licenci. Část zápatí v div_footer1 v popup.html"
+  },
+  "version": {
+	  "message": "verze",
+	  "description": "Toto je pouze slovo verze. Skutečné číslo verze bude automaticky vypočítáno. Část zápatí v div_footer1 v popup.html"
+  },
+  "footer2a": {
+	  "message": "od",
+	  "description": "Část zápatí v div_footer1 v popup.html"
+  },
+  "TobyHudson": {
+	  "message": "Toby Hudson",
+	  "description": "Toto je jméno vývojáře. Bude odkazováno na jeho uživatelskou stránku. Část zápatí v div_footer1 v popup.html"
+  },
+  "initialBoxLabel0": {
+	  "message": "jazyk/língua/Sprache/idioma/语言/言語",
+	  "description": "Počáteční boxlabel0 v popup.html. Ujistěte se, že váš jazyk je zastoupen jako první v tomto řetězci, ale nenahrazujte všechny ostatní jazyky, pokud jeden již není váš (v takovém případě by měl být vyměněn s prvním (anglickým). Zachovaná jazyková diverzita je vyžadována k tomu, aby uživatelé museli vybrat vnitřní (obsahový) jazyk, ať už je jejich jazyk i18n přeložen nebo ne."
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "extName": {
+	  "message": "എന്റിറ്റി എക്സ്പ്ലോഷൻ",
+	  "description": "മാനിഫെസ്റ്റിലെ എക്സ്റ്റെൻഷൻ പേര്, പോപ്പ്അപ്പ്.ഹിറ്റിലെ അടിക്കുറിപ്പിലും."
+  },
+  "extDesc": {
+	  "message": "മറ്റ് സൈറ്റുകളിൽ അതേ വിഷയത്തെക്കുറിച്ചുള്ള ലിങ്കുകളും വിവരങ്ങളും കണ്ടെത്തുക. വിക്കിഡാറ്റയിൽ നിന്നുള്ള ഡാറ്റ ലൈവ് ആണ്.",
+	  "description": "മാനിഫെസ്റ്റിലെ എക്സ്റ്റെൻഷൻ വിവരണം."
+  },
+  "select": {
+	  "message": "(തിരഞ്ഞെടുക്കുക)",
+	  "description": "item-properties.js ഫയലിലെ setStatusOptions() നിന്ന്"
+  },
+  "noResultDropdown": {
+	  "message": "(ഫലമില്ല)",
+	  "description": "item-properties.js ഫയലിലെ noresult() നിന്ന്"
+  },
+  "noResult1": {
+	  "message": "വിക്കിഡാറ്റയിൽ ഫലമൊന്നും കണ്ടെത്തിയില്ല. ഈ സൈറ്റിലെ മറ്റ് ഇനങ്ങൾ ശരിയായി പരിഹരിക്കുന്നുണ്ടെങ്കിൽ, ഈ ഐഡി ഇനത്തിൽ നിന്ന് കാണാതായിരിക്കാം",
+	  "description": "item-properties.js ഫയലിലെ noresult() നിന്ന്"
+  },
+  "search": {
+	  "message": "തിരയുക",
+	  "description": "item-properties.js ഫയലിലെ noresult() നിന്ന്"
+  },
+  "noResult2": {
+	  "message": ", അല്ലെങ്കിൽ ",
+	  "description": "item-properties.js ഫയലിലെ noresult() നിന്ന്"
+  },
+  "newItem": {
+	  "message": "പുതിയ ഇനം",
+	  "description": "item-properties.js ഫയലിലെ noresult() നിന്ന്"
+  },
+  "noResult3": {
+	  "message": "സൃഷ്ടിക്കപ്പെടാം.",
+	  "description": "item-properties.js ഫയലിലെ noresult() നിന്ന്"
+  },
+  "query1": {
+	  "message": "ചോദ്യം 1",
+	  "description": "item-properties.js ഫയലിലെ general_QID_search() നിന്ന്"
+  },
+  "query2": {
+	  "message": "ചോദ്യം 2",
+	  "description": "item-properties.js ഫയലിലെ specific_website_QID_search() നിന്ന്"
+  },
+  "sentToWikidata": {
+	  "message": "വിക്കിഡാറ്റയിലേക്ക് അയച്ചു...",
+	  "description": "item-properties.js ഫയലിലെ general_QID_search() ഉം specific_website_QID_search() ഉം നിന്ന്"
+  },	
+  "footer1a": {
+	  "message": "ഈ എക്സ്റ്റെൻഷൻ നൽകുന്ന ലൈവ് ഡാറ്റ നൽകുന്നത്",
+	  "description": "popup.html ലെ div_footer1 ലെ അടിക്കുറിപ്പിന്റെ ഭാഗം"
+  },
+  "Wikidata": {
+	  "message": "വിക്കിഡാറ്റ",
+	  "description": "popup.html ലെ div_footer1 ലെ അടിക്കുറിപ്പിന്റെ ഭാഗം"
+  },
+  "TM": {
+	  "message": "TM",
+	  "description": "ട്രേഡ് മാർക്കിന്റെ ചുരുക്കം. ഇത് വിക്കിഡാറ്റയ്ക്ക് ശേഷം സൂപ്പർസ്ക്രിപ്റ്റ് ചെയ്യും. popup.html ലെ div_footer1 ലെ അടിക്കുറിപ്പിന്റെ ഭാഗം"
+  },
+  "footer1b": {
+	  "message": "ലൈസൻസ് ചെയ്തിരിക്കുന്നു",
+	  "description": "popup.html ലെ div_footer1 ലെ അടിക്കുറിപ്പിന്റെ ഭാഗം"
+  },
+  "CC0": {
+    "message": "CC0",
+    "description": "ക്രിയേറ്റീവ് കോമൺസ് 0. ഈ ഭാഗം ലൈസൻസിനു ലിങ്ക് ചെയ്യും. popup.html ലെ div_footer1 ഭാഗത്തു പെടുന്നു."
+  },
+  "version": {
+    "message": "പതിപ്പ്",
+    "description": "ഇത് വെറും പതിപ്പ് എന്ന വാക്കാണ്. യഥാർത്ഥ പതിപ്പ് നമ്പർ സ്വയം കണക്കാക്കി കാണിക്കും. popup.html ലെ div_footer1 ഭാഗത്തു പെടുന്നു."
+  },
+  "footer2a": {
+    "message": "മുഖേന",
+    "description": "popup.html ലെ div_footer1 ഭാഗത്തു പെടുന്നു."
+  },
+  "TobyHudson": {
+    "message": "Toby Hudson",
+    "description": "ഡെവലപ്പർ ന്റെ പേരാണിത്. ഇത് അദ്ദേഹത്തിന്റെ ഉപയോക്തൃ പേജിനു ലിങ്ക് ചെയ്യും. popup.html ലെ div_footer1 ഭാഗത്തു പെടുന്നു."
+  },
+  "initialBoxLabel0": {
+    "message": "ഭാഷ/linguagem/Sprache/idioma/语言/言語",
+    "description": "popup.html ലെ ആദ്യത്തെ boxlabel0. നിങ്ങളുടെ ഭാഷ ഈ സ്ട്രിംഗിൽ ആദ്യം പ്രതിനിധാനം ചെയ്യണം, എന്നാൽ മറ്റു ഭാഷകൾ മാറ്റരുത് ഒന്ന് നിങ്ങളുടേതാണെങ്കിൽ (അപ്പോൾ അത് ആദ്യത്തെ (ഇംഗ്ലീഷ്) സ്ഥാനത്തു മാറ്റണം). ഉപയോക്താവിന്റെ i18n ഭാഷ പരിഭാഷ ചെയ്തിട്ടുണ്ടോ ഇല്ലയോ അവർക്ക് ഒരു ആന്തരിക (ഉള്ളടക്ക) ഭാഷ തിരഞ്ഞെടുക്കണമെന്ന് സൂചിപ്പിക്കാൻ ഭാഷാ വൈവിധ്യം നിലനിർത്തണം."
+  }
+}

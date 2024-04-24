@@ -1,0 +1,86 @@
+{
+  "extName": {
+	  "message": "Entity Explosion",
+	  "description": "Tên tiện ích mở rộng trong tệp manifest, cũng như trong phần chân trang của popup.html."
+  },
+  "extDesc": {
+	  "message": "Khám phá liên kết và thông tin về cùng một chủ đề trên các trang web khác. Dữ liệu trực tiếp từ Wikidata.",
+	  "description": "Mô tả tiện ích mở rộng trong tệp manifest."
+  },
+  "select": {
+	  "message": "(chọn)",
+	  "description": "từ setStatusOptions() trong item-properties.js"
+  },
+  "noResultDropdown": {
+	  "message": "(không có kết quả)",
+	  "description": "từ noresult() trong item-properties.js"
+  },
+  "noResult1": {
+	  "message": "Không tìm thấy kết quả nào trên Wikidata. Nếu các mục khác trên trang web này giải quyết đúng, ID này có thể bị thiếu trong mục",
+	  "description": "từ noresult() trong item-properties.js"
+  },
+  "search": {
+	  "message": "tìm kiếm",
+	  "description": "từ noresult() trong item-properties.js"
+  },
+  "noResult2": {
+	  "message": ", hoặc một ",
+	  "description": "từ noresult() trong item-properties.js"
+  },
+  "newItem": {
+	  "message": "mục mới",
+	  "description": "từ noresult() trong item-properties.js"
+  },
+  "noResult3": {
+	  "message": "có thể được tạo.",
+	  "description": "từ noresult() trong item-properties.js"
+  },
+  "query1": {
+	  "message": "truy vấn 1",
+	  "description": "từ general_QID_search() trong item-properties.js"
+  },
+  "query2": {
+	  "message": "truy vấn 2",
+	  "description": "từ specific_website_QID_search() trong item-properties.js"
+  },
+  "sentToWikidata": {
+	  "message": "đã gửi đến Wikidata...",
+	  "description": "từ general_QID_search() và specific_website_QID_search() trong item-properties.js"
+  },	
+  "footer1a": {
+	  "message": "Dữ liệu trực tiếp được cung cấp bởi tiện ích mở rộng này từ",
+	  "description": "Một phần của chân trang trong div_footer1 trong popup.html"
+  },
+  "Wikidata": {
+	  "message": "Wikidata",
+	  "description": "Một phần của chân trang trong div_footer1 trong popup.html"
+  },
+  "TM": {
+	  "message": "TM",
+	  "description": "Viết tắt của Thương hiệu. Điều này sẽ được viết nhỏ sau Wikidata. Một phần của chân trang trong div_footer1 trong popup.html"
+  },
+  "footer1b": {
+	  "message": "và được cấp phép",
+	  "description": "Một phần của chân trang trong div_footer1 trong popup.html"
+  },
+  "CC0": {
+	  "message": "CC0",
+	  "description": "Viết tắt của Creative Commons 0. Điều này sẽ được liên kết đến giấy phép. Một phần của chân trang trong div_footer1 trong popup.html"
+  },
+  "version": {
+	  "message": "phiên bản",
+	  "description": "Đây chỉ là từ phiên bản. Số phiên bản thực tế sẽ được tính toán tự động. Một phần của chân trang trong div_footer1 trong popup.html"
+  },
+  "footer2a": {
+	  "message": "bởi",
+	  "description": "Một phần của chân trang trong div_footer1 trong popup.html"
+  },
+  "TobyHudson": {
+	  "message": "Toby Hudson",
+	  "description": "Đây là tên của nhà phát triển. Nó sẽ được liên kết đến trang người dùng của anh ấy. Một phần của chân trang trong div_footer1 trong popup.html"
+  },
+  "initialBoxLabel0": {
+	  "message": "ngôn ngữ/língua/Sprache/idioma/语言/言語",
+	  "description": "Hộp nhãn ban đầu trong popup.html. Hãy chắc chắn rằng ngôn ngữ của bạn được đại diện đầu tiên trong chuỗi này, nhưng không thay thế tất cả các ngôn ngữ khác trừ khi một trong số đó đã là của bạn (trong trường hợp đó, nó nên được hoán đổi với ngôn ngữ đầu tiên (Tiếng Anh). Sự đa dạng ngôn ngữ được giữ lại là cần thiết để chỉ ra rằng người dùng cần chọn một ngôn ngữ nội dung, cho dù ngôn ngữ i18n của họ có được dịch hay không."
+  }
+}

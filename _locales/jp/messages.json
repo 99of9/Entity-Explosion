@@ -1,0 +1,86 @@
+{
+  "extName": {
+	  "message": "エンティティエクスプロージョン",
+	  "description": "マニフェストの拡張機能名およびpopup.htmlのフッターにも使用されます。"
+  },
+  "extDesc": {
+	  "message": "他のサイトで同じトピックに関するリンクや情報を発見。Wikidataからのリアルタイムデータ。",
+	  "description": "マニフェストの拡張機能の説明。"
+  },
+  "select": {
+	  "message": "（選択）",
+	  "description": "item-properties.jsのsetStatusOptions()から"
+  },
+  "noResultDropdown": {
+	  "message": "（結果なし）",
+	  "description": "item-properties.jsのnoresult()から"
+  },
+  "noResult1": {
+	  "message": "Wikidataで結果が見つかりませんでした。このサイトの他のアイテムが正しく解決されている場合、このIDはアイテムから欠落している可能性があります",
+	  "description": "item-properties.jsのnoresult()から"
+  },
+  "search": {
+	  "message": "検索",
+	  "description": "item-properties.jsのnoresult()から"
+  },
+  "noResult2": {
+	  "message": "、または",
+	  "description": "item-properties.jsのnoresult()から"
+  },
+  "newItem": {
+	  "message": "新しいアイテム",
+	  "description": "item-properties.jsのnoresult()から"
+  },
+  "noResult3": {
+	  "message": "を作成できます。",
+	  "description": "item-properties.jsのnoresult()から"
+  },
+  "query1": {
+	  "message": "クエリ1",
+	  "description": "item-properties.jsのgeneral_QID_search()から"
+  },
+  "query2": {
+	  "message": "クエリ2",
+	  "description": "item-properties.jsのspecific_website_QID_search()から"
+  },
+  "sentToWikidata": {
+	  "message": "Wikidataに送信中...",
+	  "description": "item-properties.jsのgeneral_QID_search()およびspecific_website_QID_search()から"
+  },	
+  "footer1a": {
+	  "message": "この拡張機能によって提供されるリアルタイムデータは",
+	  "description": "popup.htmlのdiv_footer1のフッターの一部です"
+  },
+  "Wikidata": {
+	  "message": "ウィキデータ",
+	  "description": "popup.htmlのdiv_footer1のフッターの一部です"
+  },
+  "TM": {
+	  "message": "TM",
+	  "description": "トレードマークの略。これはウィキデータの後に上付き文字で表示されます。popup.htmlのdiv_footer1のフッターの一部です"
+  },
+  "footer1b": {
+	  "message": "でライセンスされています",
+	  "description": "popup.htmlのdiv_footer1のフッターの一部です"
+  },
+  "CC0": {
+	  "message": "CC0",
+	  "description": "クリエイティブコモンズ0の略。これはライセンスにリンクされます。popup.htmlのdiv_footer1のフッターの一部です"
+  },
+  "version": {
+	  "message": "バージョン",
+	  "description": "これは単にバージョンという言葉です。実際のバージョン番号は自動的に計算されます。popup.htmlのdiv_footer1のフッターの一部です"
+  },
+  "footer2a": {
+	  "message": "作成者",
+	  "description": "popup.htmlのdiv_footer1のフッターの一部です"
+  },
+  "TobyHudson": {
+	  "message": "Toby Hudson",
+	  "description": "これは開発者の名前です。彼のユーザーページにリンクされます。popup.htmlのdiv_footer1のフッターの一部です"
+  },
+  "initialBoxLabel0": {
+	  "message": "言語/língua/Sprache/idioma/语言/言語",
+	  "description": "popup.htmlの初期boxlabel0です。この文字列で最初にあなたの言語が表されていることを確認してくださいが、他の言語はすべて置き換えないでください。あなたの言語がすでにある場合は、それを最初の（英語）と交換してください。ユーザーがi18n言語が翻訳されているかどうかに関わらず、内部（コンテンツ）言語を選択する必要があることを示すために、言語の多様性が保持されています。"
+  }
+}

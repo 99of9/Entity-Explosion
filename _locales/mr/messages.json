@@ -1,0 +1,82 @@
+{
+  "extName": {
+    "message": "एंटिटी एक्सप्लोजन",
+    "description": "मॅनिफेस्टमधील एक्सटेंशनचे नाव, आणि popup.html मधील फूटरमध्येही."
+  },
+  "extDesc": {
+    "message": "इतर साइट्सवरील समान विषयांवरील दुवे आणि माहिती शोधा. डेटा विकिडेटावरून लाइव्ह आहे.",
+    "description": "मॅनिफेस्टमधील एक्सटेंशनचे वर्णन."
+  },
+  "select": {
+    "message": "(निवडा)",
+    "description": "item-properties.js मधील setStatusOptions() फंक्शनमधून"
+  },
+  "noResultDropdown": {
+    "message": "(निकाल नाही)",
+    "description": "item-properties.js मधील noresult() फंक्शनमधून"
+  },
+  "noResult1": {
+    "message": "विकिडेटावर कोणताही निकाल सापडला नाही. या साइटवरील इतर आयटम्स योग्यरित्या सुटल्यास, ही आयडी आयटममधून गहाळ असू शकते",
+    "description": "item-properties.js मधील noresult() फंक्शनमधून"
+  },
+  "search": {
+    "message": "शोधा",
+    "description": "item-properties.js मधील noresult() फंक्शनमधून"
+  },
+  "noResult2": {
+    "message": ", किंवा ",
+    "description": "item-properties.js मधील noresult() फंक्शनमधून"
+  },
+  "newItem": {
+    "message": "नवीन आयटम",
+    "description": "item-properties.js मधील noresult() फंक्शनमधून"
+  },
+  "noResult3": {
+    "message": "तयार केले जाऊ शकते.",
+    "description": "item-properties.js मधील noresult() फंक्शनमधून"
+  },
+  "query1": {
+    "message": "प्रश्न 1",
+    "description": "item-properties.js मधील general_QID_search() फंक्शनमधून"
+  },
+  "query2": {
+    "message": "प्रश्न 2",
+    "description": "item-properties.js मधील specific_website_QID_search() फंक्शनमधून"
+  },
+  "sentToWikidata": {
+    "message": "विकिडेटाकडे पाठविले जात आहे...",
+    "description": "item-properties.js मधील general_QID_search() आणि specific_website_QID_search() फंक्शनमधून"
+  },
+  "footer1a": {
+    "message": "या एक्सटेंशनद्वारे प्रदान केलेला लाइव्ह डेटा",
+    "description": "popup.html मधील div_footer1 मधील फूटरचा भाग"
+  },
+  "Wikidata": {
+    "message": "विकिडेटा",
+    "description": "popup.html मधील div_footer1 मधील फूटरचा भाग"
+  },
+  "TM": {
+    "message": "टीएम",
+    "description": "ट्रेड मार्कसाठी लघुरूप. हे विकिडेटानंतर सुपरस्क्रिप्टेड केले जाईल. popup.html मधील div_footer1 मधील फूटरचा भाग"
+  },
+  "footer1b": {
+    "message": "आणि परवानगी दिली आहे",
+    "description": "popup.html मधील div_footer1 मधील फूटरचा भाग"
+  },
+  "CC0": {
+    "message": "सीसी0",
+    "description": "क्रिएटिव्ह कॉमन्स 0 साठी लघुरूप. हे लायसन्सला लिंक केले जाईल. popup.html मधील div_footer1 मधील फूटरचा भाग"
+  },
+  "version": {
+    "message": "आवृत्ती",
+    "description": "हे फक्त आवृत्ती शब्द आहे. खरी आवृत्ती संख्या स्वयंचलितपणे गणना केली जाईल. popup.html मधील div_footer1 मधील फूटरचा भाग"
+  },
+  "footer2a": {
+    "message": "द्वारे",
+    "description": "popup.html मधील div_footer1 मधील फूटरचा भाग"
+  },
+  "TobyHudson": {
+    "message": "Toby Hudson",
+    "description": "हे विकसकाचे नाव आहे. हे त्याच्या युजरपेजला लिंक केले जाईल. popup.html मधील div_footer1 मधील फूटरचा भाग"
+  }
+}

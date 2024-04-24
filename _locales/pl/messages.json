@@ -1,0 +1,86 @@
+{
+  "extName": {
+	  "message": "Eksplozja Jednostki",
+	  "description": "Nazwa rozszerzenia w manifeście, a także w stopce popup.html."
+  },
+  "extDesc": {
+	  "message": "Odkryj linki i informacje na ten sam temat na innych stronach. Dane na żywo z Wikidanych.",
+	  "description": "Opis rozszerzenia w manifeście."
+  },
+  "select": {
+	  "message": "(wybierz)",
+	  "description": "z setStatusOptions() w item-properties.js"
+  },
+  "noResultDropdown": {
+	  "message": "(brak wyniku)",
+	  "description": "z noresult() w item-properties.js"
+  },
+  "noResult1": {
+	  "message": "Nie znaleziono wyniku w Wikidanych. Jeśli inne elementy na tej stronie są poprawnie rozwiązane, ten identyfikator może być nieobecny w elemencie",
+	  "description": "z noresult() w item-properties.js"
+  },
+  "search": {
+	  "message": "szukaj",
+	  "description": "z noresult() w item-properties.js"
+  },
+  "noResult2": {
+	  "message": ", lub ",
+	  "description": "z noresult() w item-properties.js"
+  },
+  "newItem": {
+	  "message": "nowy element",
+	  "description": "z noresult() w item-properties.js"
+  },
+  "noResult3": {
+	  "message": "może być utworzony.",
+	  "description": "z noresult() w item-properties.js"
+  },
+  "query1": {
+	  "message": "zapytanie 1",
+	  "description": "z general_QID_search() w item-properties.js"
+  },
+  "query2": {
+	  "message": "zapytanie 2",
+	  "description": "z specific_website_QID_search() w item-properties.js"
+  },
+  "sentToWikidata": {
+	  "message": "wysłano do Wikidanych...",
+	  "description": "z general_QID_search() i specific_website_QID_search() w item-properties.js"
+  },	
+  "footer1a": {
+	  "message": "Dane na żywo dostarczane przez to rozszerzenie pochodzą z",
+	  "description": "Część stopki w div_footer1 w popup.html"
+  },
+  "Wikidata": {
+	  "message": "Wikidanych",
+	  "description": "Część stopki w div_footer1 w popup.html"
+  },
+  "TM": {
+	  "message": "TM",
+	  "description": "Skrót od Trade Mark. To będzie nadpisane po Wikidanych. Część stopki w div_footer1 w popup.html"
+  },
+  "footer1b": {
+	  "message": "i jest licencjonowany",
+	  "description": "Część stopki w div_footer1 w popup.html"
+  },
+  "CC0": {
+	  "message": "CC0",
+	  "description": "Skrót od Creative Commons 0. To będzie połączone z licencją. Część stopki w div_footer1 w popup.html"
+  },
+  "version": {
+	  "message": "wersja",
+	  "description": "To jest tylko słowo wersja. Rzeczywisty numer wersji zostanie obliczony automatycznie. Część stopki w div_footer1 w popup.html"
+  },
+  "footer2a": {
+	  "message": "przez",
+	  "description": "Część stopki w div_footer1 w popup.html"
+  },
+  "TobyHudson": {
+	  "message": "Toby Hudson",
+	  "description": "To jest nazwa dewelopera. Będzie połączona z jego stroną użytkownika. Część stopki w div_footer1 w popup.html"
+  },
+  "initialBoxLabel0": {
+	  "message": "język/language/língua/Sprache/idioma/语言/言語",
+	  "description": "Początkowy boxlabel0 w popup.html. Upewnij się, że twój język jest reprezentowany jako pierwszy w tym ciągu, ale nie zastępuj wszystkich innych języków, chyba że jeden już jest twój (w takim przypadku powinien być zamieniony z pierwszym (angielskim). Zachowana różnorodność językowa jest wymagana, aby wskazać, że użytkownik musi wybrać wewnętrzny (zawartości) język, niezależnie od tego, czy jego język i18n jest tłumaczony."
+  }
+}

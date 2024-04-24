@@ -1,0 +1,86 @@
+{
+  "extName": {
+	  "message": "انفجار الكيان",
+	  "description": "Extension name in manifest, and also in the footer of popup.html."
+  },
+  "extDesc": {
+	  "message": "اكتشف الروابط والمعلومات حول نفس الموضوع على مواقع أخرى. البيانات مباشرة من ويكي بيانات.",
+	  "description": "Extension description in manifest."
+  },
+  "select": {
+	  "message": "(اختر)",
+	  "description": "from setStatusOptions() in item-properties.js"
+  },
+  "noResultDropdown": {
+	  "message": "(لا يوجد نتيجة)",
+	  "description": "from noresult() in item-properties.js"
+  },
+  "noResult1": {
+	  "message": "لم يتم العثور على نتيجة في ويكي بيانات. إذا تم حل العناصر الأخرى على هذا الموقع بشكل صحيح، فقد يكون هذا المعرف مفقودًا من العنصر",
+	  "description": "from noresult() in item-properties.js"
+  },
+  "search": {
+	  "message": "بحث",
+	  "description": "from noresult() in item-properties.js"
+  },
+  "noResult2": {
+	  "message": "، أو ",
+	  "description": "from noresult() in item-properties.js"
+  },
+  "newItem": {
+	  "message": "عنصر جديد",
+	  "description": "from noresult() in item-properties.js"
+  },
+  "noResult3": {
+	  "message": "يمكن أن يتم إنشاؤه.",
+	  "description": "from noresult() in item-properties.js"
+  },
+  "query1": {
+	  "message": "الاستعلام 1",
+	  "description": "from general_QID_search() in item-properties.js"
+  },
+  "query2": {
+	  "message": "الاستعلام 2",
+	  "description": "from specific_website_QID_search() in item-properties.js"
+  },
+  "sentToWikidata": {
+	  "message": "تم الإرسال إلى ويكي بيانات",
+	  "description": "from general_QID_search() and specific_website_QID_search() in item-properties.js"
+  },	
+  "footer1a": {
+	  "message": "البيانات المباشرة التي يقدمها هذا الامتداد من",
+	  "description": "Part of the footer in div_footer1 in popup.html"
+  },
+  "Wikidata": {
+	  "message": "ويكي بيانات",
+	  "description": "Part of the footer in div_footer1 in popup.html"
+  },
+  "TM": {
+	  "message": "TM",
+	  "description": "Short for Trade Mark. This will be superscripted after Wikidata. Part of the footer in div_footer1 in popup.html"
+  },
+  "footer1b": {
+	  "message": "ومرخص",
+	  "description": "Part of the footer in div_footer1 in popup.html"
+  },
+  "CC0": {
+	  "message": "CC0",
+	  "description": "Short for Creative Commons 0. This will be linked to the license. Part of the footer in div_footer1 in popup.html"
+  },
+  "version": {
+	  "message": "الإصدار",
+	  "description": "This is just the word version. The actual version number will be calculated automatically. Part of the footer in div_footer1 in popup.html"
+  },
+  "footer2a": {
+	  "message": "بواسطة",
+	  "description": "Part of the footer in div_footer1 in popup.html"
+  },
+  "TobyHudson": {
+	  "message": "Toby Hudson",
+	  "description": "This is the name of the developer. It will be linked to his userpage. Part of the footer in div_footer1 in popup.html"
+  },
+  "initialBoxLabel0": {
+	  "message": "اللغة/language/língua/Sprache/idioma/语言/言語",
+	  "description": "The initial boxlabel0 in popup.html. Make sure your language is represented first in this string, but don't replace all other languages unless one is already yours (in which case it should be swapped with the first (English). The retained language diversity is required to indicate that the user needs to choose an internal (content) language, whether or not their i18n language is translated."
+  }
+}

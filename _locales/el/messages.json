@@ -1,0 +1,86 @@
+{
+  "extName": {
+	  "message": "Έκρηξη Οντότητας",
+	  "description": "Όνομα επέκτασης στο manifest, και επίσης στο υποσέλιδο του popup.html."
+  },
+  "extDesc": {
+	  "message": "Ανακαλύψτε συνδέσμους και πληροφορίες για το ίδιο θέμα σε άλλους ιστότοπους. Δεδομένα ζωντανά από το Wikidata.",
+	  "description": "Περιγραφή επέκτασης στο manifest."
+  },
+  "select": {
+	  "message": "(επιλέξτε)",
+	  "description": "από την setStatusOptions() στο item-properties.js"
+  },
+  "noResultDropdown": {
+	  "message": "(κανένα αποτέλεσμα)",
+	  "description": "από την noresult() στο item-properties.js"
+  },
+  "noResult1": {
+	  "message": "Δεν βρέθηκε αποτέλεσμα στο Wikidata. Εάν άλλα αντικείμενα σε αυτόν τον ιστότοπο επιλύονται σωστά, αυτό το ID μπορεί να λείπει από το αντικείμενο",
+	  "description": "από την noresult() στο item-properties.js"
+  },
+  "search": {
+	  "message": "αναζήτηση",
+	  "description": "από την noresult() στο item-properties.js"
+  },
+  "noResult2": {
+	  "message": ", ή ένα ",
+	  "description": "από την noresult() στο item-properties.js"
+  },
+  "newItem": {
+	  "message": "νέο αντικείμενο",
+	  "description": "από την noresult() στο item-properties.js"
+  },
+  "noResult3": {
+	  "message": "θα μπορούσε να δημιουργηθεί.",
+	  "description": "από την noresult() στο item-properties.js"
+  },
+  "query1": {
+	  "message": "ερώτηση 1",
+	  "description": "από την general_QID_search() στο item-properties.js"
+  },
+  "query2": {
+	  "message": "ερώτηση 2",
+	  "description": "από την specific_website_QID_search() στο item-properties.js"
+  },
+  "sentToWikidata": {
+	  "message": "στάλθηκε στο Wikidata...",
+	  "description": "από την general_QID_search() και την specific_website_QID_search() στο item-properties.js"
+  },	
+  "footer1a": {
+	  "message": "Τα ζωντανά δεδομένα που παρέχονται από αυτήν την επέκταση προέρχονται από",
+	  "description": "Μέρος του υποσέλιδου στο div_footer1 στο popup.html"
+  },
+  "Wikidata": {
+	  "message": "Wikidata",
+	  "description": "Μέρος του υποσέλιδου στο div_footer1 στο popup.html"
+  },
+  "TM": {
+	  "message": "TM",
+	  "description": "Συντομογραφία για Εμπορικό Σήμα. Αυτό θα είναι υπερυψωμένο μετά το Wikidata. Μέρος του υποσέλιδου στο div_footer1 στο popup.html"
+  },
+  "footer1b": {
+	  "message": "και έχει άδεια",
+	  "description": "Μέρος του υποσέλιδου στο div_footer1 στο popup.html"
+  },
+  "CC0": {
+	  "message": "CC0",
+	  "description": "Συντομογραφία για Creative Commons 0. Αυτό θα συνδεθεί με την άδεια. Μέρος του υποσέλιδου στο div_footer1 στο popup.html"
+  },
+  "version": {
+	  "message": "έκδοση",
+	  "description": "Αυτή είναι απλώς η λέξη έκδοση. Ο πραγματικός αριθμός έκδοσης θα υπολογιστεί αυτόματα. Μέρος του υποσέλιδου στο div_footer1 στο popup.html"
+  },
+  "footer2a": {
+	  "message": "από",
+	  "description": "Μέρος του υποσέλιδου στο div_footer1 στο popup.html"
+  },
+  "TobyHudson": {
+	  "message": "Toby Hudson",
+	  "description": "Αυτό είναι το όνομα του προγραμματιστή. Θα συνδεθεί με τη σελίδα χρήστη του. Μέρος του υποσέλιδου στο div_footer1 στο popup.html"
+  },
+  "initialBoxLabel0": {
+	  "message": "γλώσσα/língua/Sprache/idioma/语言/言語",
+	  "description": "Η αρχική ετικέτα boxlabel0 στο popup.html. Βεβαιωθείτε ότι η γλώσσα σας εκπροσωπείται πρώτη σε αυτήν τη σειρά, αλλά μην αντικαταστήσετε όλες τις άλλες γλώσσες εκτός εάν μία είναι ήδη δική σας (σε αυτήν την περίπτωση θα πρέπει να ανταλλαχθεί με την πρώτη (Αγγλικά). Η διατήρηση της ποικιλομορφίας των γλωσσών απαιτείται για να δείξει ότι ο χρήστης πρέπει να επιλέξει μια εσωτερική (περιεχομένου) γλώσσα, ανεξάρτητα από το αν η γλώσσα i18n τους έχει μεταφραστεί ή όχι."
+  }
+}

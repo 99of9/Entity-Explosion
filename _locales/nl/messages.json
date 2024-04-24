@@ -1,0 +1,86 @@
+{
+  "extName": {
+	  "message": "Entiteitsexplosie",
+	  "description": "Extensienaam in manifest, en ook in de voettekst van popup.html."
+  },
+  "extDesc": {
+	  "message": "Ontdek links en informatie over hetzelfde onderwerp op andere sites. Data live van Wikidata.",
+	  "description": "Extensiebeschrijving in manifest."
+  },
+  "select": {
+	  "message": "(selecteer)",
+	  "description": "van setStatusOptions() in item-properties.js"
+  },
+  "noResultDropdown": {
+	  "message": "(geen resultaat)",
+	  "description": "van noresult() in item-properties.js"
+  },
+  "noResult1": {
+	  "message": "Er is geen resultaat gevonden op Wikidata. Als andere items op deze site correct worden opgelost, kan deze ID ontbreken in het item",
+	  "description": "van noresult() in item-properties.js"
+  },
+  "search": {
+	  "message": "zoeken",
+	  "description": "van noresult() in item-properties.js"
+  },
+  "noResult2": {
+	  "message": ", of een ",
+	  "description": "van noresult() in item-properties.js"
+  },
+  "newItem": {
+	  "message": "nieuw item",
+	  "description": "van noresult() in item-properties.js"
+  },
+  "noResult3": {
+	  "message": "kan worden gecreëerd.",
+	  "description": "van noresult() in item-properties.js"
+  },
+  "query1": {
+	  "message": "query 1",
+	  "description": "van general_QID_search() in item-properties.js"
+  },
+  "query2": {
+	  "message": "query 2",
+	  "description": "van specific_website_QID_search() in item-properties.js"
+  },
+  "sentToWikidata": {
+	  "message": "verzonden naar Wikidata...",
+	  "description": "van general_QID_search() en specific_website_QID_search() in item-properties.js"
+  },	
+  "footer1a": {
+	  "message": "Live data geleverd door deze extensie is van",
+	  "description": "Onderdeel van de voettekst in div_footer1 in popup.html"
+  },
+  "Wikidata": {
+	  "message": "Wikidata",
+	  "description": "Onderdeel van de voettekst in div_footer1 in popup.html"
+  },
+  "TM": {
+	  "message": "TM",
+	  "description": "Kort voor Handelsmerk. Dit zal superscript zijn na Wikidata. Onderdeel van de voettekst in div_footer1 in popup.html"
+  },
+  "footer1b": {
+	  "message": "en is gelicentieerd",
+	  "description": "Onderdeel van de voettekst in div_footer1 in popup.html"
+  },
+  "CC0": {
+	  "message": "CC0",
+	  "description": "Kort voor Creative Commons 0. Dit zal worden gelinkt naar de licentie. Onderdeel van de voettekst in div_footer1 in popup.html"
+  },
+  "version": {
+	  "message": "versie",
+	  "description": "Dit is gewoon het woord versie. Het daadwerkelijke versienummer wordt automatisch berekend. Onderdeel van de voettekst in div_footer1 in popup.html"
+  },
+  "footer2a": {
+	  "message": "door",
+	  "description": "Onderdeel van de voettekst in div_footer1 in popup.html"
+  },
+  "TobyHudson": {
+	  "message": "Toby Hudson",
+	  "description": "Dit is de naam van de ontwikkelaar. Het zal worden gelinkt naar zijn gebruikerspagina. Onderdeel van de voettekst in div_footer1 in popup.html"
+  },
+  "initialBoxLabel0": {
+	  "message": "taal/language/língua/Sprache/idioma/语言/言語",
+	  "description": "Het initiële boxlabel0 in popup.html. Zorg ervoor dat uw taal als eerste wordt vertegenwoordigd in deze string, maar vervang niet alle andere talen tenzij er al een van u is (in welk geval het moet worden verwisseld met de eerste (Engels). De behouden taaldiversiteit is vereist om aan te geven dat de gebruiker een interne (inhouds)taal moet kiezen, ongeacht of hun i18n-taal wordt vertaald."
+  }
+}
