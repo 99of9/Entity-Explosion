@@ -1,0 +1,20 @@
+{
+  "scripts": {
+    "test": "web-ext lint"
+  },
+  "webExt": {
+    "sourceDir": ".",
+    "build": {
+      "overwriteDest": true
+    },
+    "lint": {
+      "warningsAsErrors": false
+    },
+    "ignoreFiles": [
+      "jquery.min.js"
+    ]
+  },
+  "devDependencies": {
+    "web-ext": "^5.0.0"
+  }
+}
