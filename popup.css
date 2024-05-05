@@ -1,0 +1,60 @@
+body {
+    min-width: 400px;
+    max-width: 500px;
+}
+#div_title,
+#div1,
+#div2 {
+    background-color: #FFFFFF;
+    padding: 5px;
+}
+#div_title {
+    padding: 0;
+}
+#div_wdlink,
+#div_wiki,
+#div3 {
+    background-color: #EEEEEE;
+    padding: 5px;
+}
+#div_wdlink {
+    padding-bottom: 0;
+}
+#div_wiki {
+    padding-top: 0;
+}
+
+.wd-translated[dir="ltr"] #div_title > a {
+    float: right;
+}
+.wd-translated[dir="rtl"] #div_title > a {
+    float: left;
+}
+#div_title > a > img {
+    height: 106px;
+}
+.wd-translated[dir="ltr"] #div_title > div {
+    padding: 10px 20px 10px 0;
+}
+.wd-translated[dir="rtl"] #div_title > div {
+    padding: 10px 0 10px 20px;
+}
+
+
+footer {
+    width: 100%;
+    text-align: __MSG_@@bidi_start_edge__;
+    font-size: x-small;
+}
+#wdlogo {
+    float: __MSG_@@bidi_end_edge__;
+}
+#wdlogo > img {
+    height: 45px;
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+}
+footer > div {
+    margin: 0;
+}
