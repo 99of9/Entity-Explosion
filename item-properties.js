@@ -188,19 +188,39 @@ function redrawLabels(isoLanguage) {
 }
 
 /**
+ * Parse an HTML fragment into DOM nodes.
+ * @param {string} html The HTML fragments
+ * @returns The list of the DOM nodes parsed from the HTML.
+ */
+function parseHTML(html) {
+  return new DOMParser().parseFromString(html, 'text/html').body.childNodes;
+}
+
+/**
+ * Add a progress text to `#div_wdlink`, with proper language markup.
+ * @param {string} message Name of the message containing the progress text HTML.
+ * @param  {...string} parameters parameters to the message.
+ */
+function addProgressText(message, ...parameters) {
+  const text = chrome.i18n.getMessage(message, parameters);
+  const p = document.createElement('p');
+  p.lang = chrome.i18n.getMessage('@@ui_locale');
+  p.dir = chrome.i18n.getMessage('@@bidi_dir');
+  p.append(...parseHTML(text));
+  document.getElementById('div_wdlink').append(p);
+}
+
+/**
  * Try showing a link to the query while it's running (in case it gets stuck)
  * @param {1|2} queryNum
  * @param {string} encodedQuery
  */
 function addInProgressText(queryNum, encodedQuery) {
-  const p = document.createElement('p');
-  p.lang = chrome.i18n.getMessage("@@ui_locale");
-  p.dir = chrome.i18n.getMessage("@@bidi_dir");
-  const text = '<a target="_blank" href="https://query.wikidata.org/#'+encodedQuery+'">' + chrome.i18n.getMessage(`query${queryNum}`) + '</a> '+chrome.i18n.getMessage("sentToWikidata");
-  const parser = new DOMParser()
-  const parsed = parser.parseFromString(text, 'text/html')
-  p.append(...parsed.querySelector('body').childNodes);
-  document.getElementById('div_wdlink').append(p);
+  const link = document.createElement('a');
+  link.target = '_blank';
+  link.href = `https://query.wikidata.org/#${encodedQuery}`;
+  link.textContent = chrome.i18n.getMessage(`query${queryNum}`);
+  addProgressText('sentToWikidata', link.outerHTML);
 }
 
 function specific_website_QID_search(isoLanguage, tabURL) {
@@ -503,26 +523,11 @@ function box0change() {
 
 
 function no_result() {
-  //text = '<p>'+chrome.i18n.getMessage("noResult")+' (<a target="_blank"  href="https://www.wikidata.org/w/index.php?sort=relevance&search=&title=Special:Search&profile=advanced&fulltext=1&advancedSearch-current=%7B%7D&ns0=1&ns146=1">search</a>), or a <a target="_blank" href="https://www.wikidata.org/wiki/Special:NewItem">new item</a> could be created.</p>';
-
-  text = '<p>'
-    + chrome.i18n.getMessage("noResult1")
-    + ' (<a target="_blank" href="https://www.wikidata.org/w/index.php?sort=relevance&search=&title=Special:Search&profile=advanced&fulltext=1&advancedSearch-current=%7B%7D&ns0=1&ns146=1">'
-    + chrome.i18n.getMessage("search")+ '</a>)' +chrome.i18n.getMessage("noResult2")
-    + '<a target="_blank" href="https://www.wikidata.org/wiki/Special:NewItem">'
-    + chrome.i18n.getMessage("newItem") +'</a> '+ chrome.i18n.getMessage("noResult3") + '</p>';
-	
-  const parser = new DOMParser()
-  const parsed = parser.parseFromString(text, 'text/html')
-  const tags = parsed.getElementsByTagName('body')
-  //$("#div_wdlink").html('');
-  //for (const tag of tags) {
-  for (var i = 0; i < tags.length; i++) {
-    $("#div_wdlink").append(tags[i].innerHTML)
-  }
-  //THIS WAS REPLACED BY THE FOR LOOP ABOVE: for (const tag of tags) {
-  //  $("#div_wdlink").append(tag.innerHTML)
-  //}
+  addProgressText(
+    'noResultText',
+    'https://www.wikidata.org/w/index.php?sort=relevance&search=&title=Special:Search&profile=advanced&fulltext=1&advancedSearch-current=%7B%7D&ns0=1&ns146=1',
+    'https://www.wikidata.org/wiki/Special:NewItem'
+  );
 
   $("#box1 option").text(chrome.i18n.getMessage("noResultDropdown"));
 }
@@ -1214,18 +1219,12 @@ $(document).ready(function () {
   document.documentElement.dir = chrome.i18n.getMessage("@@bidi_dir");
 	
   document.getElementById("boxLabel0").textContent = chrome.i18n.getMessage("initialBoxLabel0");
-  document.getElementById("footer1a").textContent = chrome.i18n.getMessage("footer1a");
-  document.getElementById("footer_Wikidata").textContent = chrome.i18n.getMessage("Wikidata");
-  document.getElementById("footer_version").textContent = chrome.i18n.getMessage("version");
-  document.getElementById("footer_Wikidata").textContent = chrome.i18n.getMessage("Wikidata");
-  document.getElementById("TM").textContent = chrome.i18n.getMessage("TM");
-  document.getElementById("footer1b").textContent = chrome.i18n.getMessage("footer1b");
-  document.getElementById("CC0").textContent = chrome.i18n.getMessage("CC0");
-
-  document.getElementById("ExtensionName").textContent = chrome.runtime.getManifest().name;
-  document.getElementById("ExtensionVersion").textContent = chrome.runtime.getManifest().version;
-  document.getElementById("footer2a").textContent = chrome.i18n.getMessage("footer2a");
-  document.getElementById("TobyHudson").textContent = chrome.i18n.getMessage("TobyHudson");
+  document.getElementById('div_footer1').append(...parseHTML(chrome.i18n.getMessage('footer1')));
+  document.getElementById('div_footer2').append(...parseHTML(chrome.i18n.getMessage('footer2', [
+    'https://www.wikidata.org/wiki/Wikidata:Entity_Explosion',
+    chrome.runtime.getManifest().version,
+    'https://www.wikidata.org/wiki/User:99of9'
+  ])));
 
 	
   // not searching initially, so hide the spinner icon

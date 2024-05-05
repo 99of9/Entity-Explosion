@@ -15,86 +15,32 @@
 	  "message": "(kein Ergebnis)",
 	  "description": "from noresult() in item-properties.js"
   },
-  "noResult1": {
-	  "message": "Auf Wikidata wurde kein Ergebnis gefunden. Wenn andere Elemente auf dieser Website korrekt aufgelöst werden, fehlt diese ID möglicherweise im Element",
-	  "description": "from noresult() in item-properties.js"
-  },
-  "search": {
-	  "message": "suchen",
-	  "description": "from noresult() in item-properties.js"
-  },
-  "noResult2": {
-	  "message": ", oder ein ",
-	  "description": "from noresult() in item-properties.js"
-  },
-  "newItem": {
-	  "message": "Neuer Gegenstand",
-	  "description": "from noresult() in item-properties.js"
-  },
-  "noResult3": {
-	  "message": "erstellt werden konnte.",
-	  "description": "from noresult() in item-properties.js"
+  "noResultText": {
+    "message": "Kein Ergebnis wurde auf Wikidata gefunden. Wenn andere Elemente auf dieser Website korrekt aufgelöst werden, fehlt diese ID möglicherweise im Datenobjekt (<a target=\"_blank\" href=\"$1\">Suche</a>) oder ein <a target=\"_blank\" href=\"$2\">neues Datenobjekt</a> konnte erstellt werden.",
+    "descripion": "Shown when no result is found. $1 is a search URL, $2 is a URL to Special:NewItem."
   },
   "query1": {
 	  "message": "Abfrage 1",
-	  "description": "from general_QID_search() in item-properties.js"
+	  "description": "Parameter to the message sentToWikidata"
   },
   "query2": {
-	  "message": "Abfrage 2",
-	  "description": "from specific_website_QID_search() in item-properties.js"
+	  "message": "Abfrage 1",
+	  "description": "Parameter to the message sentToWikidata"
   },
   "sentToWikidata": {
-	  "message": "an Wikidata gesendet...",
-	  "description": "from general_QID_search() and specific_website_QID_search() in item-properties.js"
-  },	
-  "footer1a": {
-	  "message": "Die von dieser Erweiterung bereitgestellten Live-Daten stammen von",
-	  "description": "Part of the footer in div_footer1 in popup.html"
+	  "message": "$1 an Wikidata gesendet...",
+	  "description": "Progress message shown when a SPARQL query has been sent but no result has arrived yet. $1 is a link whose text is either the query1 or the query2 message."
   },
-  "Wikidata": {
-	  "message": "Wikidaten",
-	  "description": "Part of the footer in div_footer1 in popup.html"
+  "footer1": {
+    "message": "Die von dieser Erweiterung bereitgestellten Live-Daten stammen aus <a target=\"_blank\" href=\"https://www.wikidata.org/\">Wikidata</a>™ und sind unter <a target=\"_blank\" href=\"https://creativecommons.org/publicdomain/zero/1.0/deed.de\">CC0</a> lizenziert",
+    "descripion": "First line of the footer text. You may want to link to a translated version of the CC0 license, e.g. https://creativecommons.org/publicdomain/zero/1.0/deed.de. Don’t forget to include the trademark sign."
   },
-  "TM": {
-	  "message": "®",
-	  "description": "Short for Trade Mark. This will be superscripted after Wikidata. Part of the footer in div_footer1 in popup.html"
-  },
-  "footer1b": {
-	  "message": "und ist lizenziert",
-	  "description": "Part of the footer in div_footer1 in popup.html"
-  },
-  "CC0": {
-	  "message": "CC0",
-	  "description": "Short for Creative Commons 0. This will be linked to the license. Part of the footer in div_footer1 in popup.html"
-  },
-  "version": {
-	  "message": "Ausführung",
-	  "description": "This is just the word version. The actual version number will be calculated automatically. Part of the footer in div_footer1 in popup.html"
-  },
-  "footer2a": {
-	  "message": "von",
-	  "description": "Part of the footer in div_footer1 in popup.html"
-  },
-  "TobyHudson": {
-	  "message": "Toby Hudson",
-	  "description": "This is the name of the developer. It will be linked to his userpage. Part of the footer in div_footer1 in popup.html"
+  "footer2": {
+    "message": "<a target=\"_blank\" href=\"$1\">Entitätsexplosion</a> $2 von <a target=\"_blank\" href=\"$3\">Toby Hudson</a>;",
+    "description": "Second line of the footer text. The translation of ‘Entity Explosion’ should be the same as in the extName message. $1 is the URL of the extension’s description on Wikidata, $2 is the current version number, $3 is the URL of the author’s user page."
   },
   "initialBoxLabel0": {
 	  "message": "Sprache/language/língua/idioma/语言/言語",
 	  "description": "The initial boxlabel0 in popup.html. Make sure your language is represented first in this string, but don't replace all other languages unless one is already yours (in which case it should be swapped with the first (English). The retained language diversity is required to indicate that the user needs to choose an internal (content) language, whether or not their i18n language is translated."
-  },	
-	
-	
-  "xx": {
-	  "message": "",
-	  "description": ""
-  },
-  "yy": {
-	  "message": "",
-	  "description": ""
-  },
-  "zz": {
-	  "message": "",
-	  "description": ""
   }
 }
