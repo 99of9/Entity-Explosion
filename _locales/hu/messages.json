@@ -1,10 +1,6 @@
 {
-  "extName": {
-	  "message": "Entitás Robbanás",
-	  "description": "A bővítmény neve a manifestben, valamint a popup.html láblécében."
-  },
   "extDesc": {
-	  "message": "Fedezze fel a linkeket és információkat ugyanarról a témáról más oldalakon. Adatok élőben a Wikidatáról.",
+	  "message": "Fedezzen fel linkeket és információkat ugyanarról a témáról más oldalakon. Adatok élőben a Wikidatából.",
 	  "description": "A bővítmény leírása a manifestben."
   },
   "select": {
@@ -15,69 +11,29 @@
 	  "message": "(nincs eredmény)",
 	  "description": "a noresult() függvényből az item-properties.js-ben"
   },
-  "noResult1": {
-	  "message": "Nem található eredmény a Wikidatán. Ha ezen az oldalon más elemek helyesen oldódnak fel, akkor ez az azonosító hiányozhat az elemből",
-	  "description": "a noresult() függvényből az item-properties.js-ben"
-  },
-  "search": {
-	  "message": "keresés",
-	  "description": "a noresult() függvényből az item-properties.js-ben"
-  },
-  "noResult2": {
-	  "message": ", vagy egy ",
-	  "description": "a noresult() függvényből az item-properties.js-ben"
-  },
-  "newItem": {
-	  "message": "új elem",
-	  "description": "a noresult() függvényből az item-properties.js-ben"
-  },
-  "noResult3": {
-	  "message": "létrehozható.",
-	  "description": "a noresult() függvényből az item-properties.js-ben"
+  "noResultText": {
+    "message": "Nem található eredmény a Wikidatán. Ha ezen a honlapon más elemek helyesen oldódnak fel, akkor ez az azonosító hiányozhat az elemből (<a target=\"_blank\" href=\"$1\">keresés</a>), vagy egy <a target=\"_blank\" href=\"$2\">új elem létrehozása</a> lehet szükséges.",
+    "descripion": "Shown when no result is found. $1 is a search URL, $2 is a URL to Special:NewItem."
   },
   "query1": {
-	  "message": "lekerdezés 1",
-	  "description": "a general_QID_search() függvényből az item-properties.js-ben"
+	  "message": "1. lekérdezés",
+	  "description": "Parameter to the message sentToWikidata"
   },
   "query2": {
-	  "message": "lekerdezés 2",
-	  "description": "a specific_website_QID_search() függvényből az item-properties.js-ben"
+	  "message": "2. lekérdezés",
+	  "description": "Parameter to the message sentToWikidata"
   },
   "sentToWikidata": {
-	  "message": "elküldve a Wikidatának...",
-	  "description": "a general_QID_search() és a specific_website_QID_search() függvényekből az item-properties.js-ben"
-  },	
-  "footer1a": {
-	  "message": "Az ezen a bővítményen keresztül élő adatok forrása",
-	  "description": "A lábléc része a div_footer1-ben a popup.html-ben"
+	  "message": "$1 elküldve a Wikidatának…",
+	  "description": "Progress message shown when a SPARQL query has been sent but no result has arrived yet. $1 is a link whose text is either the query1 or the query2 message."
   },
-  "Wikidata": {
-	  "message": "Wikidata",
-	  "description": "A lábléc része a div_footer1-ben a popup.html-ben"
+  "footer1": {
+    "message": "A kiegészítő által megjelenített élő adatok forrása a <a target=\"_blank\" href=\"https://www.wikidata.org/\">Wikidata</a>™, és a <a target=\"_blank\" href=\"https://creativecommons.org/publicdomain/zero/1.0/deed.hu\">CC0</a> licenc alatt érhetők el.",
+    "descripion": "First line of the footer text. You may want to link to a translated version of the CC0 license, e.g. https://creativecommons.org/publicdomain/zero/1.0/deed.de. Don’t forget to include the trademark sign."
   },
-  "TM": {
-	  "message": "TM",
-	  "description": "Rövidítése a Védjegynek. Ez a Wikidata után lesz felső indexben. A lábléc része a div_footer1-ben a popup.html-ben"
-  },
-  "footer1b": {
-	  "message": "és licencelve van",
-	  "description": "A lábléc része a div_footer1-ben a popup.html-ben"
-  },
-  "CC0": {
-	  "message": "CC0",
-	  "description": "A Creative Commons 0 rövidítése. Ez a licenchez lesz linkelve. A lábléc része a div_footer1-ben a popup.html-ben"
-  },
-  "version": {
-	  "message": "verzió",
-	  "description": "Ez csak a verzió szó. A tényleges verziószám automatikusan lesz kiszámítva. A lábléc része a div_footer1-ben a popup.html-ben"
-  },
-  "footer2a": {
-	  "message": "által",
-	  "description": "A lábléc része a div_footer1-ben a popup.html-ben"
-  },
-  "TobyHudson": {
-	  "message": "Toby Hudson",
-	  "description": "Ez a fejlesztő neve. A felhasználói oldalára lesz linkelve. A lábléc része a div_footer1-ben a popup.html-ben"
+  "footer2": {
+    "message": "<a target=\"_blank\" href=\"$1\">Entity Explosion</a> $2, készítette: <a target=\"_blank\" href=\"$3\">Toby Hudson</a>",
+    "description": "Second line of the footer text. The translation of ‘Entity Explosion’ should be the same as in the extName message. $1 is the URL of the extension’s description on Wikidata, $2 is the current version number, $3 is the URL of the author’s user page."
   },
   "initialBoxLabel0": {
 	  "message": "nyelv/língua/Sprache/idioma/语言/言語",

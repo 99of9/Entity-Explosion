@@ -15,86 +15,32 @@
 	  "message": "(no result)",
 	  "description": "from noresult() in item-properties.js"
   },
-  "noResult1": {
-	  "message": "No result was found on Wikidata. If other items on this site resolve correctly, this ID may be missing from the item",
-	  "description": "from noresult() in item-properties.js"
-  },
-  "search": {
-	  "message": "search",
-	  "description": "from noresult() in item-properties.js"
-  },
-  "noResult2": {
-	  "message": ", or a ",
-	  "description": "from noresult() in item-properties.js"
-  },
-  "newItem": {
-	  "message": "new item",
-	  "description": "from noresult() in item-properties.js"
-  },
-  "noResult3": {
-	  "message": "could be created.",
-	  "description": "from noresult() in item-properties.js"
+  "noResultText": {
+    "message": "No result was found on Wikidata. If other items on this site resolve correctly, this ID may be missing from the item (<a target=\"_blank\" href=\"$1\">search</a>), or a <a target=\"_blank\" href=\"$2\">new item</a> could be created.",
+    "descripion": "Shown when no result is found. $1 is a search URL, $2 is a URL to Special:NewItem."
   },
   "query1": {
 	  "message": "query 1",
-	  "description": "from general_QID_search() in item-properties.js"
+	  "description": "Parameter to the message sentToWikidata"
   },
   "query2": {
 	  "message": "query 2",
-	  "description": "from specific_website_QID_search() in item-properties.js"
+	  "description": "Parameter to the message sentToWikidata"
   },
   "sentToWikidata": {
-	  "message": "sent to Wikidata...",
-	  "description": "from general_QID_search() and specific_website_QID_search() in item-properties.js"
+	  "message": "$1 sent to Wikidata...",
+	  "description": "Progress message shown when a SPARQL query has been sent but no result has arrived yet. $1 is a link whose text is either the query1 or the query2 message."
   },	
-  "footer1a": {
-	  "message": "Live data provided by this extension is from",
-	  "description": "Part of the footer in div_footer1 in popup.html"
+  "footer1": {
+    "message": "Live data provided by this extension is from <a target=\"_blank\" href=\"https://www.wikidata.org/\">Wikidata</a>™ and is licensed <a target=\"_blank\" href=\"https://creativecommons.org/publicdomain/zero/1.0/\">CC0</a>",
+    "descripion": "First line of the footer text. You may want to link to a translated version of the CC0 license, e.g. https://creativecommons.org/publicdomain/zero/1.0/deed.de. Don’t forget to include the trademark sign."
   },
-  "Wikidata": {
-	  "message": "Wikidata",
-	  "description": "Part of the footer in div_footer1 in popup.html"
-  },
-  "TM": {
-	  "message": "TM",
-	  "description": "Short for Trade Mark. This will be superscripted after Wikidata. Part of the footer in div_footer1 in popup.html"
-  },
-  "footer1b": {
-	  "message": "and is licensed",
-	  "description": "Part of the footer in div_footer1 in popup.html"
-  },
-  "CC0": {
-	  "message": "CC0",
-	  "description": "Short for Creative Commons 0. This will be linked to the license. Part of the footer in div_footer1 in popup.html"
-  },
-  "version": {
-	  "message": "version",
-	  "description": "This is just the word version. The actual version number will be calculated automatically. Part of the footer in div_footer1 in popup.html"
-  },
-  "footer2a": {
-	  "message": "by",
-	  "description": "Part of the footer in div_footer1 in popup.html"
-  },
-  "TobyHudson": {
-	  "message": "Toby Hudson",
-	  "description": "This is the name of the developer. It will be linked to his userpage. Part of the footer in div_footer1 in popup.html"
+  "footer2": {
+    "message": "<a target=\"_blank\" href=\"$1\">Entity Explosion</a> version $2 by <a target=\"_blank\" href=\"$3\">Toby Hudson</a>;",
+    "description": "Second line of the footer text. The translation of ‘Entity Explosion’ should be the same as in the extName message. $1 is the URL of the extension’s description on Wikidata, $2 is the current version number, $3 is the URL of the author’s user page."
   },
   "initialBoxLabel0": {
 	  "message": "language/língua/Sprache/idioma/语言/言語",
 	  "description": "The initial boxlabel0 in popup.html. Make sure your language is represented first in this string, but don't replace all other languages unless one is already yours (in which case it should be swapped with the first (English). The retained language diversity is required to indicate that the user needs to choose an internal (content) language, whether or not their i18n language is translated."
-  },	
-	
-	
-  "xx": {
-	  "message": "",
-	  "description": ""
-  },
-  "yy": {
-	  "message": "",
-	  "description": ""
-  },
-  "zz": {
-	  "message": "",
-	  "description": ""
   }
 }

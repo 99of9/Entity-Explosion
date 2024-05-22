@@ -167,39 +167,60 @@ function redrawLabels(isoLanguage) {
     for (var i = 0; i < Object.keys(language_translations).length; i++) {
       if (typeof language_translations[i].lang !== 'undefined') {
         if (language_translations[i].lang.localeCompare(isoLanguage) == 0) {
-          var entity;
-          var language;
-          entity = language_translations[i].entity;
-          language = language_translations[i].language;
-
-          $("#boxLabel0").text(language);
-          $("#boxLabel1").text(entity);
-			
           // use Hebrew as a test for how right-to-left languages should display the languages in the dropdown
-          if (rtl_language_codes.includes(isoLanguage)) {
-            document.getElementById("box0").style.textAlign='right';
-            document.getElementById("box1").style.textAlign='right';
-            document.getElementById("div_title").style.textAlign='right';
-            document.getElementById("div_wdlink").style.textAlign='right';
-            document.getElementById("div_wiki").style.textAlign='right';
-            document.getElementById("div1").style.textAlign='right';
-            document.getElementById("div2").style.textAlign='right';
-            document.getElementById("div3").style.textAlign='right';
-          } else {
-            document.getElementById("box0").style.textAlign='left';
-            document.getElementById("box1").style.textAlign='left';
-            document.getElementById("div_title").style.textAlign='left';
-            document.getElementById("div_wdlink").style.textAlign='left';
-            document.getElementById("div_wiki").style.textAlign='left';
-            document.getElementById("div1").style.textAlign='left';
-            document.getElementById("div2").style.textAlign='left';
-            document.getElementById("div3").style.textAlign='left';
+          for (const elem of document.getElementsByClassName('wd-translated')) {
+            elem.lang = isoLanguage;
+            elem.dir = rtl_language_codes.includes(isoLanguage) ? 'rtl' : 'ltr';
           }
+
+          const boxLabel0 = document.getElementById('boxLabel0');
+          const boxLabel1 = document.getElementById('boxLabel1');
+          boxLabel0.textContent = language_translations[i].language;
+          boxLabel1.textContent = language_translations[i].entity;
+          // The language is now inherited from .wd-translated
+          boxLabel0.lang = boxLabel1.lang = null;
+
           break
         }
       }
     }
   }
+}
+
+/**
+ * Parse an HTML fragment into DOM nodes.
+ * @param {string} html The HTML fragments
+ * @returns The list of the DOM nodes parsed from the HTML.
+ */
+function parseHTML(html) {
+  return new DOMParser().parseFromString(html, 'text/html').body.childNodes;
+}
+
+/**
+ * Add a progress text to `#div_wdlink`, with proper language markup.
+ * @param {string} message Name of the message containing the progress text HTML.
+ * @param  {...string} parameters parameters to the message.
+ */
+function addProgressText(message, ...parameters) {
+  const text = chrome.i18n.getMessage(message, parameters);
+  const p = document.createElement('p');
+  p.lang = chrome.i18n.getMessage('@@ui_locale');
+  p.dir = chrome.i18n.getMessage('@@bidi_dir');
+  p.append(...parseHTML(text));
+  document.getElementById('div_wdlink').append(p);
+}
+
+/**
+ * Try showing a link to the query while it's running (in case it gets stuck)
+ * @param {1|2} queryNum
+ * @param {string} encodedQuery
+ */
+function addInProgressText(queryNum, encodedQuery) {
+  const link = document.createElement('a');
+  link.target = '_blank';
+  link.href = `https://query.wikidata.org/#${encodedQuery}`;
+  link.textContent = chrome.i18n.getMessage(`query${queryNum}`);
+  addProgressText('sentToWikidata', link.outerHTML);
 }
 
 function specific_website_QID_search(isoLanguage, tabURL) {
@@ -220,14 +241,7 @@ function specific_website_QID_search(isoLanguage, tabURL) {
 	
   var encodedQuery = encodeURIComponent(string);
 
-  // try showing a link to the query while it's running (in case it gets stuck 
-  text = '<p><a target="_blank" href="https://query.wikidata.org/#'+encodedQuery+'">' + chrome.i18n.getMessage("query2") + '</a> '+chrome.i18n.getMessage("sentToWikidata")+'</p>';
-  const parser = new DOMParser()
-  const parsed = parser.parseFromString(text, 'text/html')
-  const tags = parsed.getElementsByTagName('body')
-  for (var i = 0; i < tags.length; i++) {
-    $("#div_wdlink").append(tags[i].innerHTML)
-  }
+  addInProgressText(2, encodedQuery);
 
 
   fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
@@ -315,14 +329,7 @@ function general_QID_search(isoLanguage, tabURL) {
 
   var encodedQuery = encodeURIComponent(string);
 
-	// try showing a link to the query while it's running (in case it gets stuck 
-  text = '<p><a target="_blank" href="https://query.wikidata.org/#'+encodedQuery+'">' + chrome.i18n.getMessage("query1") + '</a> '+chrome.i18n.getMessage("sentToWikidata")+'</p>';
-  const parser = new DOMParser()
-  const parsed = parser.parseFromString(text, 'text/html')
-  const tags = parsed.getElementsByTagName('body')
-  for (var i = 0; i < tags.length; i++) {
-    $("#div_wdlink").append(tags[i].innerHTML)
-  }
+  addInProgressText(1, encodedQuery);
 
 
   fetch('https://query.wikidata.org/sparql?query=' + encodedQuery, {
@@ -516,26 +523,11 @@ function box0change() {
 
 
 function no_result() {
-  //text = '<p>'+chrome.i18n.getMessage("noResult")+' (<a target="_blank"  href="https://www.wikidata.org/w/index.php?sort=relevance&search=&title=Special:Search&profile=advanced&fulltext=1&advancedSearch-current=%7B%7D&ns0=1&ns146=1">search</a>), or a <a target="_blank" href="https://www.wikidata.org/wiki/Special:NewItem">new item</a> could be created.</p>';
-
-  text = '<p>'
-    + chrome.i18n.getMessage("noResult1")
-    + ' (<a target="_blank" href="https://www.wikidata.org/w/index.php?sort=relevance&search=&title=Special:Search&profile=advanced&fulltext=1&advancedSearch-current=%7B%7D&ns0=1&ns146=1">'
-    + chrome.i18n.getMessage("search")+ '</a>)' +chrome.i18n.getMessage("noResult2")
-    + '<a target="_blank" href="https://www.wikidata.org/wiki/Special:NewItem">'
-    + chrome.i18n.getMessage("newItem") +'</a> '+ chrome.i18n.getMessage("noResult3") + '</p>';
-	
-  const parser = new DOMParser()
-  const parsed = parser.parseFromString(text, 'text/html')
-  const tags = parsed.getElementsByTagName('body')
-  //$("#div_wdlink").html('');
-  //for (const tag of tags) {
-  for (var i = 0; i < tags.length; i++) {
-    $("#div_wdlink").append(tags[i].innerHTML)
-  }
-  //THIS WAS REPLACED BY THE FOR LOOP ABOVE: for (const tag of tags) {
-  //  $("#div_wdlink").append(tag.innerHTML)
-  //}
+  addProgressText(
+    'noResultText',
+    'https://www.wikidata.org/w/index.php?sort=relevance&search=&title=Special:Search&profile=advanced&fulltext=1&advancedSearch-current=%7B%7D&ns0=1&ns146=1',
+    'https://www.wikidata.org/wiki/Special:NewItem'
+  );
 
   $("#box1 option").text(chrome.i18n.getMessage("noResultDropdown"));
 }
@@ -1140,25 +1132,17 @@ function div_title_change() {
 	.then(
 		function (data) {
 			//console.log(data);
-      text = ''
+      let text = ''
       for (var i = 0; i < data.results.bindings.length; i++) {
 		//there should only be one set of results (length=1)
 
 		if (typeof data.results.bindings[i].image !== 'undefined') {
           var desc = data.results.bindings[i].image.value.substr(51)
           //text = text + '<h4>' + desc + '</h4>'
-		  if (rtl_language_codes.includes(isoLanguage)) {
-          	text = text + '<a target="_blank" href="https://commons.wikimedia.org/wiki/File:' + desc + '"><img src="https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/' + desc + '&width=106" crossorigin="anonymous" referrerpolicy="no-referrer" style="float:left;height:106px;"></a>'
-		  } else {
-          	text = text + '<a target="_blank" href="https://commons.wikimedia.org/wiki/File:' + desc + '"><img src="https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/' + desc + '&width=106" crossorigin="anonymous" referrerpolicy="no-referrer" style="float:right;height:106px;"></a>'
-		  }
+          text = text + '<a target="_blank" href="https://commons.wikimedia.org/wiki/File:' + desc + '"><img src="https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/' + desc + '&width=106" crossorigin="anonymous" referrerpolicy="no-referrer"></a>'
 		}
 		
-		if (rtl_language_codes.includes(isoLanguage)) {
-        	text = text + '<div style="background-color:#FFFFFF;padding:20px;padding-top:10px;padding-bottom:10px;padding-left:0px;">'
-		} else {
-        	text = text + '<div style="background-color:#FFFFFF;padding:20px;padding-top:10px;padding-bottom:10px;padding-right:0px;">'
-		}
+		text = text + '<div>'
 		  
 		  
 		if (typeof data.results.bindings[i].itemLabel !== 'undefined') {
@@ -1231,36 +1215,16 @@ $(document).ready(function () {
 // this is a jquery function https://learn.jquery.com/using-jquery-core/document-ready/
 // the contents of this will only execute once the DOM is ready for JS code to execute
 
-	//document.getElementById("html").style.direction="ltr";
+  document.documentElement.lang = chrome.i18n.getMessage("@@ui_locale");
+  document.documentElement.dir = chrome.i18n.getMessage("@@bidi_dir");
 	
   document.getElementById("boxLabel0").textContent = chrome.i18n.getMessage("initialBoxLabel0");
-  document.getElementById("footer1a").textContent = chrome.i18n.getMessage("footer1a");
-  document.getElementById("footer_Wikidata").textContent = chrome.i18n.getMessage("Wikidata");
-  document.getElementById("footer_version").textContent = chrome.i18n.getMessage("version");
-  document.getElementById("footer_Wikidata").textContent = chrome.i18n.getMessage("Wikidata");
-  document.getElementById("TM").textContent = chrome.i18n.getMessage("TM");
-  document.getElementById("footer1b").textContent = chrome.i18n.getMessage("footer1b");
-  document.getElementById("CC0").textContent = chrome.i18n.getMessage("CC0");
-
-  document.getElementById("ExtensionName").textContent = chrome.runtime.getManifest().name;
-  document.getElementById("ExtensionVersion").textContent = chrome.runtime.getManifest().version;
-  document.getElementById("footer2a").textContent = chrome.i18n.getMessage("footer2a");
-  document.getElementById("TobyHudson").textContent = chrome.i18n.getMessage("TobyHudson");
-
-  var ui_locale = chrome.i18n.getUILanguage().toLowerCase();
-  if (rtl_language_codes.includes(ui_locale)) {
-		document.getElementById("div_footer1").style.textAlign='right';
-		document.getElementById("div_footer2").style.textAlign='right';
-	    document.getElementById("wdlogo").style.float='left';
-		document.getElementById("div_footer1").dir='rtl';
-		document.getElementById("div_footer2").dir='rtl';
-  } else {
-		document.getElementById("div_footer1").style.textAlign='left';
-		document.getElementById("div_footer2").style.textAlign='left';
-	    document.getElementById("wdlogo").style.float='right';
-		document.getElementById("div_footer1").dir='ltr';
-		document.getElementById("div_footer2").dir='ltr';	  
-  }
+  document.getElementById('div_footer1').append(...parseHTML(chrome.i18n.getMessage('footer1')));
+  document.getElementById('div_footer2').append(...parseHTML(chrome.i18n.getMessage('footer2', [
+    'https://www.wikidata.org/wiki/Wikidata:Entity_Explosion',
+    chrome.runtime.getManifest().version,
+    'https://www.wikidata.org/wiki/User:99of9'
+  ])));
 
 	
   // not searching initially, so hide the spinner icon
